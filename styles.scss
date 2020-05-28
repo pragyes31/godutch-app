@@ -1,0 +1,27 @@
+body {
+  font-family: sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+@mixin flex-position($prop1, $prop2, $prop3) {
+  display: flex;
+  justify-content: $prop1;
+  align-items: $prop2;
+  flex-direction:$prop3
+}
+
+.app-header {
+@include flex-position(space-between, center, default);
+}
+
+.hamburger-icon {
+  cursor:pointer;
+  width:25px;
+}
+
+.hamBurger-line {
+  width:25px;
+  margin-top:5px;
+  border-top: 2px solid black;
+}
