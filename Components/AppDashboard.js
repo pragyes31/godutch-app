@@ -9,7 +9,7 @@ function Header() {
         <div className="hamBurger-line" />
       </div>
       <div className="header-title">Go-Dutch App</div>
-      <div className="options">3-dots-options</div>
+      <div className="options" />
     </div>
   );
 }

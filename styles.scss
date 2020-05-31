@@ -13,6 +13,7 @@ body {
 
 .app-header {
 @include flex-position(space-between, center, default);
+margin:10px;
 }
 
 .hamburger-icon {
@@ -25,3 +26,8 @@ body {
   margin-top:5px;
   border-top: 2px solid black;
 }
+
+.options:after {
+  content: '\2807';
+  font-size: 20px;
+  }
