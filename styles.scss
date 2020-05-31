@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+$primary-color:#00b8a9;
+$secondary-color1:#f8f3d4;
+$secondary-color2:#f6416c;
+$extra-color:#ffde7d;
+
 body {
   font-family: sans-serif;
   margin: 0px;
@@ -13,21 +20,29 @@ body {
 
 .app-header {
 @include flex-position(space-between, center, default);
-margin:10px;
+padding:10px;
+background-color: $primary-color;
 }
 
 .hamburger-icon {
   cursor:pointer;
-  width:25px;
+  width:20px;
+}
+
+.header-title {
+  font-size:20px;
+  font-family: 'Ubuntu', sans-serif;
+  color:#fff;
 }
 
 .hamBurger-line {
-  width:25px;
-  margin-top:5px;
-  border-top: 2px solid black;
+  width:23px;
+  margin-top:4px;
+  border-top: 2px solid #fff;
 }
 
 .options:after {
   content: '\2807';
   font-size: 20px;
+  color:#fff;
   }
