@@ -20,16 +20,15 @@ function Header(props) {
 
 function OptionsModal(props) {
   return (
-    <div>
-      <Modal
-        open={props.optionsModal}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        onBackdropClick={() => props.toggleModal("optionsModal")}
-      >
-        <div>Modal window</div>
-      </Modal>
-    </div>
+    <Modal
+      open={props.optionsModal}
+      aria-labelledby="simple-modal-title"
+      aria-describedby="simple-modal-description"
+      onBackdropClick={() => props.toggleModal("optionsModal")}
+      className="options-modal"
+    >
+      <div className="options-modal-content">Modal window</div>
+    </Modal>
   );
 }
 
@@ -42,7 +41,11 @@ export default class AppDashboard extends React.Component {
   }
 
   toggleModal = modal => {
-    this.setState({ optionsModal: !this.state.optionsModal });
+    switch (modal) {
+      case "optionsModal":
+        this.setState({ optionsModal: !this.state.optionsModal });
+        break;
+    }
   };
 
   render() {
