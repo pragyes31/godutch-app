@@ -3,17 +3,17 @@ import { Modal } from "@material-ui/core";
 
 function Header(props) {
   return (
-    <div className="app-header">
+    <div className="header">
       <div
-        className="hamburger-icon"
+        className="header__hamburger"
         onClick={() => props.toggleModal("optionsModal")}
       >
-        <div className="hamBurger-line" />
-        <div className="hamBurger-line" />
-        <div className="hamBurger-line" />
+        <div className="hamburger__line" />
+        <div className="hamburger__line" />
+        <div className="hamburger__line" />
       </div>
-      <div className="header-title">Go-Dutch App</div>
-      <div className="options" />
+      <div className="header__title">Go-Dutch App</div>
+      <div className="header__options" />
     </div>
   );
 }
@@ -27,7 +27,7 @@ function OptionsModal(props) {
       onBackdropClick={() => props.toggleModal("optionsModal")}
       className="options-modal"
     >
-      <div className="options-modal-content">Modal window</div>
+      <div className="options-modal__content">Modal window</div>
     </Modal>
   );
 }

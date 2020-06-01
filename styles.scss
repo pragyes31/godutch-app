@@ -18,30 +18,30 @@ body {
   flex-direction:$prop3
 }
 
-.app-header {
+.header {
 @include flex-position(space-between, center, default);
 padding:10px;
 background-color: $primary-color;
 }
 
-.hamburger-icon {
+.header__hamburger {
   cursor:pointer;
   width:20px;
 }
 
-.header-title {
+.header__title {
   font-size:22px;
   font-family: 'Ubuntu', sans-serif;
   color:#fff;
 }
 
-.hamBurger-line {
+.hamburger__line {
   width:23px;
   margin-top:4px;
   border-top: 2px solid #fff;
 }
 
-.options:after {
+.header__options:after {
   content: '\2807';
   font-size: 20px;
   color:#fff;
@@ -53,7 +53,7 @@ background-color: $primary-color;
     height:100vh;
   }
 
-  .options-modal-content {
+  .options-modal__content {
     height:100vh;
     background-color: rgb(245, 234, 234);
   }
