@@ -9,9 +9,13 @@ function Header(props) {
         <div className="hamBurger-line" />
       </div>
       <div className="header-title">Go-Dutch App</div>
-      <div className="options" onClick={props.toggleModal("optinsModal")} />
+      <div className="options" onClick={() => props.toggleModal("optionsModal")} />
     </div>
   );
+}
+
+function OptionsModal(props) {
+  return <div />;
 }
 
 export default class AppDashboard extends React.Component {
@@ -22,12 +26,15 @@ export default class AppDashboard extends React.Component {
     };
   }
 
-  toggleModal = () => {};
+  toggleModal = (modal) => {
+    this.setState({optionsModal:!this.state.optionsModal})
+  };
 
   render() {
     return (
       <div className="app-dashboard">
         <Header toggleModal={this.toggleModal} />
+        {this.state.optionsModal && <OptionsModal />}
       </div>
     );
   }
