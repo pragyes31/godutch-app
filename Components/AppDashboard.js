@@ -56,6 +56,14 @@ function ThreeDotsModal(props) {
   );
 }
 
+function AddExpense(props) {
+  return (
+    <div>
+      <div className="add-expense-button">+</div>
+    </div>
+  );
+}
+
 export default class AppDashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -89,6 +97,7 @@ export default class AppDashboard extends React.Component {
           threeDotsModal={this.state.threeDotsModal}
           toggleModal={this.toggleModal}
         />
+        <AddExpense />
       </div>
     );
   }
