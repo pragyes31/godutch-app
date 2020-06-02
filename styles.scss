@@ -58,6 +58,18 @@ background-color: $primary-color;
     background-color: rgb(245, 234, 234);
   }
 
+  .three-dots-modal {
+    width:150px;
+    height:100px;
+  }
+
+  .three-dots-modal__content {
+    height:150px;
+    background-color: rgb(245, 234, 234);
+    display: flex;
+    justify-content:right;
+  }
+
   @media screen and (min-width:1024px) {
 
   }
