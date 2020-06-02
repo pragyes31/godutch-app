@@ -56,18 +56,24 @@ background-color: $primary-color;
   .options-modal__content {
     height:100vh;
     background-color: rgb(245, 234, 234);
+    outline:none;
   }
 
   .three-dots-modal {
-    width:150px;
+    width:180px;
     height:100px;
   }
 
   .three-dots-modal__content {
-    height:150px;
+    height:100px;
     background-color: rgb(245, 234, 234);
-    display: flex;
+    @include flex-position(center, center, column);
     justify-content:right;
+    outline:none;
+  }
+
+  .three-dots-modal__content--child {
+    margin-top:20px;
   }
 
   @media screen and (min-width:1024px) {

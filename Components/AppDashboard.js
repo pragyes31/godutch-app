@@ -44,7 +44,14 @@ function ThreeDotsModal(props) {
       onBackdropClick={() => props.toggleModal("threeDotsModal")}
       className="three-dots-modal"
     >
-      <div className="three-dots-modal__content">Three dots Modal window</div>
+      <div className="three-dots-modal__content">
+        <div className="add-friend three-dots-modal__content--child">
+          Add new friend
+        </div>
+        <div className="create-group three-dots-modal__content--child">
+          Create a group
+        </div>
+      </div>
     </Modal>
   );
 }
