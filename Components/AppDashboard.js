@@ -45,7 +45,7 @@ function OptionsModal(props) {
 
 function ThreeDotsModal(props) {
   return (
-    <Modal
+    <div
       open={props.threeDotsModal}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
@@ -60,7 +60,7 @@ function ThreeDotsModal(props) {
           Create a group
         </div>
       </div>
-    </Modal>
+    </div>
   );
 }
 

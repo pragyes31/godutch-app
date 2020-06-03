@@ -45,6 +45,14 @@ background-color: $primary-color;
   position: relative;
 }
 
+ .three-dots-modal {
+    width:180px;
+    height:100px;
+    position: absolute;
+    top:16px;
+    right:14px;
+  }
+
 .header__dots:after {
   content: '\2807';
   font-size: 20px;
@@ -63,13 +71,7 @@ background-color: $primary-color;
     outline:none;
   }
 
-  .three-dots-modal {
-    width:180px;
-    height:100px;
-    position: absolute;
-    top:16px;
-    right:14px;
-  }
+ 
 
   .three-dots-modal__content {
     height:100px;
