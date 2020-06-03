@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal } from "@material-ui/core";
+//import expenseBtn from "../images/plus.png";
 
 function Header(props) {
   return (
@@ -59,7 +60,10 @@ function ThreeDotsModal(props) {
 function AddExpense(props) {
   return (
     <div>
-      <div className="add-expense-button">+</div>
+      <div className="add-expense-button" onClick={() => addexpense()}>
+        +
+      </div>
+      {/*<img src={expenseBtn} className="add-expense-button" />*/}
     </div>
   );
 }
@@ -72,6 +76,8 @@ export default class AppDashboard extends React.Component {
       threeDotsModal: false
     };
   }
+
+  addExpense = () => {};
 
   toggleModal = modal => {
     switch (modal) {
