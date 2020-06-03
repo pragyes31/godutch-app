@@ -17,7 +17,14 @@ function Header(props) {
       <div
         className="header__dots"
         onClick={() => props.toggleModal("threeDotsModal")}
-      />
+      >
+        {props.threeDotsModal && (
+          <ThreeDotsModal
+            threeDotsModal={props.threeDotsModal}
+            toggleModal={props.toggleModal}
+          />
+        )}
+      </div>
     </div>
   );
 }
@@ -60,7 +67,7 @@ function ThreeDotsModal(props) {
 function AddExpense(props) {
   return (
     <div>
-      <div className="add-expense-button" onClick={() => addexpense()}>
+      <div className="add-expense-button" onClick={() => addExpense()}>
         +
       </div>
       {/*<img src={expenseBtn} className="add-expense-button" />*/}
@@ -94,13 +101,12 @@ export default class AppDashboard extends React.Component {
   render() {
     return (
       <div className="app-dashboard">
-        <Header toggleModal={this.toggleModal} />
+        <Header
+          toggleModal={this.toggleModal}
+          threeDotsModal={this.state.threeDotsModal}
+        />
         <OptionsModal
           optionsModal={this.state.optionsModal}
-          toggleModal={this.toggleModal}
-        />
-        <ThreeDotsModal
-          threeDotsModal={this.state.threeDotsModal}
           toggleModal={this.toggleModal}
         />
         <AddExpense />
