@@ -82,16 +82,15 @@ background-color: $primary-color;
   }
 
   .three-dots-modal__content--child {
-    @include flex-position(center, center, default);
-    height:50px;
-    width:100%;
-    cursor: pointer;
+ @include flex-position(center, center, default);
+ height:50px;
+ width:100%;
   }
 
-  .three-dots-modal__content--child:hover {
-background-color: lighten($primary-color, 3%);
-color:#fff;
-  }
+   .three-dots-modal__content--child:hover {
+     color:#fff;
+     background-color: lighten($primary-color, 2%)
+   }
 
   .add-expense-button {
     background-color: $secondary-color2;
