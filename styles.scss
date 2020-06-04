@@ -82,7 +82,15 @@ background-color: $primary-color;
   }
 
   .three-dots-modal__content--child {
-    margin-top:20px;
+    @include flex-position(center, center, default);
+    height:50px;
+    width:100%;
+    cursor: pointer;
+  }
+
+  .three-dots-modal__content--child:hover {
+background-color: lighten($primary-color, 3%);
+color:#fff;
   }
 
   .add-expense-button {
