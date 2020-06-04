@@ -99,9 +99,9 @@ background-color: $primary-color;
 
    .nav-bar {
      @include flex-position(space-around, center, default);
-     background-color:lighten($primary-color, 2%);
+     background-color:$primary-color;
      width: 100%;
-     height:50px;
+     height:40px;
      color:#fff;
      text-transform: uppercase;
      font-size:12px;
@@ -109,13 +109,13 @@ background-color: $primary-color;
 
    .nav-bar--items {
       @include flex-position(center, center, default);
-     height:50px;
-width:33%;
+     height:40px;
+width:33.33%;
      cursor: pointer;
    }
 
    .nav-bar--items:hover {
-     background-color:$primary-color;
+     background-color:lighten($primary-color, 5%);;
      text-decoration: underline;
    }
 

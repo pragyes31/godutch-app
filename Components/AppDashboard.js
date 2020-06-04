@@ -74,6 +74,18 @@ function NavBar(props) {
   );
 }
 
+function FriendsTab() {
+  return <div>You're inside Friends tab.</div>;
+}
+
+function GroupsTab() {
+  return <div>You're inside Groups tab.</div>;
+}
+
+function ActivityTab() {
+  return <div>You're inside Activity tab.</div>;
+}
+
 function AddExpense(props) {
   return (
     <div>
@@ -90,7 +102,10 @@ export default class AppDashboard extends React.Component {
     super(props);
     this.state = {
       optionsModal: false,
-      threeDotsModal: false
+      threeDotsModal: false,
+      openFriends: true,
+      openGroups: false,
+      openActivity: false
     };
   }
 
@@ -120,6 +135,9 @@ export default class AppDashboard extends React.Component {
           toggleModal={this.toggleModal}
         />
         <NavBar />
+        {this.state.openFriends && <FriendsTab />}
+        {this.state.openGroups && <GroupsTab />}
+        {this.state.openActivity && <ActivityTab />}
         <AddExpense addExpense={this.addExpense} />
       </div>
     );
