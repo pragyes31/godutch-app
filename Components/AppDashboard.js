@@ -55,7 +55,7 @@ function ThreeDotsModal(props) {
       <div className="three-dots-modal__content">
         <div
           className="add-friend three-dots-modal__content--child"
-          onClick={() => props.addFriend}
+          onClick={() => props.toggleModal("addFriend")}
         >
           Add new friend
         </div>
@@ -94,14 +94,13 @@ function NavBar(props) {
 
 function AddFriend(props) {
   return (
-    <div className="add-friend-modal">
+    <div className="add-friend">
       <Modal
-        open={props.optionsModal}
+        open={props.addFriendModal}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
-        className="options-modal"
       >
-        <div className="options-modal__content">Options Modal window</div>
+        <div className="add-friend__content">Add friend Modal window</div>
       </Modal>
     </div>
   );
@@ -136,7 +135,7 @@ export default class AppDashboard extends React.Component {
     this.state = {
       optionsModal: false,
       threeDotsModal: false,
-      openAddFriend: false,
+      addFriendModal: false,
       openFriends: true,
       openGroups: false,
       openActivity: false
@@ -154,6 +153,9 @@ export default class AppDashboard extends React.Component {
         break;
       case "threeDotsModal":
         this.setState({ threeDotsModal: !this.state.threeDotsModal });
+        break;
+      case "addFriend":
+        this.setState({ addFriendModal: !this.state.addFriendModal });
         break;
       default:
     }
@@ -201,6 +203,7 @@ export default class AppDashboard extends React.Component {
           optionsModal={this.state.optionsModal}
           toggleModal={this.toggleModal}
         />
+        <AddFriend addFriendModal={this.state.addFriendModal} />
       </div>
     );
   }
