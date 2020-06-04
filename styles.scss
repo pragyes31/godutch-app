@@ -19,7 +19,7 @@ body {
 }
 
 #app-root {
-  max-width:500px;
+  max-width:600px;
   margin:0 auto;
 }
 
@@ -90,6 +90,7 @@ background-color: $primary-color;
  @include flex-position(center, center, default);
  height:50px;
  width:100%;
+    cursor: pointer;
   }
 
    .three-dots-modal__content--child:hover {

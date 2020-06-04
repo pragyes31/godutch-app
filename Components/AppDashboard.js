@@ -53,7 +53,10 @@ function ThreeDotsModal(props) {
       className="three-dots-modal"
     >
       <div className="three-dots-modal__content">
-        <div className="add-friend three-dots-modal__content--child">
+        <div
+          className="add-friend three-dots-modal__content--child"
+          onClick={() => props.addFriend}
+        >
           Add new friend
         </div>
         <div className="create-group three-dots-modal__content--child">
@@ -89,6 +92,21 @@ function NavBar(props) {
   );
 }
 
+function AddFriend(props) {
+  return (
+    <div className="add-friend-modal">
+      <Modal
+        open={props.optionsModal}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        className="options-modal"
+      >
+        <div className="options-modal__content">Options Modal window</div>
+      </Modal>
+    </div>
+  );
+}
+
 function FriendsTab() {
   return <div>You're inside Friends tab.</div>;
 }
@@ -118,11 +136,14 @@ export default class AppDashboard extends React.Component {
     this.state = {
       optionsModal: false,
       threeDotsModal: false,
+      openAddFriend: false,
       openFriends: true,
       openGroups: false,
       openActivity: false
     };
   }
+
+  addFriend = () => {};
 
   addExpense = () => {};
 
@@ -171,15 +192,15 @@ export default class AppDashboard extends React.Component {
           toggleModal={this.toggleModal}
           threeDotsModal={this.state.threeDotsModal}
         />
-        <OptionsModal
-          optionsModal={this.state.optionsModal}
-          toggleModal={this.toggleModal}
-        />
         <NavBar switchTab={this.switchTab} />
         {this.state.openFriends && <FriendsTab />}
         {this.state.openGroups && <GroupsTab />}
         {this.state.openActivity && <ActivityTab />}
         <AddExpense addExpense={this.addExpense} />
+        <OptionsModal
+          optionsModal={this.state.optionsModal}
+          toggleModal={this.toggleModal}
+        />
       </div>
     );
   }
