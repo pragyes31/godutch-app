@@ -97,6 +97,28 @@ background-color: $primary-color;
      background-color: lighten($primary-color, 2%)
    }
 
+   .nav-bar {
+     @include flex-position(space-around, center, default);
+     background-color:lighten($primary-color, 2%);
+     width: 100%;
+     height:50px;
+     color:#fff;
+     text-transform: uppercase;
+     font-size:12px;
+   }
+
+   .nav-bar--items {
+      @include flex-position(center, center, default);
+     height:50px;
+width:33%;
+     cursor: pointer;
+   }
+
+   .nav-bar--items:hover {
+     background-color:$primary-color;
+     text-decoration: underline;
+   }
+
   .add-expense-button {
     background-color: $secondary-color2;
     border-radius:50%;
