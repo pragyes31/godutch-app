@@ -67,9 +67,24 @@ function ThreeDotsModal(props) {
 function NavBar(props) {
   return (
     <div className="nav-bar">
-      <div className="nav-bar__friends nav-bar--items">friends</div>
-      <div className="nav-bar__groups nav-bar--items">groups</div>
-      <div className="nav-bar__activity nav-bar--items">activity</div>
+      <div
+        className="nav-bar__friends nav-bar--items"
+        onClick={() => props.switchTab("friendsTab")}
+      >
+        friends
+      </div>
+      <div
+        className="nav-bar__groups nav-bar--items"
+        onClick={() => props.switchTab("groupsTab")}
+      >
+        groups
+      </div>
+      <div
+        className="nav-bar__activity nav-bar--items"
+        onClick={() => props.switchTab("activityTab")}
+      >
+        activity
+      </div>
     </div>
   );
 }
@@ -123,6 +138,32 @@ export default class AppDashboard extends React.Component {
     }
   };
 
+  switchTab = tabName => {
+    switch (tabName) {
+      case "friendsTab":
+        this.setState({
+          openFriends: true,
+          openGroups: false,
+          openActivity: false
+        });
+        break;
+      case "groupsTab":
+        this.setState({
+          openFriends: false,
+          openGroups: true,
+          openActivity: false
+        });
+        break;
+      case "activityTab":
+        this.setState({
+          openFriends: false,
+          openGroups: false,
+          openActivity: true
+        });
+        break;
+    }
+  };
+
   render() {
     return (
       <div className="app-dashboard">
@@ -134,7 +175,7 @@ export default class AppDashboard extends React.Component {
           optionsModal={this.state.optionsModal}
           toggleModal={this.toggleModal}
         />
-        <NavBar />
+        <NavBar switchTab={this.switchTab} />
         {this.state.openFriends && <FriendsTab />}
         {this.state.openGroups && <GroupsTab />}
         {this.state.openActivity && <ActivityTab />}
