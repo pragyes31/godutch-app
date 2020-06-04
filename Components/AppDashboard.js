@@ -64,10 +64,14 @@ function ThreeDotsModal(props) {
   );
 }
 
+function NavBar(props) {
+  return <div className="nav-bar" />;
+}
+
 function AddExpense(props) {
   return (
     <div>
-      <div className="add-expense-button" onClick={() => addExpense()}>
+      <div className="add-expense-button" onClick={() => props.addExpense()}>
         +
       </div>
       {/*<img src={expenseBtn} className="add-expense-button" />*/}
@@ -109,7 +113,7 @@ export default class AppDashboard extends React.Component {
           optionsModal={this.state.optionsModal}
           toggleModal={this.toggleModal}
         />
-        <AddExpense />
+        <AddExpense addExpense={this.addExpense} />
       </div>
     );
   }

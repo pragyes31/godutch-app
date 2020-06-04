@@ -18,6 +18,11 @@ body {
   flex-direction:$prop3
 }
 
+#app-root {
+  max-width:500px;
+  margin:0 auto;
+}
+
 .header {
 @include flex-position(space-between, center, default);
 padding:10px;
