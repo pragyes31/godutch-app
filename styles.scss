@@ -87,10 +87,10 @@ background-color: $primary-color;
   }
 
   .three-dots-modal__content--child {
- @include flex-position(center, center, default);
- height:50px;
- width:100%;
-cursor: pointer;
+    @include flex-position(center, center, default);
+    height:50px;
+    width:100%;
+    cursor: pointer;
   }
 
    .three-dots-modal__content--child:hover {
@@ -110,9 +110,9 @@ cursor: pointer;
 
    .nav-bar--items {
       @include flex-position(center, center, default);
-     height:40px;
-width:33.33%;
-     cursor: pointer;
+      height:40px;
+      width:33.33%;
+      cursor: pointer;
    }
 
    .nav-bar--items:hover {
@@ -120,17 +120,28 @@ width:33.33%;
      text-decoration: underline;
    }
 
-   .friends__total-balance {
+   .user {
      width:100%;
      height:80px;;
      background-color: lightgrey;
+   }
+
+   .upload-avatar {
+     display: none;
+   }
+
+   .upload-avatar--btn {
+     width:50px !important;
+     height:60px !important;
+     border-radius:50%;
+     background-image: url("https://bit.ly/2UhwGb4")
    }
 
   .add-expense-button {
     margin-left:.5rem;
     border-radius:50% !important;
     min-width:40px;
-    height:40px;
+    height:45px;
     color:#ffffff;
     font-size:30px !important;
     cursor: pointer;

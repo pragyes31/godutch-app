@@ -111,10 +111,27 @@ function AddFriend(props) {
 function FriendsTab() {
   return (
     <div className="friends">
-      <div className="friends__total-balance">
-        <div>
-          <div className="avatar" />
-          <div className="balance" />
+      <div className="user">
+        <div className="user__info">
+          <div className="user__info__avatar">
+            <input
+              accept="image/*"
+              className="upload-avatar"
+              id="contained-button-file"
+              multiple
+              type="file"
+            />
+            <label htmlFor="contained-button-file">
+              <Button
+                variant="contained"
+                color="primary"
+                component="span"
+                className="upload-avatar--btn"
+              >
+              </Button>
+            </label>
+          </div>
+          <div className="user__info__balance" />
         </div>
         <div className="filter" />
       </div>
