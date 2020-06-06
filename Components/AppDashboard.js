@@ -2,6 +2,7 @@ import React from "react";
 import { Modal } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
+import FilterListIcon from "@material-ui/icons/FilterList";
 //import expenseBtn from "../images/plus.png";
 
 function Header(props) {
@@ -127,11 +128,13 @@ function FriendsTab() {
                 color="primary"
                 component="span"
                 className="upload-avatar--btn"
-              >
-              </Button>
+              />
             </label>
           </div>
-          <div className="user__info__balance" />
+          <div className="user__info__balance">
+            <div>TOTAL BALANCE</div>
+            <div>You are all settled up.</div>
+          </div>
         </div>
         <div className="filter" />
       </div>
