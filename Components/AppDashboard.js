@@ -109,7 +109,19 @@ function AddFriend(props) {
 }
 
 function FriendsTab() {
-  return <div>You're inside Friends tab.</div>;
+  return (
+    <div className="friends">
+      <div className="friends__total-balance">
+        <div>
+          <div className="avatar" />
+          <div className="balance" />
+        </div>
+        <div className="filter" />
+      </div>
+      <div className="friends__add-friend">+add new friends</div>
+      <div />
+    </div>
+  );
 }
 
 function GroupsTab() {

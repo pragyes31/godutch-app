@@ -4,6 +4,7 @@ $primary-color:#00b8a9;
 $secondary-color1:#f8f3d4;
 $secondary-color2:#f6416c;
 $extra-color:#ffde7d;
+$std-height:40px;
 
 body {
   font-family: sans-serif;
@@ -25,7 +26,8 @@ body {
 
 .header {
 @include flex-position(space-between, center, default);
-padding:10px;
+height:$std-height;
+padding: 0px 10px;
 background-color: $primary-color;
 }
 
@@ -88,7 +90,7 @@ background-color: $primary-color;
  @include flex-position(center, center, default);
  height:50px;
  width:100%;
-    cursor: pointer;
+cursor: pointer;
   }
 
    .three-dots-modal__content--child:hover {
@@ -100,7 +102,7 @@ background-color: $primary-color;
      @include flex-position(space-around, center, default);
      background-color:$primary-color;
      width: 100%;
-     height:40px;
+     height:$std-height;
      color:#fff;
      text-transform: uppercase;
      font-size:12px;
@@ -118,6 +120,12 @@ width:33.33%;
      text-decoration: underline;
    }
 
+   .friends__total-balance {
+     width:100%;
+     height:80px;;
+     background-color: lightgrey;
+   }
+
   .add-expense-button {
     margin-left:.5rem;
     border-radius:50% !important;
@@ -129,8 +137,4 @@ width:33.33%;
     position:fixed;
      bottom:5%;
      right:5%;
-  }
-
-  @media screen and (min-width:1024px) {
-
   }
