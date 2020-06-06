@@ -207,16 +207,19 @@ export default class AppDashboard extends React.Component {
         {this.state.openFriends && <FriendsTab />}
         {this.state.openGroups && <GroupsTab />}
         {this.state.openActivity && <ActivityTab />}
-        <AddButton
-          addExpense={this.addExpense}
-          color="primary"
-          tooltip="Add Expense"
-        />
-        <AddButton
-          addExpense={this.addFriend}
-          color="secondary"
-          tooltip="Add Friend"
-        />
+
+        <div className="add-buttons">
+          <AddButton
+            addExpense={this.addExpense}
+            color="primary"
+            tooltip="Add Expense"
+          />
+          <AddButton
+            addExpense={this.addFriend}
+            color="secondary"
+            tooltip="Add Friend"
+          />
+        </div>
         <OptionsModal
           optionsModal={this.state.optionsModal}
           toggleModal={this.toggleModal}
