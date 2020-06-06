@@ -118,13 +118,6 @@ width:33.33%;
      text-decoration: underline;
    }
 
-   .add-buttons {
-     display: flex;
-     position:fixed;
-     bottom:5%;
-     right:5%;
-   }
-
   .add-expense-button {
     margin-left:.5rem;
     border-radius:50% !important;
@@ -133,6 +126,9 @@ width:33.33%;
     color:#ffffff;
     font-size:30px !important;
     cursor: pointer;
+    position:fixed;
+     bottom:5%;
+     right:5%;
   }
 
   @media screen and (min-width:1024px) {
