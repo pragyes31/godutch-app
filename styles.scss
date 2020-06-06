@@ -119,16 +119,14 @@ width:33.33%;
    }
 
   .add-expense-button {
-    background-color: $secondary-color2;
-    border-radius:50%;
-    width:45px;
-    height:45px;
-    @include flex-position(center, center, column);
+    border-radius:50% !important;
+    min-width:40px;
+    height:40px;
     color:#ffffff;
     position:fixed;
     top:91%;
-    left:90%;
-    font-size:30px;
+    right:10%;
+    font-size:30px !important;
     cursor: pointer;
   }
 

@@ -1,5 +1,7 @@
 import React from "react";
 import { Modal } from "@material-ui/core";
+import { Button } from "@material-ui/core";
+import Tooltip from "@material-ui/core/Tooltip";
 //import expenseBtn from "../images/plus.png";
 
 function Header(props) {
@@ -118,12 +120,19 @@ function ActivityTab() {
   return <div>You're inside Activity tab.</div>;
 }
 
-function AddExpense(props) {
+function AddButton(props) {
   return (
     <div>
-      <div className="add-expense-button" onClick={() => props.addExpense()}>
-        +
-      </div>
+      <Tooltip title={props.tooltip}>
+        <Button
+          variant="contained"
+          color={props.color}
+          className="add-expense-button"
+          onClick={() => props.addExpense()}
+        >
+          +
+        </Button>
+      </Tooltip>
       {/*<img src={expenseBtn} className="add-expense-button" />*/}
     </div>
   );
@@ -198,7 +207,16 @@ export default class AppDashboard extends React.Component {
         {this.state.openFriends && <FriendsTab />}
         {this.state.openGroups && <GroupsTab />}
         {this.state.openActivity && <ActivityTab />}
-        <AddExpense addExpense={this.addExpense} />
+        <AddButton
+          addExpense={this.addExpense}
+          color="primary"
+          tooltip="Add Expense"
+        />
+        <AddButton
+          addExpense={this.addFriend}
+          color="secondary"
+          tooltip="Add Friend"
+        />
         <OptionsModal
           optionsModal={this.state.optionsModal}
           toggleModal={this.toggleModal}
