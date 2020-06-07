@@ -126,7 +126,15 @@ function FriendsTab() {
           <FilterListIcon />
         </div>
       </div>
-      <div className="friends__add-friend">+add new friends</div>
+      <div className="friends__add-btn">
+        <Button
+          className="friends__add-friend"
+          color="primary"
+          variant="default"
+        >
+          +add new friends
+        </Button>
+      </div>
       <div />
     </div>
   );
@@ -150,6 +158,19 @@ function Avatar() {
           className="upload-avatar--btn"
         />
       </label>
+    </div>
+  );
+}
+
+function FilterModal(props) {
+  return (
+    <div className="filter">
+      <div className="filter__all">All friends</div>
+      <div className="filter__outstanding">
+        Friends with outstanding balances
+      </div>
+      <div className="filter__you-owe">Friends you owe</div>
+      <div className="filter__owes-you">Friends who owe you</div>
     </div>
   );
 }
