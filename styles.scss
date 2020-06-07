@@ -160,12 +160,15 @@ background-color: $primary-color;
      background-color: #fff;
    }
 
-   .friends__add-btn {
-          @include flex-position(center, center, default);
-          margin-top:20px;
+   .friends__add-friend {
+      @include flex-position(center, center, default);
+      margin-top:20px;
+      :hover {
+       background-color: grey;;
+     }
    }
 
-   .friends__add-friend {
+   .friends__add-btn {
      width:90%;
      background-color: lightgrey;
    }

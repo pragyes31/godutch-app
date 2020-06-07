@@ -132,12 +132,8 @@ function FriendsTab() {
           <FilterListIcon />
         </div>
       </div>
-      <div className="friends__add-btn">
-        <Button
-          className="friends__add-friend"
-          color="primary"
-          variant="default"
-        >
+      <div className="friends__add-friend">
+        <Button className="friends__add-btn" color="primary" variant="default">
           +add new friends
         </Button>
       </div>
