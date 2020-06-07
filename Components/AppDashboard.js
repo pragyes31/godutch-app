@@ -41,7 +41,9 @@ function OptionsModal(props) {
       onBackdropClick={() => props.toggleModal("optionsModal")}
       className="options-modal"
     >
-      <div className="options-modal__content">Options Modal window</div>
+      <div className="options-modal__content">
+        <Avatar />
+      </div>
     </Modal>
   );
 }
@@ -114,23 +116,7 @@ function FriendsTab() {
     <div className="friends">
       <div className="user">
         <div className="user__info">
-          <div className="user__info__avatar">
-            <input
-              accept="image/*"
-              className="upload-avatar"
-              id="contained-button-file"
-              multiple
-              type="file"
-            />
-            <label htmlFor="contained-button-file">
-              <Button
-                variant="contained"
-                color="primary"
-                component="span"
-                className="upload-avatar--btn"
-              />
-            </label>
-          </div>
+          <Avatar />
           <div className="user__info__balance">
             <div>TOTAL BALANCE</div>
             <div>You are all settled up.</div>
@@ -142,6 +128,28 @@ function FriendsTab() {
       </div>
       <div className="friends__add-friend">+add new friends</div>
       <div />
+    </div>
+  );
+}
+
+function Avatar() {
+  return (
+    <div className="user__info__avatar">
+      <input
+        accept="image/*"
+        className="upload-avatar"
+        id="contained-button-file"
+        multiple
+        type="file"
+      />
+      <label htmlFor="contained-button-file">
+        <Button
+          variant="contained"
+          color="primary"
+          component="span"
+          className="upload-avatar--btn"
+        />
+      </label>
     </div>
   );
 }
