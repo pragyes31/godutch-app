@@ -136,7 +136,9 @@ function FriendsTab() {
             <div>You are all settled up.</div>
           </div>
         </div>
-        <div className="filter" />
+        <div className="filter">
+          <FilterListIcon />
+        </div>
       </div>
       <div className="friends__add-friend">+add new friends</div>
       <div />
