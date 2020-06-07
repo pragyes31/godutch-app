@@ -117,7 +117,7 @@ function AddFriend(props) {
   );
 }
 
-function FriendsTab() {
+function FriendsTab(props) {
   return (
     <div className="friends">
       <div className="user">
@@ -129,7 +129,7 @@ function FriendsTab() {
           </div>
         </div>
         <div className="filter">
-          <FilterListIcon />
+          <FilterListIcon onClick={() => props.toggleModal("filterModal")} />
         </div>
       </div>
       <div className="friends__add-friend">
@@ -166,7 +166,7 @@ function Avatar() {
 
 function FilterModal(props) {
   return (
-    <div className="filter">
+    <div className="filter-modal">
       <div className="filter__all">All friends</div>
       <div className="filter__outstanding">
         Friends with outstanding balances
@@ -210,6 +210,7 @@ export default class AppDashboard extends React.Component {
       optionsModal: false,
       threeDotsModal: false,
       addFriendModal: false,
+      filterModal: false,
       openFriends: true,
       openGroups: false,
       openActivity: false
@@ -230,6 +231,9 @@ export default class AppDashboard extends React.Component {
         break;
       case "addFriend":
         this.setState({ addFriendModal: !this.state.addFriendModal });
+        break;
+      case "filterModal":
+        this.setState({ filterModal: !this.state.filterModal });
         break;
       default:
     }
@@ -274,7 +278,9 @@ export default class AppDashboard extends React.Component {
           openGroups={this.state.openGroups}
           openActivity={this.state.openActivity}
         />
-        {this.state.openFriends && <FriendsTab />}
+        {this.state.openFriends && (
+          <FriendsTab toggleModal={this.toggleModal} />
+        )}
         {this.state.openGroups && <GroupsTab />}
         {this.state.openActivity && <ActivityTab />}
         <AddButton
@@ -287,6 +293,7 @@ export default class AppDashboard extends React.Component {
           toggleModal={this.toggleModal}
         />
         <AddFriend addFriendModal={this.state.addFriendModal} />
+        {this.state.filterModal && <FilterModal />}
       </div>
     );
   }
