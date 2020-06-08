@@ -3,19 +3,16 @@ import { Modal } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import FilterListIcon from "@material-ui/icons/FilterList";
+import MenuIcon from "@material-ui/icons/Menu";
 //import expenseBtn from "../images/plus.png";
 
 function Header(props) {
   return (
     <div className="header">
-      <div
+      <MenuIcon
         className="header__hamburger"
         onClick={() => props.toggleModal("optionsModal")}
-      >
-        <div className="hamburger__line" />
-        <div className="hamburger__line" />
-        <div className="hamburger__line" />
-      </div>
+      />
       <div className="header__title">Go-Dutch App</div>
       <div
         className="header__dots"
