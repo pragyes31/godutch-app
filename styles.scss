@@ -58,6 +58,7 @@ background-color: $primary-color;
     position: absolute;
     top:16px;
     right:14px;
+    z-index:999;
   }
 
 .header__dots:after {

@@ -156,9 +156,19 @@ function FilterModal(props) {
   );
 }
 
+function AddButtonLarge(props) {
+  return (
+    <div className={props.parentClass}>
+      <Button className={props.childClass} color="primary" variant="default">
+        +add new {props.tabName}
+      </Button>
+    </div>
+  );
+}
+
 function FriendsTab(props) {
   return (
-    <div className="friends">
+    <div className={props.tabName}>
       <div className="user">
         <div className="user__info">
           <Avatar />
@@ -175,11 +185,11 @@ function FriendsTab(props) {
           {props.filterModal && <FilterModal />}
         </div>
       </div>
-      <div className="friends__add-friend">
-        <Button className="friends__add-btn" color="primary" variant="default">
-          +add new friends
-        </Button>
-      </div>
+      <AddButtonLarge
+        parentClass="friends__add-friend"
+        childClass="friends__add-btn"
+        tabName={props.tabName}
+      />
       <div />
     </div>
   );
@@ -290,6 +300,7 @@ export default class AppDashboard extends React.Component {
           <FriendsTab
             toggleModal={this.toggleModal}
             filterModal={this.state.filterModal}
+            tabName="friends"
           />
         )}
         {this.state.openGroups && <GroupsTab />}
