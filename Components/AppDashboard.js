@@ -4,6 +4,7 @@ import { Button } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import MenuIcon from "@material-ui/icons/Menu";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 //import expenseBtn from "../images/plus.png";
 
 function Header(props) {
@@ -14,10 +15,8 @@ function Header(props) {
         onClick={() => props.toggleModal("optionsModal")}
       />
       <div className="header__title">Go-Dutch App</div>
-      <div
-        className="header__dots"
-        onClick={() => props.toggleModal("threeDotsModal")}
-      >
+      <div onClick={() => props.toggleModal("threeDotsModal")}>
+        <MoreVertIcon className="header__dots" />
         {props.threeDotsModal && (
           <ThreeDotsModal
             threeDotsModal={props.threeDotsModal}

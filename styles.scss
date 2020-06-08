@@ -51,14 +51,17 @@ background-color: $primary-color;
 
 .header__dots {
   position: relative;
+  color:#fff;
+  font-size:1.2em;
+  cursor: pointer;
 }
 
  .three-dots-modal {
     width:180px;
     height:100px;
     position: absolute;
-    top:16px;
-    right:14px;
+    top:25px;
+    right:22px;
     z-index:999;
   }
 
