@@ -42,7 +42,7 @@ function OptionsModal(props) {
       className="options-modal"
     >
       <div className="options-modal__content">
-        <Avatar />
+        <UserInfo />
       </div>
     </Modal>
   );
@@ -117,24 +117,30 @@ function AddFriend(props) {
   );
 }
 
-function Avatar() {
+function UserInfo() {
   return (
-    <div className="user__info__avatar">
-      <input
-        accept="image/*"
-        className="upload-avatar"
-        id="contained-button-file"
-        multiple
-        type="file"
-      />
-      <label htmlFor="contained-button-file">
-        <Button
-          variant="contained"
-          color="primary"
-          component="span"
-          className="upload-avatar--btn"
+    <div className="user__info">
+      <div className="user__info__avatar">
+        <input
+          accept="image/*"
+          className="upload-avatar"
+          id="contained-button-file"
+          multiple
+          type="file"
         />
-      </label>
+        <label htmlFor="contained-button-file">
+          <Button
+            variant="contained"
+            color="primary"
+            component="span"
+            className="upload-avatar--btn"
+          />
+        </label>
+      </div>
+      <div className="user__info__balance">
+        <div>TOTAL BALANCE</div>
+        <div>You are all settled up.</div>
+      </div>
     </div>
   );
 }
@@ -170,13 +176,7 @@ function FriendsTab(props) {
   return (
     <div className={props.tabName}>
       <div className="user">
-        <div className="user__info">
-          <Avatar />
-          <div className="user__info__balance">
-            <div>TOTAL BALANCE</div>
-            <div>You are all settled up.</div>
-          </div>
-        </div>
+        <UserInfo />
         <div className="filter">
           <FilterListIcon
             className="filter__btn"
