@@ -151,6 +151,10 @@ background-color: $primary-color;
    }
 
    .filter {
+     position:relative;
+   }
+
+   .filter__btn {
       min-width:35px !important;
      height:30px !important;
      @include flex-position(center, center, default);
@@ -158,6 +162,16 @@ background-color: $primary-color;
      border-radius:50%;
      cursor: pointer;
      background-color: #fff;
+   }
+
+   .filter__modal {
+     width:180px;
+    height:400px;
+    position: absolute;
+    top:16px;
+    right:14px;
+    background-color: grey;
+    z-index:999;
    }
 
    .friends__add-friend {

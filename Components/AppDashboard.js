@@ -129,7 +129,11 @@ function FriendsTab(props) {
           </div>
         </div>
         <div className="filter">
-          <FilterListIcon onClick={() => props.toggleModal("filterModal")} />
+          <FilterListIcon
+            className="filter__btn"
+            onClick={() => props.toggleModal("filterModal")}
+          />
+          {props.filterModal && <FilterModal />}
         </div>
       </div>
       <div className="friends__add-friend">
@@ -166,7 +170,7 @@ function Avatar() {
 
 function FilterModal(props) {
   return (
-    <div className="filter-modal">
+    <div className="filter__modal">
       <div className="filter__all">All friends</div>
       <div className="filter__outstanding">
         Friends with outstanding balances
@@ -279,7 +283,10 @@ export default class AppDashboard extends React.Component {
           openActivity={this.state.openActivity}
         />
         {this.state.openFriends && (
-          <FriendsTab toggleModal={this.toggleModal} />
+          <FriendsTab
+            toggleModal={this.toggleModal}
+            filterModal={this.state.filterModal}
+          />
         )}
         {this.state.openGroups && <GroupsTab />}
         {this.state.openActivity && <ActivityTab />}
@@ -293,7 +300,6 @@ export default class AppDashboard extends React.Component {
           toggleModal={this.toggleModal}
         />
         <AddFriend addFriendModal={this.state.addFriendModal} />
-        {this.state.filterModal && <FilterModal />}
       </div>
     );
   }
