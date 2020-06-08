@@ -117,35 +117,6 @@ function AddFriend(props) {
   );
 }
 
-function FriendsTab(props) {
-  return (
-    <div className="friends">
-      <div className="user">
-        <div className="user__info">
-          <Avatar />
-          <div className="user__info__balance">
-            <div>TOTAL BALANCE</div>
-            <div>You are all settled up.</div>
-          </div>
-        </div>
-        <div className="filter">
-          <FilterListIcon
-            className="filter__btn"
-            onClick={() => props.toggleModal("filterModal")}
-          />
-          {props.filterModal && <FilterModal />}
-        </div>
-      </div>
-      <div className="friends__add-friend">
-        <Button className="friends__add-btn" color="primary" variant="default">
-          +add new friends
-        </Button>
-      </div>
-      <div />
-    </div>
-  );
-}
-
 function Avatar() {
   return (
     <div className="user__info__avatar">
@@ -181,6 +152,35 @@ function FilterModal(props) {
       <div className="filter__modal--child filter__owes-you">
         Friends who owe you
       </div>
+    </div>
+  );
+}
+
+function FriendsTab(props) {
+  return (
+    <div className="friends">
+      <div className="user">
+        <div className="user__info">
+          <Avatar />
+          <div className="user__info__balance">
+            <div>TOTAL BALANCE</div>
+            <div>You are all settled up.</div>
+          </div>
+        </div>
+        <div className="filter">
+          <FilterListIcon
+            className="filter__btn"
+            onClick={() => props.toggleModal("filterModal")}
+          />
+          {props.filterModal && <FilterModal />}
+        </div>
+      </div>
+      <div className="friends__add-friend">
+        <Button className="friends__add-btn" color="primary" variant="default">
+          +add new friends
+        </Button>
+      </div>
+      <div />
     </div>
   );
 }
