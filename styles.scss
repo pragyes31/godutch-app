@@ -189,7 +189,7 @@ background-color: grey;
 color:white;
    }
 
-   .friends__add-friend {
+   .friends__add-friend, .groups__add-group {
       @include flex-position(center, center, default);
       margin-top:20px;
       :hover {
@@ -197,7 +197,7 @@ color:white;
      }
    }
 
-   .friends__add-btn {
+   .friends__add-btn, .groups__add-btn {
      width:90%;
      background-color: lightgrey;
    }

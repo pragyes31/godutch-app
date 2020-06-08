@@ -195,8 +195,27 @@ function FriendsTab(props) {
   );
 }
 
-function GroupsTab() {
-  return <div>You're inside Groups tab.</div>;
+function GroupsTab(props) {
+  return (
+    <div className={props.tabName}>
+      <div className="user">
+        <UserInfo />
+        <div className="filter">
+          <FilterListIcon
+            className="filter__btn"
+            onClick={() => props.toggleModal("filterModal")}
+          />
+          {props.filterModal && <FilterModal />}
+        </div>
+      </div>
+      <AddButtonLarge
+        parentClass="groups__add-group"
+        childClass="groups__add-btn"
+        tabName={props.tabName}
+      />
+      <div />
+    </div>
+  );
 }
 
 function ActivityTab() {
@@ -303,7 +322,13 @@ export default class AppDashboard extends React.Component {
             tabName="friends"
           />
         )}
-        {this.state.openGroups && <GroupsTab />}
+        {this.state.openGroups && (
+          <GroupsTab
+            toggleModal={this.toggleModal}
+            filterModal={this.state.filterModal}
+            tabName="groups"
+          />
+        )}
         {this.state.openActivity && <ActivityTab />}
         <AddButton
           addExpense={this.addExpense}
