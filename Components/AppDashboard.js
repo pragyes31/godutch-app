@@ -171,12 +171,16 @@ function Avatar() {
 function FilterModal(props) {
   return (
     <div className="filter__modal">
-      <div className="filter__all">All friends</div>
-      <div className="filter__outstanding">
+      <div className="filter__modal--child filter__all">All friends</div>
+      <div className="filter__modal--child filter__outstanding">
         Friends with outstanding balances
       </div>
-      <div className="filter__you-owe">Friends you owe</div>
-      <div className="filter__owes-you">Friends who owe you</div>
+      <div className="filter__modal--child filter__you-owe">
+        Friends you owe
+      </div>
+      <div className="filter__modal--child filter__owes-you">
+        Friends who owe you
+      </div>
     </div>
   );
 }

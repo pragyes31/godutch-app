@@ -165,13 +165,27 @@ background-color: $primary-color;
    }
 
    .filter__modal {
-     width:180px;
-    height:400px;
+     width:280px;
+    height:150px;
     position: absolute;
-    top:16px;
-    right:14px;
-    background-color: grey;
+    top:25px;
+    right:25px;
     z-index:999;
+    @include flex-position(space-around, left, column);
+   }
+
+   .filter__modal--child {
+     height:100%;
+     padding-left:10px;
+     background-color: lightgrey;
+     cursor: pointer;
+     @include flex-position(space-around, left, column);
+     
+   }
+
+   .filter__modal--child:hover {
+background-color: grey;
+color:white;
    }
 
    .friends__add-friend {
