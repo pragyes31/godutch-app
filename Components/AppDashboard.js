@@ -130,15 +130,17 @@ function UserInfo() {
 function FilterModal(props) {
   return (
     <div className="filter__modal">
-      <div className="filter__modal--child filter__all">All friends</div>
+      <div className="filter__modal--child filter__all">
+        All {props.tabName}
+      </div>
       <div className="filter__modal--child filter__outstanding">
-        Friends with outstanding balances
+        {props.tabName} with outstanding balances
       </div>
       <div className="filter__modal--child filter__you-owe">
-        Friends you owe
+        {props.tabName} you owe
       </div>
       <div className="filter__modal--child filter__owes-you">
-        Friends who owe you
+        {props.tabName === "friends" ? "friends who" : "groups that"} owe you
       </div>
     </div>
   );
@@ -164,7 +166,7 @@ function FriendsTab(props) {
             className="filter__btn"
             onClick={() => props.toggleModal("filterModal")}
           />
-          {props.filterModal && <FilterModal />}
+          {props.filterModal && <FilterModal tabName={props.tabName} />}
         </div>
       </div>
       <AddButtonLarge
@@ -187,7 +189,7 @@ function GroupsTab(props) {
             className="filter__btn"
             onClick={() => props.toggleModal("filterModal")}
           />
-          {props.filterModal && <FilterModal />}
+          {props.filterModal && <FilterModal tabName={props.tabName} />}
         </div>
       </div>
       <AddButtonLarge
