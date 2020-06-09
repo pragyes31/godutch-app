@@ -117,12 +117,7 @@ function UserInfo() {
   return (
     <div className="user__info">
       <div className="user__info__avatar">
-        <Button
-          variant="contained"
-          color="primary"
-          component="span"
-          className="avatar"
-        />
+        <div className="avatar" />
       </div>
       <div className="user__info__balance">
         <div>TOTAL BALANCE</div>

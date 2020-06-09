@@ -65,13 +65,6 @@ background-color: $primary-color;
     z-index:999;
   }
 
-.header__dots:after {
-  content: '\2807';
-  font-size: 20px;
-  color:#fff;
-  cursor: pointer;
-  }
-
   .options-modal {
     width:300px;
     height:100vh;
