@@ -117,21 +117,12 @@ function UserInfo() {
   return (
     <div className="user__info">
       <div className="user__info__avatar">
-        <input
-          accept="image/*"
-          className="upload-avatar"
-          id="contained-button-file"
-          multiple
-          type="file"
+        <Button
+          variant="contained"
+          color="primary"
+          component="span"
+          className="avatar"
         />
-        <label htmlFor="contained-button-file">
-          <Button
-            variant="contained"
-            color="primary"
-            component="span"
-            className="upload-avatar--btn"
-          />
-        </label>
       </div>
       <div className="user__info__balance">
         <div>TOTAL BALANCE</div>
@@ -161,7 +152,7 @@ function FilterModal(props) {
 function AddButtonLarge(props) {
   return (
     <div className={props.parentClass}>
-      <Button className={props.childClass} color="primary" variant="default">
+      <Button className={props.childClass} color="primary">
         +add new {props.tabName}
       </Button>
     </div>

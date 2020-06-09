@@ -142,11 +142,7 @@ background-color: $primary-color;
      @include flex-position(space-around, center, default);
    }
 
-   .upload-avatar {
-     display: none;
-   }
-
-   .upload-avatar--btn {
+   .avatar {
      min-width:55px !important;
      height:50px !important;
      border-radius:50%;
