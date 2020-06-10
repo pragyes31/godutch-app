@@ -238,7 +238,9 @@ export default class AppDashboard extends React.Component {
     };
   }
 
-  addFriend = () => {};
+  addFriend = () => {
+    console.log("add new friend");
+  };
 
   addExpense = () => {};
 
@@ -304,6 +306,7 @@ export default class AppDashboard extends React.Component {
             toggleModal={this.toggleModal}
             filterModal={this.state.filterModal}
             tabName="friends"
+            addFriend={this.addFriend}
           />
         )}
         {this.state.openGroups && (
