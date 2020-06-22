@@ -5,10 +5,23 @@ import Tooltip from "@material-ui/core/Tooltip";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import MenuIcon from "@material-ui/icons/Menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
+
 //import expenseBtn from "../images/plus.png";
 
-function Header(props) {
+const headerStyles = {
+  header: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: "40px",
+    padding: "0px 10px",
+    backgroundColor: "40px"
+  }
+};
+
+function HeaderHOC(props) {
+  const { classes } = props;
   return (
     <div className="header">
       <MenuIcon
@@ -28,6 +41,8 @@ function Header(props) {
     </div>
   );
 }
+
+const Header = withStyles(headerStyles)(HeaderHOC);
 
 function OptionsModal(props) {
   return (

@@ -25,10 +25,12 @@ body {
 }
 
 .header {
-@include flex-position(space-between, center, default);
+display: flex;
+justify-content: space-between;
+align-items: center;
 height:$std-height;
 padding: 0px 10px;
-background-color: $primary-color;
+background-color: 40px;
 }
 
 .header__hamburger {
