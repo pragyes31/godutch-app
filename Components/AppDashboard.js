@@ -17,6 +17,22 @@ const headerStyles = {
     height: "40px",
     padding: "0px 10px",
     backgroundColor: "#00b8a9"
+  },
+  hamburger: {
+    cursor: "pointer",
+    width: "25px",
+    color: "#ffffff"
+  },
+  title: {
+    fontSize: "22px",
+    fontFamily: "'Ubuntu', sans-serif",
+    color: "#fff"
+  },
+  dots: {
+    position: "relative",
+    color: "#fff",
+    fontSize: "1.2em",
+    cursor: "pointer"
   }
 };
 
@@ -25,12 +41,12 @@ function HeaderHOC(props) {
   return (
     <div className={classes.header}>
       <MenuIcon
-        className="header__hamburger"
+        className={classes.hamburger}
         onClick={() => props.toggleModal("optionsModal")}
       />
-      <div className="header__title">Go-Dutch App</div>
+      <div className={classes.title}>Go-Dutch App</div>
       <div onClick={() => props.toggleModal("threeDotsModal")}>
-        <MoreVertIcon className="header__dots" />
+        <MoreVertIcon className={classes.dots} />
         {props.threeDotsModal && (
           <ThreeDotsModal
             threeDotsModal={props.threeDotsModal}
