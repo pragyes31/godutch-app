@@ -16,14 +16,14 @@ const headerStyles = {
     alignItems: "center",
     height: "40px",
     padding: "0px 10px",
-    backgroundColor: "40px"
+    backgroundColor: "#00b8a9"
   }
 };
 
 function HeaderHOC(props) {
   const { classes } = props;
   return (
-    <div className="header">
+    <div className={classes.header}>
       <MenuIcon
         className="header__hamburger"
         onClick={() => props.toggleModal("optionsModal")}
