@@ -60,21 +60,36 @@ function HeaderHOC(props) {
 
 const Header = withStyles(headerStyles)(HeaderHOC);
 
-function OptionsModal(props) {
+const optionsModalStyles = {
+   optionsModal: {
+    width:"300px",
+    height:"100vh"
+  },
+  content: {
+    height:"100vh",
+    backgroundColor: "rgb(245, 234, 234)",
+    outline:"none"
+  }
+}
+
+function OptionsModalHOC(props) {
+  const {classes} = props
   return (
     <Modal
       open={props.optionsModal}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
       onBackdropClick={() => props.toggleModal("optionsModal")}
-      className="options-modal"
+      className={classes.optionsModal}
     >
-      <div className="options-modal__content">
+      <div className={classes.content}>
         <UserInfo />
       </div>
     </Modal>
   );
 }
+
+const OptionsModal = withStyles(optionsModalStyles)(OptionsModalHOC);
 
 function ThreeDotsModal(props) {
   return (

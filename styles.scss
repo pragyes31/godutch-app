@@ -24,19 +24,6 @@ body {
   margin:0 auto;
 }
 
-.hamburger__line {
-  width:23px;
-  margin-top:4px;
-  border-top: 2px solid #fff;
-}
-
-.header__dots {
-  position: relative;
-  color:#fff;
-  font-size:1.2em;
-  cursor: pointer;
-}
-
  .three-dots-modal {
     width:180px;
     height:100px;
@@ -44,17 +31,6 @@ body {
     top:25px;
     right:22px;
     z-index:999;
-  }
-
-  .options-modal {
-    width:300px;
-    height:100vh;
-  }
-
-  .options-modal__content {
-    height:100vh;
-    background-color: rgb(245, 234, 234);
-    outline:none;
   }
 
   .three-dots-modal__content {
