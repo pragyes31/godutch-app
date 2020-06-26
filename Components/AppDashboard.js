@@ -61,19 +61,19 @@ function HeaderHOC(props) {
 const Header = withStyles(headerStyles)(HeaderHOC);
 
 const optionsModalStyles = {
-   optionsModal: {
-    width:"300px",
-    height:"100vh"
+  optionsModal: {
+    width: "300px",
+    height: "100vh"
   },
   content: {
-    height:"100vh",
+    height: "100vh",
     backgroundColor: "rgb(245, 234, 234)",
-    outline:"none"
+    outline: "none"
   }
-}
+};
 
 function OptionsModalHOC(props) {
-  const {classes} = props
+  const { classes } = props;
   return (
     <Modal
       open={props.optionsModal}
@@ -91,29 +91,62 @@ function OptionsModalHOC(props) {
 
 const OptionsModal = withStyles(optionsModalStyles)(OptionsModalHOC);
 
-function ThreeDotsModal(props) {
+const threeDotsModalStyles = {
+  modal: {
+    width: "180px",
+    height: "100px",
+    position: "absolute",
+    top: "25px",
+    right: "22px",
+    zIndex: 999
+  },
+  content: {
+    height: "100px",
+    backgroundColor: "rgb(245, 234, 234)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    justifyContent: "right",
+    outline: "none"
+  },
+  contentChild: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "50px",
+    width: "100%",
+    cursor: "pointer"
+  }
+  //  contentChild:hover: {
+  //    color:"#fff",
+  //    backgroundColor: "lighten($primary-color, 2%)"
+  //  }
+};
+
+function ThreeDotsModalHOC(props) {
+  const { classes } = prop;
   return (
     <div
       open={props.threeDotsModal}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
       onBackdropClick={() => props.toggleModal("threeDotsModal")}
-      className="three-dots-modal"
+      className={classes.modal}
     >
-      <div className="three-dots-modal__content">
+      <div className={classes.content}>
         <div
-          className="add-friend three-dots-modal__content--child"
+          className={classes.contentChild}
           onClick={() => props.toggleModal("addFriend")}
         >
           Add new friend
         </div>
-        <div className="create-group three-dots-modal__content--child">
-          Create a group
-        </div>
+        <div className={classes.contentChild}>Create a group</div>
       </div>
     </div>
   );
 }
+
+const ThreeDotsModal = withStyles(threeDotsModalStyles)(ThreeDotsModalHOC);
 
 function NavBar(props) {
   let friendsClass = `nav-bar__friends nav-bar--items ${
