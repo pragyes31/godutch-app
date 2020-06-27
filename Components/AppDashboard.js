@@ -174,9 +174,18 @@ const navBarHOC = {
   //    textDecoration: "underline"
   //  }
 
-  friendsActive,
-  groupsActive,
+  friendsActive: {
+    textDecoration: "underline",
+    borderBottom: "2px solid #fff",
+    boxSizing: "border-box"
+  },
+
   activityActive: {
+    textDecoration: "underline",
+    borderBottom: "2px solid #fff",
+    boxSizing: "border-box"
+  },
+  groupsActive: {
     textDecoration: "underline",
     borderBottom: "2px solid #fff",
     boxSizing: "border-box"
