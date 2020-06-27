@@ -192,18 +192,19 @@ const navBarHOC = {
   }
 };
 
-function NavBar(props) {
-  let friendsClass = `nav-bar__friends items ${
-    props.openFriends ? "friendsActive" : ""
+function NavBarHOC(props) {
+  const { classes } = props;
+  let friendsClass = `${classes.items} ${
+    props.openFriends ? `${classes.friendsActive}` : ""
   }`;
-  let groupsClass = `nav-bar__groups items ${
-    props.openGroups ? "groupsActive" : ""
+  let groupsClass = `${classes.items} ${
+    props.openGroups ? `${classes.groupsActive}` : ""
   }`;
-  let activityClass = `nav-bar__activity items ${
-    props.openActivity ? "activityActive" : ""
+  let activityClass = `${classes.items} ${
+    props.openActivity ? `${classes.activityActive}` : ""
   }`;
   return (
-    <div className="navBar">
+    <div className={classes.navBar}>
       <div
         className={friendsClass}
         onClick={() => props.switchTab("friendsTab")}
@@ -222,6 +223,8 @@ function NavBar(props) {
     </div>
   );
 }
+
+const NavBar = withStyles(navBarHOC)(NavBarHOC);
 
 function AddFriend(props) {
   return (
