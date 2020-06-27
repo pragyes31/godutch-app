@@ -250,11 +250,28 @@ function AddFriendHOC(props) {
 
 const AddFriend = withStyles(addFriendStyles)(AddFriendHOC);
 
-function UserInfo() {
+const userInfoStyles = {
+  userInfo: {
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center"
+  },
+  avatar: {
+    minWidth: "55px !important",
+    height: "50px !important",
+    borderRadius: "50%",
+    backgroundImage: `url("https://bit.ly/2UhwGb4")`,
+    border: "3px solid #00b8a9",
+    marginRight: "10px"
+  }
+};
+
+function UserInfoHOC(props) {
+  const { classes } = props;
   return (
-    <div className="user__info">
+    <div className={classes.userInfo}>
       <div className="user__info__avatar">
-        <div className="avatar" />
+        <div className={classes.avatar} />
       </div>
       <div className="user__info__balance">
         <div>TOTAL BALANCE</div>
@@ -263,6 +280,8 @@ function UserInfo() {
     </div>
   );
 }
+
+const UserInfo = withStyles(userInfoStyles)(UserInfoHOC);
 
 function FilterModal(props) {
   return (
