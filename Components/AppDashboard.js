@@ -104,9 +104,9 @@ const threeDotsModalStyles = {
     height: "100px",
     backgroundColor: "rgb(245, 234, 234)",
     display: "flex",
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    justifyContent: "right",
     outline: "none"
   },
   contentChild: {
@@ -124,7 +124,7 @@ const threeDotsModalStyles = {
 };
 
 function ThreeDotsModalHOC(props) {
-  const { classes } = prop;
+  const { classes } = props;
   return (
     <div
       open={props.threeDotsModal}
@@ -148,7 +148,7 @@ function ThreeDotsModalHOC(props) {
 
 const ThreeDotsModal = withStyles(threeDotsModalStyles)(ThreeDotsModalHOC);
 
-const navBarHOC = {
+const navBarStyles = {
   navBar: {
     display: "flex",
     justifyContent: "space-around",
@@ -224,21 +224,31 @@ function NavBarHOC(props) {
   );
 }
 
-const NavBar = withStyles(navBarHOC)(NavBarHOC);
+const NavBar = withStyles(navBarStyles)(NavBarHOC);
 
-function AddFriend(props) {
+const addFriendStyles = {
+  addFriend: {},
+  content: {
+    backgroundColor: "#ffffff"
+  }
+};
+
+function AddFriendHOC(props) {
+  const { classes } = props;
   return (
-    <div className="add-friend">
+    <div className={classes.addFriend}>
       <Modal
         open={props.addFriendModal}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <div className="add-friend__content">Add friend Modal window</div>
+        <div className={classes.content}>Add friend Modal windowwwww</div>
       </Modal>
     </div>
   );
 }
+
+const AddFriend = withStyles(addFriendStyles)(AddFriendHOC);
 
 function UserInfo() {
   return (
