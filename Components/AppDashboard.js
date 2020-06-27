@@ -148,18 +148,53 @@ function ThreeDotsModalHOC(props) {
 
 const ThreeDotsModal = withStyles(threeDotsModalStyles)(ThreeDotsModalHOC);
 
+const navBarHOC = {
+  navBar: {
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center",
+    backgroundColor: "#00b8a9",
+    width: "100%",
+    height: "40px",
+    color: "#fff",
+    textTransform: "uppercase",
+    fontSize: "12px"
+  },
+  items: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "40px",
+    width: "33.33%",
+    cursor: "pointer"
+  },
+
+  //  items:hover {
+  //    backgroundColor:"lighten(#00b8a9, 5%)",
+  //    textDecoration: "underline"
+  //  }
+
+  friendsActive,
+  groupsActive,
+  activityActive: {
+    textDecoration: "underline",
+    borderBottom: "2px solid #fff",
+    boxSizing: "border-box"
+  }
+};
+
 function NavBar(props) {
-  let friendsClass = `nav-bar__friends nav-bar--items ${
-    props.openFriends ? "nav-bar__friends--active" : ""
+  let friendsClass = `nav-bar__friends items ${
+    props.openFriends ? "friendsActive" : ""
   }`;
-  let groupsClass = `nav-bar__groups nav-bar--items ${
-    props.openGroups ? "nav-bar__groups--active" : ""
+  let groupsClass = `nav-bar__groups items ${
+    props.openGroups ? "groupsActive" : ""
   }`;
-  let activityClass = `nav-bar__activity nav-bar--items ${
-    props.openActivity ? "nav-bar__activity--active" : ""
+  let activityClass = `nav-bar__activity items ${
+    props.openActivity ? "activityActive" : ""
   }`;
   return (
-    <div className="nav-bar">
+    <div className="navBar">
       <div
         className={friendsClass}
         onClick={() => props.switchTab("friendsTab")}
