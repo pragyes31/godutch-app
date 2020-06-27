@@ -283,7 +283,9 @@ function UserInfoHOC(props) {
 
 const UserInfo = withStyles(userInfoStyles)(UserInfoHOC);
 
-function FilterModal(props) {
+const filterModalStyles = {};
+
+function FilterModalHOC(props) {
   return (
     <div className="filter__modal">
       <div className="filter__modal--child filter__all">
@@ -301,6 +303,8 @@ function FilterModal(props) {
     </div>
   );
 }
+
+const FilterModal = withStyles(filterModalStyles)(FilterModalHOC);
 
 function AddButtonLarge(props) {
   return (
