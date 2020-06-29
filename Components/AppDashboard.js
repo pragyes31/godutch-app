@@ -362,6 +362,28 @@ const friendsTabStyles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
+  },
+  addFriend: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "20px"
+    //   :hover {
+    //    background-color: grey;;
+    //  }
+  },
+  addGroup: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "20px"
+    //   :hover {
+    //    background-color: grey;;
+    //  }
+  },
+  addBtn: {
+    width: "90%",
+    backgroundColor: "lightgrey"
   }
 };
 
@@ -380,8 +402,8 @@ function FriendsTabHOC(props) {
         </div>
       </div>
       <AddButtonLarge
-        parentClass="friends__add-friend"
-        childClass="friends__add-btn"
+        parentClass={classes.addFriend}
+        childClass={classes.addBtn}
         tabName={props.tabName}
       />
       <div />
@@ -408,8 +430,8 @@ function GroupsTabHOC(props) {
         </div>
       </div>
       <AddButtonLarge
-        parentClass="groups__add-group"
-        childClass="groups__add-btn"
+        parentClass={classes.addGroup}
+        childClass={classes.addBtn}
         tabName={props.tabName}
       />
       <div />
@@ -423,14 +445,30 @@ function ActivityTab() {
   return <div>You're inside Activity tab.</div>;
 }
 
-function AddButton(props) {
+const addButtonStyles = {
+  button: {
+    marginLeft: ".5rem",
+    borderRadius: "50% !important",
+    minWidth: "40px",
+    height: "45px",
+    color: "#ffffff",
+    fontSize: "30px !important",
+    cursor: "pointer",
+    position: "fixed",
+    bottom: "5%",
+    right: "5%"
+  }
+};
+
+function AddButtonHOC(props) {
+  const { classes } = props;
   return (
     <div>
       <Tooltip title={props.tooltip}>
         <Button
           variant="contained"
           color={props.color}
-          className="add-expense-button"
+          className={classes.button}
           onClick={() => props.addExpense()}
         >
           +
@@ -440,6 +478,8 @@ function AddButton(props) {
     </div>
   );
 }
+
+const AddButton = withStyles(addButtonStyles)(AddButtonHOC);
 
 export default class AppDashboard extends React.Component {
   constructor(props) {
