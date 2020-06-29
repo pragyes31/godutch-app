@@ -340,14 +340,40 @@ function AddButtonLarge(props) {
   );
 }
 
-function FriendsTab(props) {
+const friendsTabStyles = {
+  user: {
+    width: "100%",
+    height: "80px",
+    backgroundColor: "#eada82",
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center"
+  },
+  filter: {
+    position: "relative"
+  },
+  filterBtn: {
+    minWidth: "35px !important",
+    height: "30px !important",
+    border: "2px solid black",
+    borderRadius: "50%",
+    cursor: "pointer",
+    backgroundColor: "#fff",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  }
+};
+
+function FriendsTabHOC(props) {
+  const { classes } = props;
   return (
     <div className={props.tabName}>
-      <div className="user">
+      <div className={classes.user}>
         <UserInfo />
-        <div className="filter">
+        <div className={classes.filter}>
           <FilterListIcon
-            className="filter__btn"
+            className={classes.filterBtn}
             onClick={() => props.toggleModal("filterModal")}
           />
           {props.filterModal && <FilterModal tabName={props.tabName} />}
@@ -363,7 +389,10 @@ function FriendsTab(props) {
   );
 }
 
+const FriendsTab = withStyles(friendsTabStyles)(FriendsTabHOC);
+
 function GroupsTab(props) {
+  const { classes } = props;
   return (
     <div className={props.tabName}>
       <div className="user">
