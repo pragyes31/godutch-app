@@ -391,15 +391,17 @@ function FriendsTabHOC(props) {
 
 const FriendsTab = withStyles(friendsTabStyles)(FriendsTabHOC);
 
-function GroupsTab(props) {
+const groupsTabStyles = {};
+
+function GroupsTabHOC(props) {
   const { classes } = props;
   return (
     <div className={props.tabName}>
-      <div className="user">
+      <div className={classes.user}>
         <UserInfo />
-        <div className="filter">
+        <div className={classes.filter}>
           <FilterListIcon
-            className="filter__btn"
+            className={classes.filterBtn}
             onClick={() => props.toggleModal("filterModal")}
           />
           {props.filterModal && <FilterModal tabName={props.tabName} />}
@@ -414,6 +416,8 @@ function GroupsTab(props) {
     </div>
   );
 }
+
+const GroupsTab = withStyles(friendsTabStyles)(GroupsTabHOC);
 
 function ActivityTab() {
   return <div>You're inside Activity tab.</div>;
