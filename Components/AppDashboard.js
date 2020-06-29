@@ -283,21 +283,45 @@ function UserInfoHOC(props) {
 
 const UserInfo = withStyles(userInfoStyles)(UserInfoHOC);
 
-const filterModalStyles = {};
+const filterModalStyles = {
+  modal: {
+    width: "280px",
+    height: "150px",
+    position: "absolute",
+    top: "25px",
+    right: "25px",
+    zIndex: 999,
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "left",
+    flexDirection: "column"
+  },
+  modalChild: {
+    height: "100%",
+    paddingLeft: "10px",
+    backgroundColor: "lightgrey",
+    cursor: "pointer",
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "left",
+    flexDirection: "column"
+  }
+  //   modalChild:hover: {
+  // backgroundColor: "grey",
+  // color:"white"
+  //    }
+};
 
 function FilterModalHOC(props) {
+  const { classes } = props;
   return (
-    <div className="filter__modal">
-      <div className="filter__modal--child filter__all">
-        All {props.tabName}
-      </div>
-      <div className="filter__modal--child filter__outstanding">
+    <div className={classes.modal}>
+      <div className={classes.modalChild}>All {props.tabName}</div>
+      <div className={classes.modalChild}>
         {props.tabName} with outstanding balances
       </div>
-      <div className="filter__modal--child filter__you-owe">
-        {props.tabName} you owe
-      </div>
-      <div className="filter__modal--child filter__owes-you">
+      <div className={classes.modalChild}>{props.tabName} you owe</div>
+      <div className={classes.modalChild}>
         {props.tabName === "friends" ? "friends who" : "groups that"} owe you
       </div>
     </div>
