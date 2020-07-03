@@ -6,6 +6,7 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import MenuIcon from "@material-ui/icons/Menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 
 //import expenseBtn from "../images/plus.png";
 
