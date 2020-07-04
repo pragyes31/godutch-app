@@ -285,8 +285,8 @@ function UserInfoHOC(props) {
         <div className={classes.avatar} />
       </div>
       <div className="user__info__balance">
-        <div>TOTAL BALANCE</div>
-        <div>You are all settled up.</div>
+        <Typography>TOTAL BALANCE</Typography>
+        <Typography>You are all settled up.</Typography>
       </div>
     </div>
   );
@@ -327,11 +327,15 @@ function FilterModalHOC(props) {
   const { classes } = props;
   return (
     <div className={classes.modal}>
-      <div className={classes.modalChild}>All {props.tabName}</div>
-      <div className={classes.modalChild}>
+      <Typography className={classes.modalChild}>
+        All {props.tabName}
+      </Typography>
+      <Typography className={classes.modalChild}>
         {props.tabName} with outstanding balances
-      </div>
-      <div className={classes.modalChild}>{props.tabName} you owe</div>
+      </Typography>
+      <Typography className={classes.modalChild}>
+        {props.tabName} you owe
+      </Typography>
       <div className={classes.modalChild}>
         {props.tabName === "friends" ? "friends who" : "groups that"} owe you
       </div>
