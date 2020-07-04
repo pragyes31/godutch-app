@@ -25,8 +25,6 @@ const headerStyles = {
     color: "#ffffff"
   },
   title: {
-    fontSize: "22px",
-    fontFamily: "'Ubuntu', sans-serif",
     color: "#fff"
   },
   dots: {
@@ -45,7 +43,9 @@ function HeaderHOC(props) {
         className={classes.hamburger}
         onClick={() => props.toggleModal("optionsModal")}
       />
-      <div className={classes.title}>Go-Dutch App</div>
+      <Typography variant="h6" className={classes.title}>
+        Go-Dutch App
+      </Typography>
       <div onClick={() => props.toggleModal("threeDotsModal")}>
         <MoreVertIcon className={classes.dots} />
         {props.threeDotsModal && (
@@ -116,12 +116,12 @@ const threeDotsModalStyles = {
     alignItems: "center",
     height: "50px",
     width: "100%",
-    cursor: "pointer"
+    cursor: "pointer",
+    "&:hover": {
+      color: "#fff",
+      backgroundColor: "#00b8a9"
+    }
   }
-  //  contentChild:hover: {
-  //    color:"#fff",
-  //    backgroundColor: "lighten($primary-color, 2%)"
-  //  }
 };
 
 function ThreeDotsModalHOC(props) {
@@ -135,13 +135,16 @@ function ThreeDotsModalHOC(props) {
       className={classes.modal}
     >
       <div className={classes.content}>
-        <div
+        <Typography
+          variant="subtitle1"
           className={classes.contentChild}
           onClick={() => props.toggleModal("addFriend")}
         >
           Add new friend
-        </div>
-        <div className={classes.contentChild}>Create a group</div>
+        </Typography>
+        <Typography variant="subtitle1" className={classes.contentChild}>
+          Create a group
+        </Typography>
       </div>
     </div>
   );
@@ -167,13 +170,12 @@ const navBarStyles = {
     alignItems: "center",
     height: "40px",
     width: "33.33%",
-    cursor: "pointer"
+    cursor: "pointer",
+    "&:hover": {
+      backgroundColor: "#00b8a9",
+      textDecoration: "underline"
+    }
   },
-
-  //  items:hover {
-  //    backgroundColor:"lighten(#00b8a9, 5%)",
-  //    textDecoration: "underline"
-  //  }
 
   friendsActive: {
     textDecoration: "underline",
@@ -305,12 +307,12 @@ const filterModalStyles = {
     display: "flex",
     justifyContent: "space-around",
     alignItems: "left",
-    flexDirection: "column"
+    flexDirection: "column",
+    "&:hover": {
+      backgroundColor: "grey",
+      color: "white"
+    }
   }
-  //   modalChild:hover: {
-  // backgroundColor: "grey",
-  // color:"white"
-  //    }
 };
 
 function FilterModalHOC(props) {
@@ -368,19 +370,19 @@ const friendsTabStyles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: "20px"
-    //   :hover {
-    //    background-color: grey;;
-    //  }
+    marginTop: "20px",
+    "&:hover": {
+      backgroundColor: "grey"
+    }
   },
   addGroup: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: "20px"
-    //   :hover {
-    //    background-color: grey;;
-    //  }
+    marginTop: "20px",
+    "&:hover": {
+      backgroundColor: "grey"
+    }
   },
   addBtn: {
     width: "90%",
