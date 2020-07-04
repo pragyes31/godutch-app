@@ -208,21 +208,27 @@ function NavBarHOC(props) {
   }`;
   return (
     <div className={classes.navBar}>
-      <div
+      <Typography
+        variant="caption"
         className={friendsClass}
         onClick={() => props.switchTab("friendsTab")}
       >
         friends
-      </div>
-      <div className={groupsClass} onClick={() => props.switchTab("groupsTab")}>
+      </Typography>
+      <Typography
+        variant="caption"
+        className={groupsClass}
+        onClick={() => props.switchTab("groupsTab")}
+      >
         groups
-      </div>
-      <div
+      </Typography>
+      <Typography
+        variant="caption"
         className={activityClass}
         onClick={() => props.switchTab("activityTab")}
       >
-        activity
-      </div>
+        groups
+      </Typography>
     </div>
   );
 }
@@ -245,7 +251,9 @@ function AddFriendHOC(props) {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <div className={classes.content}>Add friend Modal windowwwww</div>
+        <Typography variant="subtitle1" className={classes.content}>
+          Add friend Modal windowwwww
+        </Typography>
       </Modal>
     </div>
   );
