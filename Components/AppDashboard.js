@@ -7,8 +7,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-
-//import expenseBtn from "../images/plus.png";
+import Dialog from "@material-ui/core/Dialog";
 
 const headerStyles = {
   header: {
@@ -63,8 +62,7 @@ const Header = withStyles(headerStyles)(HeaderHOC);
 
 const optionsModalStyles = {
   optionsModal: {
-    width: "300px",
-    height: "100vh"
+    width: "700px"
   },
   content: {
     height: "100vh",
@@ -76,17 +74,18 @@ const optionsModalStyles = {
 function OptionsModalHOC(props) {
   const { classes } = props;
   return (
-    <Modal
+    <Dialog
       open={props.optionsModal}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
       onBackdropClick={() => props.toggleModal("optionsModal")}
+      onEscapeKeyDown={() => props.toggleModal("optionsModal")}
       className={classes.optionsModal}
     >
       <div className={classes.content}>
         <UserInfo />
       </div>
-    </Modal>
+    </Dialog>
   );
 }
 
