@@ -61,11 +61,14 @@ function HeaderHOC(props) {
 const Header = withStyles(headerStyles)(HeaderHOC);
 
 const optionsModalStyles = {
-  optionsModal: {
-    width: "700px"
+  "MuiPaper-root": {
+    minHeight: "100vh",
+    backgroundColor: "red"
+  },
+  "MuiDialog-paperScrollPaper": {
+    minHeight: "100vh"
   },
   content: {
-    height: "100vh",
     backgroundColor: "rgb(245, 234, 234)",
     outline: "none"
   }
@@ -75,12 +78,13 @@ function OptionsModalHOC(props) {
   const { classes } = props;
   return (
     <Dialog
-      open={props.optionsModal}
+      open={true}
+      // open={props.optionsModal}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
       onBackdropClick={() => props.toggleModal("optionsModal")}
       onEscapeKeyDown={() => props.toggleModal("optionsModal")}
-      className={classes.optionsModal}
+      className={classes.MuiPaper}
     >
       <div className={classes.content}>
         <UserInfo />
