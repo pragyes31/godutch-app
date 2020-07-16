@@ -34,7 +34,7 @@ const headerStyles = {
   }
 };
 
-function HeaderHOC(props) {
+function HeaderComp(props) {
   const { classes } = props;
   return (
     <div className={classes.header}>
@@ -58,7 +58,7 @@ function HeaderHOC(props) {
   );
 }
 
-const Header = withStyles(headerStyles)(HeaderHOC);
+const Header = withStyles(headerStyles)(HeaderComp);
 
 const optionsModalStyles = {
   optionsModal: {
@@ -72,7 +72,7 @@ const optionsModalStyles = {
   }
 };
 
-function OptionsModalHOC(props) {
+function OptionsModalComp(props) {
   const { classes } = props;
   console.log(classes);
   return (
@@ -92,7 +92,7 @@ function OptionsModalHOC(props) {
   );
 }
 
-const OptionsModal = withStyles(optionsModalStyles)(OptionsModalHOC);
+const OptionsModal = withStyles(optionsModalStyles)(OptionsModalComp);
 
 const threeDotsModalStyles = {
   modal: {
@@ -126,7 +126,7 @@ const threeDotsModalStyles = {
   }
 };
 
-function ThreeDotsModalHOC(props) {
+function ThreeDotsModalComp(props) {
   const { classes } = props;
   return (
     <div
@@ -152,7 +152,7 @@ function ThreeDotsModalHOC(props) {
   );
 }
 
-const ThreeDotsModal = withStyles(threeDotsModalStyles)(ThreeDotsModalHOC);
+const ThreeDotsModal = withStyles(threeDotsModalStyles)(ThreeDotsModalComp);
 
 const navBarStyles = {
   navBar: {
@@ -197,7 +197,7 @@ const navBarStyles = {
   }
 };
 
-function NavBarHOC(props) {
+function NavBarComp(props) {
   const { classes } = props;
   let friendsClass = `${classes.items} ${
     props.openFriends ? `${classes.friendsActive}` : ""
@@ -235,7 +235,7 @@ function NavBarHOC(props) {
   );
 }
 
-const NavBar = withStyles(navBarStyles)(NavBarHOC);
+const NavBar = withStyles(navBarStyles)(NavBarComp);
 
 const addFriendStyles = {
   addFriend: {},
@@ -244,7 +244,7 @@ const addFriendStyles = {
   }
 };
 
-function AddFriendHOC(props) {
+function AddFriendComp(props) {
   const { classes } = props;
   return (
     <div className={classes.addFriend}>
@@ -261,7 +261,7 @@ function AddFriendHOC(props) {
   );
 }
 
-const AddFriend = withStyles(addFriendStyles)(AddFriendHOC);
+const AddFriend = withStyles(addFriendStyles)(AddFriendComp);
 
 const userInfoStyles = {
   userInfo: {
@@ -279,7 +279,7 @@ const userInfoStyles = {
   }
 };
 
-function UserInfoHOC(props) {
+function UserInfoComp(props) {
   const { classes } = props;
   return (
     <div className={classes.userInfo}>
@@ -294,7 +294,7 @@ function UserInfoHOC(props) {
   );
 }
 
-const UserInfo = withStyles(userInfoStyles)(UserInfoHOC);
+const UserInfo = withStyles(userInfoStyles)(UserInfoComp);
 
 const filterModalStyles = {
   modal: {
@@ -325,7 +325,7 @@ const filterModalStyles = {
   }
 };
 
-function FilterModalHOC(props) {
+function FilterModalComp(props) {
   const { classes } = props;
   return (
     <div className={classes.modal}>
@@ -345,7 +345,7 @@ function FilterModalHOC(props) {
   );
 }
 
-const FilterModal = withStyles(filterModalStyles)(FilterModalHOC);
+const FilterModal = withStyles(filterModalStyles)(FilterModalComp);
 
 function AddButtonLarge(props) {
   return (
@@ -404,7 +404,7 @@ const friendsTabStyles = {
   }
 };
 
-function FriendsTabHOC(props) {
+function FriendsTabComp(props) {
   const { classes } = props;
   return (
     <div className={props.tabName}>
@@ -428,11 +428,11 @@ function FriendsTabHOC(props) {
   );
 }
 
-const FriendsTab = withStyles(friendsTabStyles)(FriendsTabHOC);
+const FriendsTab = withStyles(friendsTabStyles)(FriendsTabComp);
 
 const groupsTabStyles = {};
 
-function GroupsTabHOC(props) {
+function GroupsTabComp(props) {
   const { classes } = props;
   return (
     <div className={props.tabName}>
@@ -456,7 +456,7 @@ function GroupsTabHOC(props) {
   );
 }
 
-const GroupsTab = withStyles(friendsTabStyles)(GroupsTabHOC);
+const GroupsTab = withStyles(friendsTabStyles)(GroupsTabComp);
 
 function ActivityTab() {
   return <div>You're inside Activity tab.</div>;
@@ -477,7 +477,7 @@ const addButtonStyles = {
   }
 };
 
-function AddButtonHOC(props) {
+function AddButtonComp(props) {
   const { classes } = props;
   return (
     <div>
@@ -496,7 +496,7 @@ function AddButtonHOC(props) {
   );
 }
 
-const AddButton = withStyles(addButtonStyles)(AddButtonHOC);
+const AddButton = withStyles(addButtonStyles)(AddButtonComp);
 
 export default class AppDashboard extends React.Component {
   constructor(props) {
