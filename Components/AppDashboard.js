@@ -61,20 +61,20 @@ function HeaderComp(props) {
 const Header = withStyles(headerStyles)(HeaderComp);
 
 const optionsModalStyles = {
-  optionsModal: {
-    minHeight: "100vh",
+  fullModal: {
     maxHeight: "100vh",
-    backgroundColor: "234323"
+    minHeight: "100vh"
   },
   content: {
+    maxHeight: "100vh",
     backgroundColor: "rgb(245, 234, 234)",
-    outline: "none"
+    outline: "none",
+    minHeight: "100vh"
   }
 };
 
 function OptionsModalComp(props) {
   const { classes } = props;
-  console.log(classes);
   return (
     <Dialog
       open={true}
@@ -83,7 +83,7 @@ function OptionsModalComp(props) {
       aria-describedby="simple-modal-description"
       onBackdropClick={() => props.toggleModal("optionsModal")}
       onEscapeKeyDown={() => props.toggleModal("optionsModal")}
-      classes={{ optionsModal: classes.optionsModal }}
+      className={classes.fullModal}
     >
       <div className={classes.content}>
         <UserInfo />
