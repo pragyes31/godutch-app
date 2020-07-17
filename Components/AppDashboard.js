@@ -63,10 +63,11 @@ const Header = withStyles(headerStyles)(HeaderComp);
 const optionsModalStyles = {
   fullModal: {
     maxHeight: "100vh",
-    minHeight: "100vh"
+    minHeight: "100vh",
+    position: "relative",
+    right: "186px"
   },
   content: {
-    maxHeight: "100vh",
     backgroundColor: "rgb(245, 234, 234)",
     outline: "none",
     minHeight: "100vh"
@@ -77,13 +78,12 @@ function OptionsModalComp(props) {
   const { classes } = props;
   return (
     <Dialog
-      open={true}
-      // open={props.optionsModal}
+      open={props.optionsModal}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
       onBackdropClick={() => props.toggleModal("optionsModal")}
       onEscapeKeyDown={() => props.toggleModal("optionsModal")}
-      className={classes.fullModal}
+      classes={{ paper: classes.fullModal }}
     >
       <div className={classes.content}>
         <UserInfo />
