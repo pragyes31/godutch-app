@@ -8,6 +8,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
+import { CSSTransitionGroup } from "react-transition-group";
 
 const headerStyles = {
   header: {
@@ -77,18 +78,24 @@ const optionsModalStyles = {
 function OptionsModalComp(props) {
   const { classes } = props;
   return (
-    <Dialog
-      open={props.optionsModal}
-      aria-labelledby="simple-modal-title"
-      aria-describedby="simple-modal-description"
-      onBackdropClick={() => props.toggleModal("optionsModal")}
-      onEscapeKeyDown={() => props.toggleModal("optionsModal")}
-      classes={{ paper: classes.fullModal }}
+    <CSSTransitionGroup
+      transitionName="example"
+      transitionEnterTimeout={500}
+      transitionLeaveTimeout={300}
     >
-      <div className={classes.content}>
-        <UserInfo />
-      </div>
-    </Dialog>
+      <Dialog
+        open={props.optionsModal}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        onBackdropClick={() => props.toggleModal("optionsModal")}
+        onEscapeKeyDown={() => props.toggleModal("optionsModal")}
+        classes={{ paper: classes.fullModal }}
+      >
+        <div className={classes.content}>
+          <UserInfo />
+        </div>
+      </Dialog>
+    </CSSTransitionGroup>
   );
 }
 
