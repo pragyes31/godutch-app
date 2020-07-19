@@ -240,9 +240,12 @@ function NavBarComp(props) {
 const NavBar = withStyles(navBarStyles)(NavBarComp);
 
 const addFriendStyles = {
-  addFriend: {},
+  addFriend: {
+    height: "300px",
+    width: "450px"
+  },
   content: {
-    backgroundColor: "#ffffff"
+    backgroundColor: "#fff"
   }
 };
 
@@ -250,15 +253,18 @@ function AddFriendComp(props) {
   const { classes } = props;
   return (
     <div className={classes.addFriend}>
-      <Modal
+      <Dialog
         open={props.addFriendModal}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
+        aria-labelledby="Add New friend modal"
+        aria-describedby="Add New friend modal"
+        onBackdropClick={() => props.toggleModal("addFriend")}
+        onEscapeKeyDown={() => props.toggleModal("addFriend")}
+        classes={{ paper: classes.addFriend }}
       >
         <Typography variant="subtitle1" className={classes.content}>
           Add friend Modal windowwwww
         </Typography>
-      </Modal>
+      </Dialog>
     </div>
   );
 }
@@ -602,7 +608,10 @@ export default class AppDashboard extends React.Component {
           optionsModal={this.state.optionsModal}
           toggleModal={this.toggleModal}
         />
-        <AddFriend addFriendModal={this.state.addFriendModal} />
+        <AddFriend
+          addFriendModal={this.state.addFriendModal}
+          toggleModal={this.toggleModal}
+        />
       </div>
     );
   }
