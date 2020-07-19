@@ -8,7 +8,6 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
-import { CSSTransitionGroup } from "react-transition-group";
 
 const headerStyles = {
   header: {
@@ -78,11 +77,6 @@ const optionsModalStyles = {
 function OptionsModalComp(props) {
   const { classes } = props;
   return (
-    <CSSTransitionGroup
-      transitionName="example"
-      transitionEnterTimeout={500}
-      transitionLeaveTimeout={300}
-    >
       <Dialog
         open={props.optionsModal}
         aria-labelledby="simple-modal-title"
@@ -95,7 +89,6 @@ function OptionsModalComp(props) {
           <UserInfo />
         </div>
       </Dialog>
-    </CSSTransitionGroup>
   );
 }
 
