@@ -77,18 +77,18 @@ const optionsModalStyles = {
 function OptionsModalComp(props) {
   const { classes } = props;
   return (
-      <Dialog
-        open={props.optionsModal}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        onBackdropClick={() => props.toggleModal("optionsModal")}
-        onEscapeKeyDown={() => props.toggleModal("optionsModal")}
-        classes={{ paper: classes.fullModal }}
-      >
-        <div className={classes.content}>
-          <UserInfo />
-        </div>
-      </Dialog>
+    <Dialog
+      open={props.optionsModal}
+      aria-labelledby="simple-modal-title"
+      aria-describedby="simple-modal-description"
+      onBackdropClick={() => props.toggleModal("optionsModal")}
+      onEscapeKeyDown={() => props.toggleModal("optionsModal")}
+      classes={{ paper: classes.fullModal }}
+    >
+      <div className={classes.content}>
+        <UserInfo />
+      </div>
+    </Dialog>
   );
 }
 
@@ -98,9 +98,9 @@ const threeDotsModalStyles = {
   modal: {
     width: "180px",
     height: "100px",
-    position: "absolute",
-    top: "25px",
-    right: "22px",
+    position: "relative",
+    bottom: "255px",
+    left: "188px",
     zIndex: 999
   },
   content: {
@@ -129,12 +129,14 @@ const threeDotsModalStyles = {
 function ThreeDotsModalComp(props) {
   const { classes } = props;
   return (
-    <div
-      open={props.threeDotsModal}
+    <Dialog
+      open={true}
+      //open={props.threeDotsModal}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
       onBackdropClick={() => props.toggleModal("threeDotsModal")}
-      className={classes.modal}
+      onEscapeKeyDown={() => props.toggleModal("threeDotsModal")}
+      classes={{ paper: classes.modal }}
     >
       <div className={classes.content}>
         <Typography
@@ -148,7 +150,7 @@ function ThreeDotsModalComp(props) {
           Create a group
         </Typography>
       </div>
-    </div>
+    </Dialog>
   );
 }
 
