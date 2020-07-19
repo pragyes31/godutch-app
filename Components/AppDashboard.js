@@ -336,7 +336,14 @@ const filterModalStyles = {
 function FilterModalComp(props) {
   const { classes } = props;
   return (
-    <div className={classes.modal}>
+    <Dialog
+      open={props.filterModal}
+      aria-labelledby="Add New friend modal"
+      aria-describedby="Add New friend modal"
+      onBackdropClick={() => props.toggleModal("addFriend")}
+      onEscapeKeyDown={() => props.toggleModal("addFriend")}
+      classes={{ paper: classes.modal }}
+    >
       <Typography className={classes.modalChild}>
         All {props.tabName}
       </Typography>
@@ -349,7 +356,7 @@ function FilterModalComp(props) {
       <div className={classes.modalChild}>
         {props.tabName === "friends" ? "friends who" : "groups that"} owe you
       </div>
-    </div>
+    </Dialog>
   );
 }
 
