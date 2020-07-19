@@ -231,7 +231,7 @@ function NavBarComp(props) {
         className={activityClass}
         onClick={() => props.switchTab("activityTab")}
       >
-        groups
+        activities
       </Typography>
     </div>
   );
