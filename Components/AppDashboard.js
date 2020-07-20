@@ -3,7 +3,9 @@ import { Modal } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import FilterListIcon from "@material-ui/icons/FilterList";
-
+import MenuIcon from "@material-ui/icons/Menu";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import CropFreeIcon from "@material-ui/icons/CropFree";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
@@ -11,7 +13,8 @@ import {
   MonetizationOnIcon,
   CropFreeIcon,
   MoreVertIcon,
-  MenuIcon
+  MenuIcon,
+  FilterListIcon
 } from "@material-ui/icons";
 
 const headerStyles = {
