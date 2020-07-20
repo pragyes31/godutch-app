@@ -66,7 +66,7 @@ const optionsModalStyles = {
     minHeight: "100vh",
     position: "relative",
     right: "149px",
-    width:"300px"
+    width: "300px"
   },
   content: {
     outline: "none",
@@ -78,7 +78,8 @@ function OptionsModalComp(props) {
   const { classes } = props;
   return (
     <Dialog
-      open={props.optionsModal}
+      open={true}
+      //open={props.optionsModal}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
       onBackdropClick={() => props.toggleModal("optionsModal")}
@@ -86,12 +87,35 @@ function OptionsModalComp(props) {
       classes={{ paper: classes.fullModal }}
     >
       <div className={classes.content}>
+        <UserInfo />
       </div>
     </Dialog>
   );
 }
 
 const OptionsModal = withStyles(optionsModalStyles)(OptionsModalComp);
+
+const userInfoStyles = {
+  userInfo: {
+    height: "20vh",
+    backgroundImage: `url("https://bit.ly/3hhJY0p")`
+  }
+};
+
+function UserInfoComp(props) {
+  const { classes } = props;
+  return (
+    <div className={classes.userInfo}>
+      <div className="row1">1</div>
+      <div className="row2">
+        <div className="name">Rahul Nayak</div>
+        <div className="emailId">rahulnayak@electroons.com</div>
+      </div>
+    </div>
+  );
+}
+
+const UserInfo = withStyles(userInfoStyles)(UserInfoComp);
 
 const threeDotsModalStyles = {
   modal: {
@@ -270,7 +294,7 @@ function AddFriendComp(props) {
 
 const AddFriend = withStyles(addFriendStyles)(AddFriendComp);
 
-const userInfoStyles = {
+const userBalanceStyles = {
   userInfo: {
     display: "flex",
     justifyContent: "space-around",
@@ -301,7 +325,7 @@ function UserBalanceComp(props) {
   );
 }
 
-const UserBalance = withStyles(userInfoStyles)(UserBalanceComp);
+const UserBalance = withStyles(userBalanceStyles)(UserBalanceComp);
 
 const filterModalStyles = {
   modal: {
