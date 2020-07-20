@@ -100,6 +100,11 @@ const userInfoStyles = {
     height: "20vh",
     backgroundImage: `url("https://bit.ly/2DW30uR")`
   },
+  row1: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between"
+  },
   avatar: {
     width: "50px",
     height: "50px",
@@ -115,7 +120,7 @@ function UserInfoComp(props) {
     <div className={classes.userInfo}>
       <div className={classes.row1}>
         <div className={classes.avatar} />
-        <CropFreeIcon />
+        <CropFreeIcon className={classes.icon} />
       </div>
       <div className="row2">
         <div className="name">Rahul Nayak</div>
