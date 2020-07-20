@@ -97,20 +97,34 @@ const OptionsModal = withStyles(optionsModalStyles)(OptionsModalComp);
 
 const userInfoStyles = {
   userInfo: {
-    height: "20vh",
+    height: "25vh",
     backgroundImage: `url("https://bit.ly/2DW30uR")`
   },
   row1: {
     width: "100%",
     display: "flex",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    paddingTop: "15px",
+    marginBottom: "30px"
   },
   avatar: {
     width: "50px",
     height: "50px",
     borderRadius: "50%",
     backgroundImage: `url("https://bit.ly/2UhwGb4")`,
-    border: "3px solid #00b8a9"
+    border: "3px solid #00b8a9",
+    marginLeft: "15px"
+  },
+  icon: {
+    marginRight: "10px",
+    display: "flex",
+    alignItems: "center"
+  },
+  row2: {
+    marginLeft: "10px"
+  },
+  name: {
+    marginBottom: "5px"
   }
 };
 
@@ -120,10 +134,12 @@ function UserInfoComp(props) {
     <div className={classes.userInfo}>
       <div className={classes.row1}>
         <div className={classes.avatar} />
-        <CropFreeIcon className={classes.icon} />
+        <div className={classes.icon}>
+          <CropFreeIcon />
+        </div>
       </div>
-      <div className="row2">
-        <div className="name">Rahul Nayak</div>
+      <div className={classes.row2}>
+        <div className={classes.name}>Rahul Nayak</div>
         <div className="emailId">rahulnayak@electroons.com</div>
       </div>
     </div>
