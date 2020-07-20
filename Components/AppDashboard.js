@@ -65,10 +65,10 @@ const optionsModalStyles = {
     maxHeight: "100vh",
     minHeight: "100vh",
     position: "relative",
-    right: "186px"
+    right: "149px",
+    width:"300px"
   },
   content: {
-    backgroundColor: "rgb(245, 234, 234)",
     outline: "none",
     minHeight: "100vh"
   }
@@ -86,7 +86,6 @@ function OptionsModalComp(props) {
       classes={{ paper: classes.fullModal }}
     >
       <div className={classes.content}>
-        <UserInfo />
       </div>
     </Dialog>
   );
@@ -287,7 +286,7 @@ const userInfoStyles = {
   }
 };
 
-function UserInfoComp(props) {
+function UserBalanceComp(props) {
   const { classes } = props;
   return (
     <div className={classes.userInfo}>
@@ -302,7 +301,7 @@ function UserInfoComp(props) {
   );
 }
 
-const UserInfo = withStyles(userInfoStyles)(UserInfoComp);
+const UserBalance = withStyles(userInfoStyles)(UserBalanceComp);
 
 const filterModalStyles = {
   modal: {
@@ -424,7 +423,7 @@ function FriendsTabComp(props) {
   return (
     <div className={props.tabName}>
       <div className={classes.user}>
-        <UserInfo />
+        <UserBalance />
         <div className={classes.filter}>
           <FilterListIcon
             className={classes.filterBtn}
@@ -452,7 +451,7 @@ function GroupsTabComp(props) {
   return (
     <div className={props.tabName}>
       <div className={classes.user}>
-        <UserInfo />
+        <UserBalance />
         <div className={classes.filter}>
           <FilterListIcon
             className={classes.filterBtn}
