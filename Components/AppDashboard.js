@@ -9,6 +9,8 @@ import CropFreeIcon from "@material-ui/icons/CropFree";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
+import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
+// import {MonetizationOnIcon, CropFreeIcon, MoreVertIcon, MenuIcon} from "@material-ui/icons";
 
 const headerStyles = {
   header: {
@@ -88,6 +90,7 @@ function OptionsModalComp(props) {
     >
       <div className={classes.content}>
         <UserInfo />
+        <ProVersion />
       </div>
     </Dialog>
   );
@@ -97,15 +100,15 @@ const OptionsModal = withStyles(optionsModalStyles)(OptionsModalComp);
 
 const userInfoStyles = {
   userInfo: {
-    height: "25vh",
+    height: "20vh",
     backgroundImage: `url("https://bit.ly/2DW30uR")`
   },
   row1: {
     width: "100%",
     display: "flex",
     justifyContent: "space-between",
-    paddingTop: "15px",
-    marginBottom: "30px"
+    paddingTop: "10px",
+    marginBottom: "15px"
   },
   avatar: {
     width: "50px",
@@ -147,6 +150,23 @@ function UserInfoComp(props) {
 }
 
 const UserInfo = withStyles(userInfoStyles)(UserInfoComp);
+
+const proVersionStyles = {};
+
+function ProVersionComp(props) {
+  const { classes } = props;
+  return (
+    <div className="proVersion">
+      <div className="proDetails">
+        <div className="icon" />
+        <div className="details" />
+      </div>
+      <div className="button" />
+    </div>
+  );
+}
+
+const ProVersion = withStyles(proVersionStyles)(ProVersionComp);
 
 const threeDotsModalStyles = {
   modal: {
