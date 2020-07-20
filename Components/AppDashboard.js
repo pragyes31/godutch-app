@@ -5,6 +5,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import MenuIcon from "@material-ui/icons/Menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import CropFreeIcon from "@material-ui/icons/CropFree";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
@@ -78,8 +79,7 @@ function OptionsModalComp(props) {
   const { classes } = props;
   return (
     <Dialog
-      open={true}
-      //open={props.optionsModal}
+      open={props.optionsModal}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
       onBackdropClick={() => props.toggleModal("optionsModal")}
@@ -98,7 +98,14 @@ const OptionsModal = withStyles(optionsModalStyles)(OptionsModalComp);
 const userInfoStyles = {
   userInfo: {
     height: "20vh",
-    backgroundImage: `url("https://bit.ly/3hhJY0p")`
+    backgroundImage: `url("https://bit.ly/2DW30uR")`
+  },
+  avatar: {
+    width: "50px",
+    height: "50px",
+    borderRadius: "50%",
+    backgroundImage: `url("https://bit.ly/2UhwGb4")`,
+    border: "3px solid #00b8a9"
   }
 };
 
@@ -106,7 +113,10 @@ function UserInfoComp(props) {
   const { classes } = props;
   return (
     <div className={classes.userInfo}>
-      <div className="row1">1</div>
+      <div className={classes.row1}>
+        <div className={classes.avatar} />
+        <CropFreeIcon />
+      </div>
       <div className="row2">
         <div className="name">Rahul Nayak</div>
         <div className="emailId">rahulnayak@electroons.com</div>
