@@ -443,7 +443,7 @@ const filterModalStyles = {
     height: "150px",
     position: "absolute",
     top: "90px",
-    right: "50px",
+    right: "100px",
     zIndex: 999,
     display: "flex",
     justifyContent: "space-around",
