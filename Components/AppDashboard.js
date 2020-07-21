@@ -19,7 +19,7 @@ import Dialog from "@material-ui/core/Dialog";
 // } from "@material-ui/icons";
 
 const headerStyles = {
-  header: { 
+  header: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -97,6 +97,8 @@ function OptionsModalComp(props) {
       <div className={classes.content}>
         <UserInfo />
         <ProVersion />
+        <OptionsMenuItem icon={MoreVertIcon} text="home" />
+        <div className={classes.menu} />
       </div>
     </Dialog>
   );
@@ -211,6 +213,20 @@ function ProVersionComp(props) {
 }
 
 const ProVersion = withStyles(proVersionStyles)(ProVersionComp);
+
+const optionsMenuItemStyles = {};
+
+function optionsMenuItemComp(props) {
+  const { classes } = props;
+  return (
+    <div className={classes.menuItem}>
+      <div className={classes.icon}>{props.icon}</div>
+      <div className="text">{props.text}</div>
+    </div>
+  );
+}
+
+const OptionsMenuItem = withStyles(optionsMenuItemStyles)(optionsMenuItemComp);
 
 const threeDotsModalStyles = {
   modal: {
