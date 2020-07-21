@@ -264,8 +264,7 @@ function ThreeDotsModalComp(props) {
   const { classes } = props;
   return (
     <Dialog
-      open={true}
-      //open={props.threeDotsModal}
+      open={props.threeDotsModal}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
       onBackdropClick={() => props.toggleModal("threeDotsModal")}
@@ -443,8 +442,8 @@ const filterModalStyles = {
     width: "280px",
     height: "150px",
     position: "absolute",
-    top: "25px",
-    right: "25px",
+    top: "90px",
+    right: "50px",
     zIndex: 999,
     display: "flex",
     justifyContent: "space-around",
@@ -474,8 +473,8 @@ function FilterModalComp(props) {
       open={props.filterModal}
       aria-labelledby="Add New friend modal"
       aria-describedby="Add New friend modal"
-      onBackdropClick={() => props.toggleModal("addFriend")}
-      onEscapeKeyDown={() => props.toggleModal("addFriend")}
+      onBackdropClick={() => props.toggleModal("filterModal")}
+      onEscapeKeyDown={() => props.toggleModal("filterModal")}
       classes={{ paper: classes.modal }}
     >
       <Typography className={classes.modalChild}>
@@ -564,7 +563,7 @@ function FriendsTabComp(props) {
             className={classes.filterBtn}
             onClick={() => props.toggleModal("filterModal")}
           />
-          {props.filterModal && <FilterModal tabName={props.tabName} />}
+          {props.filterModal && <FilterModal tabName={props.tabName} filterModal={props.filterModal} toggleModal={props.toggleModal} />}
         </div>
       </div>
       <AddButtonLarge
@@ -592,7 +591,7 @@ function GroupsTabComp(props) {
             className={classes.filterBtn}
             onClick={() => props.toggleModal("filterModal")}
           />
-          {props.filterModal && <FilterModal tabName={props.tabName} />}
+          {props.filterModal && <FilterModal tabName={props.tabName} filterModal={props.filterModal} toggleModal={props.toggleModal} />}
         </div>
       </div>
       <AddButtonLarge
