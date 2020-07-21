@@ -6,16 +6,17 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import MenuIcon from "@material-ui/icons/Menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import CropFreeIcon from "@material-ui/icons/CropFree";
+import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
-import {
-  MonetizationOnIcon,
-  CropFreeIcon,
-  MoreVertIcon,
-  MenuIcon,
-  FilterListIcon
-} from "@material-ui/icons";
+// import {
+//   MonetizationOnIcon,
+//   CropFreeIcon,
+//   MoreVertIcon,
+//   MenuIcon,
+//   FilterListIcon
+// } from "@material-ui/icons";
 
 const headerStyles = {
   header: {
@@ -130,9 +131,6 @@ const userInfoStyles = {
   },
   row2: {
     marginLeft: "10px"
-  },
-  name: {
-    marginBottom: "5px"
   }
 };
 
@@ -156,15 +154,27 @@ function UserInfoComp(props) {
 
 const UserInfo = withStyles(userInfoStyles)(UserInfoComp);
 
-const proVersionStyles = {};
+const proVersionStyles = {
+  proDetails: {
+    display: "flex"
+  }
+};
 
 function ProVersionComp(props) {
   const { classes } = props;
   return (
-    <div className="proVersion">
+    <div className={classes.proDetails}>
       <div className="proDetails">
-        <div className="icon" />
-        <div className="details" />
+        <div className="icon">
+          <MonetizationOnIcon />
+        </div>
+        <div className="details">
+          <p className={classes.title}>Get Go-Dutch Pro!</p>
+          <p>
+            Subscribe to Go-Dutch Pro for receipt, scanning, no ads, currency
+            conversion, charts, search and more.
+          </p>
+        </div>
       </div>
       <div className="button" />
     </div>
