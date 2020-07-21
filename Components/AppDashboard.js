@@ -19,7 +19,7 @@ import Dialog from "@material-ui/core/Dialog";
 // } from "@material-ui/icons";
 
 const headerStyles = {
-  header: {
+  header: { 
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -155,28 +155,57 @@ function UserInfoComp(props) {
 const UserInfo = withStyles(userInfoStyles)(UserInfoComp);
 
 const proVersionStyles = {
+  proVersion: {
+    height: "22vh",
+    backgroundColor: "#eee",
+    padding: "0px 7px"
+  },
   proDetails: {
     display: "flex"
+  },
+  icon: {
+    width: "20px",
+    marginRight: "5px",
+    marginTop: "22px",
+    color: "#4a266c"
+  },
+  details: {
+    fontSize: "12px",
+    padding: "10px 10px 0px 10px"
+  },
+  title: {
+    fontWeight: "bold",
+    marginBottom: 0
+  },
+  sub: {
+    marginTop: "5px"
+  },
+  button: {
+    marginLeft: "35px"
   }
 };
 
 function ProVersionComp(props) {
   const { classes } = props;
   return (
-    <div className={classes.proDetails}>
-      <div className="proDetails">
-        <div className="icon">
+    <div className={classes.proVersion}>
+      <div className={classes.proDetails}>
+        <div className={classes.icon}>
           <MonetizationOnIcon />
         </div>
-        <div className="details">
+        <div className={classes.details}>
           <p className={classes.title}>Get Go-Dutch Pro!</p>
-          <p>
+          <p className={classes.sub}>
             Subscribe to Go-Dutch Pro for receipt, scanning, no ads, currency
             conversion, charts, search and more.
           </p>
         </div>
       </div>
-      <div className="button" />
+      <div className={classes.button}>
+        <Button variant="contained" color="secondary">
+          learn more
+        </Button>
+      </div>
     </div>
   );
 }
