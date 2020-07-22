@@ -97,7 +97,7 @@ function OptionsModalComp(props) {
       <div className={classes.content}>
         <UserInfo />
         <ProVersion />
-        <OptionsMenuItem icon={MoreVertIcon} text="home" />
+        <OptionsMenuItem text="home" />
         <div className={classes.menu} />
       </div>
     </Dialog>
@@ -234,8 +234,7 @@ const threeDotsModalStyles = {
     height: "100px",
     position: "relative",
     bottom: "255px",
-    left: "188px",
-    zIndex: 999
+    left: "188px"
   },
   content: {
     height: "100px",
@@ -441,10 +440,9 @@ const filterModalStyles = {
   modal: {
     width: "280px",
     height: "150px",
-    position: "absolute",
-    top: "90px",
-    right: "100px",
-    zIndex: 999,
+    position: "relative",
+    bottom: "130px",
+    left: "50px",
     display: "flex",
     justifyContent: "space-around",
     alignItems: "left",
@@ -563,7 +561,13 @@ function FriendsTabComp(props) {
             className={classes.filterBtn}
             onClick={() => props.toggleModal("filterModal")}
           />
-          {props.filterModal && <FilterModal tabName={props.tabName} filterModal={props.filterModal} toggleModal={props.toggleModal} />}
+          {props.filterModal && (
+            <FilterModal
+              tabName={props.tabName}
+              filterModal={props.filterModal}
+              toggleModal={props.toggleModal}
+            />
+          )}
         </div>
       </div>
       <AddButtonLarge
@@ -591,7 +595,13 @@ function GroupsTabComp(props) {
             className={classes.filterBtn}
             onClick={() => props.toggleModal("filterModal")}
           />
-          {props.filterModal && <FilterModal tabName={props.tabName} filterModal={props.filterModal} toggleModal={props.toggleModal} />}
+          {props.filterModal && (
+            <FilterModal
+              tabName={props.tabName}
+              filterModal={props.filterModal}
+              toggleModal={props.toggleModal}
+            />
+          )}
         </div>
       </div>
       <AddButtonLarge
