@@ -259,6 +259,12 @@ const appInfoStyles = {
   icon: {
     fontSize: "11px",
     color: "red"
+  },
+  para1: {
+    marginBottom: "0px"
+  },
+  para2: {
+    marginTop: "0px"
   }
 };
 
@@ -266,10 +272,12 @@ function AppInfoComp(props) {
   const { classes } = props;
   return (
     <div className={classes.appInfo}>
-      <p>
+      <p className={classes.para1}>
         Made with <FavoriteIcon className={classes.icon} /> in India.
       </p>
-      <p>Free to use, just give credit where due :P</p>
+      <p className={classes.para2}>
+        Free to use, just give credit where due :P
+      </p>
     </div>
   );
 }
