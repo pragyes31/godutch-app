@@ -230,7 +230,9 @@ const optionsMenuItemStyles = {
   menuItem: {
     display: "flex",
     margin: "5px 0px 10px 20px",
-    alignItems: "center"
+    alignItems: "center",
+    color: "#757575",
+    cursor: "pointer"
   },
   icon: {
     marginRight: "20px"
