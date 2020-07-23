@@ -7,16 +7,15 @@ import MenuIcon from "@material-ui/icons/Menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import CropFreeIcon from "@material-ui/icons/CropFree";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
+import SettingsIcon from '@material-ui/icons/Settings';
+import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import RateReviewIcon from '@material-ui/icons/RateReview';
+import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
+import HomeIcon from '@material-ui/icons/Home';
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
-// import {
-//   MonetizationOnIcon,
-//   CropFreeIcon,
-//   MoreVertIcon,
-//   MenuIcon,
-//   FilterListIcon
-// } from "@material-ui/icons";
 
 const headerStyles = {
   header: {
@@ -80,6 +79,9 @@ const optionsModalStyles = {
   content: {
     outline: "none",
     minHeight: "100vh"
+  },
+  menu: {
+    marginTop:"20px"
   }
 };
 
@@ -97,8 +99,9 @@ function OptionsModalComp(props) {
       <div className={classes.content}>
         <UserInfo />
         <ProVersion />
-        <OptionsMenuItem text="home" icon={<CropFreeIcon />} />
-        <OptionsMenuItem text="home" icon={<CropFreeIcon />} />
+        <div className={classes.menu}>
+        <OptionsMenuItem text="Home" icon={<HomeIcon />} />
+        <OptionsMenuItem text="Settings" icon={<SettingsIcon />} /></div>
         <div className={classes.menu} />
       </div>
     </Dialog>
@@ -218,13 +221,11 @@ const ProVersion = withStyles(proVersionStyles)(ProVersionComp);
 const optionsMenuItemStyles = {
   menuItem: {
     display: "flex",
-    margin: "5px 0px 5px 20px",
-    height: "15vh",
+    margin: "5px 0px 10px 20px",
     alignItems: "center"
   },
-  text: {
-    height: "15vh",
-    display: "flex"
+  icon: {
+    marginRight:"20px"
   }
 };
 
