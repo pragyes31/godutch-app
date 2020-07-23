@@ -10,9 +10,10 @@ import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import SettingsIcon from "@material-ui/icons/Settings";
 import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import RateReviewIcon from "@material-ui/icons/RateReview";
-import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
 import HomeIcon from "@material-ui/icons/Home";
+import MailIcon from "@material-ui/icons/Mail";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
@@ -103,12 +104,10 @@ function OptionsModalComp(props) {
           <OptionsMenuItem text="Home" icon={<HomeIcon />} />
           <OptionsMenuItem text="Settings" icon={<SettingsIcon />} />
           <OptionsMenuItem text="Scan code" icon={<CropFreeIcon />} />
-          <OptionsMenuItem text="Rate Splitwise" icon={<RateReviewIcon />} />
-          <OptionsMenuItem
-            text="Contact us"
-            icon={<PermContactCalendarIcon />}
-          />
+          <OptionsMenuItem text="Rate Go-Dutch" icon={<RateReviewIcon />} />
+          <OptionsMenuItem text="Contact us" icon={<MailIcon />} />
           <OptionsMenuItem text="Log out" icon={<ExitToAppIcon />} />
+          <AppInfo icon={<FavoriteIcon />} />
         </div>
         <div className={classes.menu} />
       </div>
@@ -250,6 +249,32 @@ function optionsMenuItemComp(props) {
 }
 
 const OptionsMenuItem = withStyles(optionsMenuItemStyles)(optionsMenuItemComp);
+
+const appInfoStyles = {
+  appInfo: {
+    margin: "40px 0px 0px 25px",
+    color: "#757575",
+    fontSize: "12px"
+  },
+  icon: {
+    fontSize: "11px",
+    color: "red"
+  }
+};
+
+function AppInfoComp(props) {
+  const { classes } = props;
+  return (
+    <div className={classes.appInfo}>
+      <p>
+        Made with <FavoriteIcon className={classes.icon} /> in India.
+      </p>
+      <p>Free to use, just give credit where due :P</p>
+    </div>
+  );
+}
+
+const AppInfo = withStyles(appInfoStyles)(AppInfoComp);
 
 const threeDotsModalStyles = {
   modal: {
