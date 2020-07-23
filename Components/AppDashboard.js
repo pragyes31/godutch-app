@@ -7,12 +7,12 @@ import MenuIcon from "@material-ui/icons/Menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import CropFreeIcon from "@material-ui/icons/CropFree";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
-import SettingsIcon from '@material-ui/icons/Settings';
-import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import RateReviewIcon from '@material-ui/icons/RateReview';
-import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
-import HomeIcon from '@material-ui/icons/Home';
+import SettingsIcon from "@material-ui/icons/Settings";
+import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import RateReviewIcon from "@material-ui/icons/RateReview";
+import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
+import HomeIcon from "@material-ui/icons/Home";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
@@ -81,7 +81,7 @@ const optionsModalStyles = {
     minHeight: "100vh"
   },
   menu: {
-    marginTop:"20px"
+    marginTop: "20px"
   }
 };
 
@@ -100,8 +100,16 @@ function OptionsModalComp(props) {
         <UserInfo />
         <ProVersion />
         <div className={classes.menu}>
-        <OptionsMenuItem text="Home" icon={<HomeIcon />} />
-        <OptionsMenuItem text="Settings" icon={<SettingsIcon />} /></div>
+          <OptionsMenuItem text="Home" icon={<HomeIcon />} />
+          <OptionsMenuItem text="Settings" icon={<SettingsIcon />} />
+          <OptionsMenuItem text="Scan code" icon={<CropFreeIcon />} />
+          <OptionsMenuItem text="Rate Splitwise" icon={<RateReviewIcon />} />
+          <OptionsMenuItem
+            text="Contact us"
+            icon={<PermContactCalendarIcon />}
+          />
+          <OptionsMenuItem text="Log out" icon={<ExitToAppIcon />} />
+        </div>
         <div className={classes.menu} />
       </div>
     </Dialog>
@@ -225,7 +233,7 @@ const optionsMenuItemStyles = {
     alignItems: "center"
   },
   icon: {
-    marginRight:"20px"
+    marginRight: "20px"
   }
 };
 
