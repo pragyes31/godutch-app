@@ -97,7 +97,8 @@ function OptionsModalComp(props) {
       <div className={classes.content}>
         <UserInfo />
         <ProVersion />
-        <OptionsMenuItem text="home" />
+        <OptionsMenuItem text="home" icon={<CropFreeIcon />} />
+        <OptionsMenuItem text="home" icon={<CropFreeIcon />} />
         <div className={classes.menu} />
       </div>
     </Dialog>
@@ -214,7 +215,18 @@ function ProVersionComp(props) {
 
 const ProVersion = withStyles(proVersionStyles)(ProVersionComp);
 
-const optionsMenuItemStyles = {};
+const optionsMenuItemStyles = {
+  menuItem: {
+    display: "flex",
+    margin: "5px 0px 5px 20px",
+    height: "15vh",
+    alignItems: "center"
+  },
+  text: {
+    height: "15vh",
+    display: "flex"
+  }
+};
 
 function optionsMenuItemComp(props) {
   const { classes } = props;
