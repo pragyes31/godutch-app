@@ -20,6 +20,7 @@ import Dialog from "@material-ui/core/Dialog";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import TextField from "@material-ui/core/TextField";
 
 const headerStyles = {
   header: {
@@ -433,7 +434,11 @@ const NavBar = withStyles(navBarStyles)(NavBarComp);
 
 const addFriendStyles = {
   addFriend: {
-    maxWidth: "600px"
+    maxWidth: "600px",
+    display: "flex"
+  },
+  friendForm: {
+    display: "inline"
   },
   arrow: {
     cursor: "pointer"
@@ -450,16 +455,20 @@ function AddFriendComp(props) {
       <Dialog
         fullScreen={true}
         open={props.addFriendModal}
+        //open={true}
         aria-labelledby="Add New friend modal"
         aria-describedby="Add New friend modal"
         onBackdropClick={() => props.toggleModal("addFriend")}
         onEscapeKeyDown={() => props.toggleModal("addFriend")}
         classes={{ paper: classes.addFriend }}
       >
-        <ArrowBackIcon className={classes.arrow} />
-        <Typography variant="subtitle1" className={classes.content}>
-          Add friend Modal windowwwww
-        </Typography>
+        <ArrowBackIcon
+          className={classes.arrow}
+          onClick={() => props.toggleModal("addFriend")}
+        />
+        <form className={classes.friendForm} noValidate>
+          <TextField id="add-friend-field" label="Add Friend Modal" />
+        </form>
       </Dialog>
     </div>
   );
