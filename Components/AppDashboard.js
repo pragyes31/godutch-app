@@ -17,6 +17,8 @@ import MailIcon from "@material-ui/icons/Mail";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 
 const headerStyles = {
   header: {
@@ -231,7 +233,8 @@ const optionsMenuItemStyles = {
     margin: "5px 0px 10px 20px",
     alignItems: "center",
     color: "#757575",
-    cursor: "pointer"
+    cursor: "pointer",
+    height: "5vh"
   },
   icon: {
     marginRight: "20px"
@@ -273,7 +276,7 @@ function AppInfoComp(props) {
   return (
     <div className={classes.appInfo}>
       <p className={classes.para1}>
-        Made with <FavoriteIcon className={classes.icon} /> in India.
+        Made with <FavoriteIcon className={classes.icon} /> somewhere in India.
       </p>
       <p className={classes.para2}>
         Free to use, just give credit where due :P
