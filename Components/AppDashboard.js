@@ -19,6 +19,7 @@ import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 const headerStyles = {
   header: {
@@ -432,8 +433,10 @@ const NavBar = withStyles(navBarStyles)(NavBarComp);
 
 const addFriendStyles = {
   addFriend: {
-    height: "300px",
-    width: "450px"
+    maxWidth: "600px"
+  },
+  arrow: {
+    cursor: "pointer"
   },
   content: {
     backgroundColor: "#fff"
@@ -445,6 +448,7 @@ function AddFriendComp(props) {
   return (
     <div className={classes.addFriend}>
       <Dialog
+        fullScreen={true}
         open={props.addFriendModal}
         aria-labelledby="Add New friend modal"
         aria-describedby="Add New friend modal"
@@ -452,6 +456,7 @@ function AddFriendComp(props) {
         onEscapeKeyDown={() => props.toggleModal("addFriend")}
         classes={{ paper: classes.addFriend }}
       >
+        <ArrowBackIcon className={classes.arrow} />
         <Typography variant="subtitle1" className={classes.content}>
           Add friend Modal windowwwww
         </Typography>
