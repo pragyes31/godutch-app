@@ -437,14 +437,12 @@ const addFriendStyles = {
     maxWidth: "600px",
     display: "flex"
   },
-  friendForm: {
+  arrow: {
+    cursor: "pointer",
     display: "inline"
   },
-  arrow: {
-    cursor: "pointer"
-  },
-  content: {
-    backgroundColor: "#fff"
+  friendForm: {
+    maxWidth: "100%"
   }
 };
 
@@ -467,7 +465,7 @@ function AddFriendComp(props) {
           onClick={() => props.toggleModal("addFriend")}
         />
         <form className={classes.friendForm} noValidate>
-          <TextField id="add-friend-field" label="Add Friend Modal" />
+          <TextField id="add-friend-field" label="Add Friend" />
         </form>
       </Dialog>
     </div>
