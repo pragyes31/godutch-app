@@ -21,6 +21,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import TextField from "@material-ui/core/TextField";
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
 
 const headerStyles = {
   header: {
@@ -441,8 +442,27 @@ const addFriendStyles = {
     cursor: "pointer",
     display: "inline"
   },
-  friendForm: {
-    maxWidth: "100%"
+  textField: {
+    width: "100%"
+  },
+  addForm: {
+    marginTop: "10px",
+    height: "30px",
+    display: "flex",
+    alignItems: "center",
+    marginLeft: "10px"
+  },
+  addIcon: {
+    color: "#fff",
+    border: "6px solid #38a385",
+    borderRadius: "50%",
+    height: "17px",
+    width: "17px",
+    backgroundColor: "#38a385",
+    marginRight: "10px"
+  },
+  addPara: {
+    fontSize: "1.8em"
   }
 };
 
@@ -453,7 +473,7 @@ function AddFriendComp(props) {
       <Dialog
         fullScreen={true}
         open={props.addFriendModal}
-        //open={true}
+        open={true}
         aria-labelledby="Add New friend modal"
         aria-describedby="Add New friend modal"
         onBackdropClick={() => props.toggleModal("addFriend")}
@@ -465,8 +485,19 @@ function AddFriendComp(props) {
           onClick={() => props.toggleModal("addFriend")}
         />
         <form className={classes.friendForm} noValidate>
-          <TextField id="add-friend-field" label="Add Friend" />
+          <TextField
+            id="add-friend-field"
+            label="Add Friend"
+            className={classes.textField}
+          />
         </form>
+
+        <div className={classes.addForm}>
+          <PersonAddIcon className={classes.addIcon} />
+          <Typography variant="subtitle1" className="addPara">
+            Add a new contact to Go-Dutch
+          </Typography>
+        </div>
       </Dialog>
     </div>
   );
