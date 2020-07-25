@@ -433,6 +433,60 @@ function NavBarComp(props) {
 
 const NavBar = withStyles(navBarStyles)(NavBarComp);
 
+class AddFriendComp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: ""
+    };
+  }
+
+  handleChange = e => {
+    console.log(this.state);
+    this.setState({ text: e.target.value });
+  };
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.addFriend}>
+        <Dialog
+          fullScreen={true}
+          open={this.props.addFriendModal}
+          //open={true}
+          aria-labelledby="Add New friend modal"
+          aria-describedby="Add New friend modal"
+          onBackdropClick={() => this.props.toggleModal("addFriend")}
+          onEscapeKeyDown={() => this.props.toggleModal("addFriend")}
+          classes={{ paper: classes.addFriend }}
+        >
+          <ArrowBackIcon
+            className={classes.arrow}
+            onClick={() => this.props.toggleModal("addFriend")}
+          />
+          <form className={classes.friendForm}>
+            <TextField
+              id="add-friend-field"
+              label="Add Friend"
+              className={classes.textField}
+              onChange={this.handleChange}
+              value={this.state.text}
+            />
+          </form>
+
+          <div className={classes.addForm}>
+            <PersonAddIcon className={classes.addIcon} />
+            <Typography variant="subtitle1" className="addPara">
+              {this.state.text
+                ? `Add ${this.state.text} to Go-Dutch`
+                : "Add a new contact to Go-Dutch"}
+            </Typography>
+          </div>
+        </Dialog>
+      </div>
+    );
+  }
+}
+
 const addFriendStyles = {
   addFriend: {
     maxWidth: "600px",
@@ -450,7 +504,8 @@ const addFriendStyles = {
     height: "30px",
     display: "flex",
     alignItems: "center",
-    marginLeft: "10px"
+    marginLeft: "10px",
+    cursor: "pointer"
   },
   addIcon: {
     color: "#fff",
@@ -460,20 +515,17 @@ const addFriendStyles = {
     width: "17px",
     backgroundColor: "#38a385",
     marginRight: "10px"
-  },
-  addPara: {
-    fontSize: "1.8em"
   }
 };
 
-function AddFriendComp(props) {
+function AddFriendComp1(props) {
   const { classes } = props;
   return (
     <div className={classes.addFriend}>
       <Dialog
         fullScreen={true}
         open={props.addFriendModal}
-        open={true}
+        //open={true}
         aria-labelledby="Add New friend modal"
         aria-describedby="Add New friend modal"
         onBackdropClick={() => props.toggleModal("addFriend")}
