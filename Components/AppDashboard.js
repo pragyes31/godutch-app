@@ -295,7 +295,7 @@ const threeDotsModalStyles = {
     width: "180px",
     height: "100px",
     position: "relative",
-    bottom: "255px",
+    bottom: "310px",
     left: "188px"
   },
   content: {
@@ -517,43 +517,6 @@ const addFriendStyles = {
     marginRight: "10px"
   }
 };
-
-function AddFriendComp1(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.addFriend}>
-      <Dialog
-        fullScreen={true}
-        open={props.addFriendModal}
-        //open={true}
-        aria-labelledby="Add New friend modal"
-        aria-describedby="Add New friend modal"
-        onBackdropClick={() => props.toggleModal("addFriend")}
-        onEscapeKeyDown={() => props.toggleModal("addFriend")}
-        classes={{ paper: classes.addFriend }}
-      >
-        <ArrowBackIcon
-          className={classes.arrow}
-          onClick={() => props.toggleModal("addFriend")}
-        />
-        <form className={classes.friendForm} noValidate>
-          <TextField
-            id="add-friend-field"
-            label="Add Friend"
-            className={classes.textField}
-          />
-        </form>
-
-        <div className={classes.addForm}>
-          <PersonAddIcon className={classes.addIcon} />
-          <Typography variant="subtitle1" className="addPara">
-            Add a new contact to Go-Dutch
-          </Typography>
-        </div>
-      </Dialog>
-    </div>
-  );
-}
 
 const AddFriend = withStyles(addFriendStyles)(AddFriendComp);
 
