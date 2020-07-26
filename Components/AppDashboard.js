@@ -643,28 +643,6 @@ const friendsTabStyles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
-  },
-  addFriend: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "20px",
-    "&:hover": {
-      backgroundColor: "grey"
-    }
-  },
-  addGroup: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "20px",
-    "&:hover": {
-      backgroundColor: "grey"
-    }
-  },
-  addBtn: {
-    width: "90%",
-    backgroundColor: "lightgrey"
   }
 };
 
@@ -688,11 +666,7 @@ function FriendsTabComp(props) {
           )}
         </div>
       </div>
-      <AddButtonLarge
-        parentClass={classes.addFriend}
-        childClass={classes.addBtn}
-        tabName={props.tabName}
-      />
+      <AddButtonLarge tabName={props.tabName} />
       <div />
     </div>
   );
@@ -700,7 +674,30 @@ function FriendsTabComp(props) {
 
 const FriendsTab = withStyles(friendsTabStyles)(FriendsTabComp);
 
-const groupsTabStyles = {};
+const groupsTabStyles = {
+  user: {
+    width: "100%",
+    height: "80px",
+    backgroundColor: "#eada82",
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center"
+  },
+  filter: {
+    position: "relative"
+  },
+  filterBtn: {
+    minWidth: "35px !important",
+    height: "30px !important",
+    border: "2px solid black",
+    borderRadius: "50%",
+    cursor: "pointer",
+    backgroundColor: "#fff",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  }
+};
 
 function GroupsTabComp(props) {
   const { classes } = props;
@@ -722,17 +719,13 @@ function GroupsTabComp(props) {
           )}
         </div>
       </div>
-      <AddButtonLarge
-        parentClass={classes.addGroup}
-        childClass={classes.addBtn}
-        tabName={props.tabName}
-      />
+      <AddButtonLarge tabName={props.tabName} />
       <div />
     </div>
   );
 }
 
-const GroupsTab = withStyles(friendsTabStyles)(GroupsTabComp);
+const GroupsTab = withStyles(groupsTabStyles)(GroupsTabComp);
 
 function ActivityTab() {
   return <div>You're inside Activity tab.</div>;
