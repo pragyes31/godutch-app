@@ -442,8 +442,12 @@ class AddFriendComp extends React.Component {
   }
 
   handleChange = e => {
-    console.log(this.state);
     this.setState({ text: e.target.value });
+  };
+  toggleModal = () => {
+    console.log(this.state);
+    this.setState({ text: "" });
+    this.props.toggleModal("addFriend");
   };
   render() {
     const { classes } = this.props;
@@ -455,14 +459,11 @@ class AddFriendComp extends React.Component {
           //open={true}
           aria-labelledby="Add New friend modal"
           aria-describedby="Add New friend modal"
-          onBackdropClick={() => this.props.toggleModal("addFriend")}
-          onEscapeKeyDown={() => this.props.toggleModal("addFriend")}
+          onBackdropClick={this.toggleModal}
+          onEscapeKeyDown={this.toggleModal}
           classes={{ paper: classes.addFriend }}
         >
-          <ArrowBackIcon
-            className={classes.arrow}
-            onClick={() => this.props.toggleModal("addFriend")}
-          />
+          <ArrowBackIcon className={classes.arrow} onClick={this.toggleModal} />
           <form className={classes.friendForm}>
             <TextField
               id="add-friend-field"
