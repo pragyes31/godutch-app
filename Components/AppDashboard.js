@@ -22,6 +22,7 @@ import Tab from "@material-ui/core/Tab";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import TextField from "@material-ui/core/TextField";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import Popover from '@material-ui/core/Popover';
 
 const headerStyles = {
   header: {
@@ -293,10 +294,7 @@ const AppInfo = withStyles(appInfoStyles)(AppInfoComp);
 const threeDotsModalStyles = {
   modal: {
     width: "180px",
-    height: "100px",
-    position: "relative",
-    bottom: "310px",
-    left: "188px"
+    height: "100px"
   },
   content: {
     height: "100px",
@@ -324,13 +322,19 @@ const threeDotsModalStyles = {
 function ThreeDotsModalComp(props) {
   const { classes } = props;
   return (
-    <Dialog
+    <Popover
       open={props.threeDotsModal}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
-      onBackdropClick={() => props.toggleModal("threeDotsModal")}
-      onEscapeKeyDown={() => props.toggleModal("threeDotsModal")}
-      classes={{ paper: classes.modal }}
+      className={classes.modal}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left'
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'left'
+      }}
     >
       <div className={classes.content}>
         <Typography
@@ -344,7 +348,8 @@ function ThreeDotsModalComp(props) {
           Create a group
         </Typography>
       </div>
-    </Dialog>
+
+    </Popover>
   );
 }
 
@@ -397,13 +402,13 @@ function NavBarComp(props) {
   const { classes } = props;
   let friendsClass = `${classes.items} ${
     props.openFriends ? `${classes.friendsActive}` : ""
-  }`;
+    }`;
   let groupsClass = `${classes.items} ${
     props.openGroups ? `${classes.groupsActive}` : ""
-  }`;
+    }`;
   let activityClass = `${classes.items} ${
     props.openActivity ? `${classes.activityActive}` : ""
-  }`;
+    }`;
   return (
     <div className={classes.navBar}>
       <Typography
@@ -785,7 +790,7 @@ export default class AppDashboard extends React.Component {
     console.log("add new friend");
   };
 
-  addExpense = () => {};
+  addExpense = () => { };
 
   toggleModal = modal => {
     switch (modal) {
