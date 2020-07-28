@@ -22,7 +22,7 @@ import Tab from "@material-ui/core/Tab";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import TextField from "@material-ui/core/TextField";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import Popover from '@material-ui/core/Popover';
+import Popover from "@material-ui/core/Popover";
 
 const headerStyles = {
   header: {
@@ -328,12 +328,12 @@ function ThreeDotsModalComp(props) {
       aria-describedby="simple-modal-description"
       className={classes.modal}
       anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'left'
+        vertical: "bottom",
+        horizontal: "left"
       }}
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'left'
+        vertical: "top",
+        horizontal: "left"
       }}
     >
       <div className={classes.content}>
@@ -348,7 +348,6 @@ function ThreeDotsModalComp(props) {
           Create a group
         </Typography>
       </div>
-
     </Popover>
   );
 }
@@ -402,13 +401,13 @@ function NavBarComp(props) {
   const { classes } = props;
   let friendsClass = `${classes.items} ${
     props.openFriends ? `${classes.friendsActive}` : ""
-    }`;
+  }`;
   let groupsClass = `${classes.items} ${
     props.openGroups ? `${classes.groupsActive}` : ""
-    }`;
+  }`;
   let activityClass = `${classes.items} ${
     props.openActivity ? `${classes.activityActive}` : ""
-    }`;
+  }`;
   return (
     <div className={classes.navBar}>
       <Typography
@@ -442,7 +441,8 @@ class AddFriendComp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ""
+      text: "",
+      addDetails: false
     };
   }
 
@@ -453,6 +453,10 @@ class AddFriendComp extends React.Component {
     console.log(this.state);
     this.setState({ text: "" });
     this.props.toggleModal("addFriend");
+  };
+  openAddDetails = () => {
+    this.setState({ addDetails: !this.state.addDetails });
+    console.log(this.state);
   };
   render() {
     const { classes } = this.props;
@@ -481,11 +485,16 @@ class AddFriendComp extends React.Component {
 
           <div className={classes.addForm}>
             <PersonAddIcon className={classes.addIcon} />
-            <Typography variant="subtitle1" className="addPara">
+            <Typography
+              variant="subtitle1"
+              className="addPara"
+              onClick={this.openAddDetails}
+            >
               {this.state.text
                 ? `Add ${this.state.text} to Go-Dutch`
                 : "Add a new contact to Go-Dutch"}
             </Typography>
+            <AddDetails openAddDetails={this.state.addDetails} />
           </div>
         </Dialog>
       </div>
@@ -525,6 +534,36 @@ const addFriendStyles = {
 };
 
 const AddFriend = withStyles(addFriendStyles)(AddFriendComp);
+
+const addDetailsStyles = {
+  addDetails: {
+    zIndex: 9999999
+  }
+};
+
+class AddDetailsComp extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    const { classes } = this.props;
+    return (
+      <Dialog
+        fullScreen={true}
+        open={this.props.openAddDetails}
+        aria-labelledby="Add New friend modal"
+        aria-describedby="Add New friend modal"
+        onBackdropClick={this.toggleModal}
+        onEscapeKeyDown={this.toggleModal}
+        classes={{ paper: classes.addDetails }}
+      >
+        Rahul
+      </Dialog>
+    );
+  }
+}
+
+const AddDetails = withStyles(addDetailsStyles)(AddDetailsComp);
 
 const userBalanceStyles = {
   userInfo: {
@@ -790,7 +829,7 @@ export default class AppDashboard extends React.Component {
     console.log("add new friend");
   };
 
-  addExpense = () => { };
+  addExpense = () => {};
 
   toggleModal = modal => {
     switch (modal) {
