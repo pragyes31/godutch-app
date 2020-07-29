@@ -84,30 +84,6 @@ class HeaderComp extends React.Component {
   }
 }
 
-// function HeaderComp(props) {
-//   const { classes } = props;
-//   return (
-//     <div className={classes.header}>
-//       <MenuIcon
-//         className={classes.hamburger}
-//         onClick={() => props.toggleModal("optionsModal")}
-//       />
-//       <Typography variant="h6" className={classes.title}>
-//         Go-Dutch App
-//       </Typography>
-//       <div onClick={() => props.toggleModal("threeDotsModal")}>
-//         <MoreVertIcon className={classes.dots} />
-//         {props.threeDotsModal && (
-//           <ThreeDotsModal
-//             threeDotsModal={props.threeDotsModal}
-//             toggleModal={props.toggleModal}
-//           />
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
-
 const Header = withStyles(headerStyles)(HeaderComp);
 
 const optionsModalStyles = {
@@ -328,11 +304,11 @@ const AppInfo = withStyles(appInfoStyles)(AppInfoComp);
 
 const threeDotsModalStyles = {
   modal: {
-    width: "180px",
-    height: "100px"
+    width: "150px",
+    height: "80px"
   },
   content: {
-    height: "100px",
+    height: "80px",
     backgroundColor: "rgb(245, 234, 234)",
     display: "flex",
     flexDirection: "column",
@@ -344,7 +320,7 @@ const threeDotsModalStyles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "50px",
+    height: "40px",
     width: "100%",
     cursor: "pointer",
     "&:hover": {
@@ -356,21 +332,22 @@ const threeDotsModalStyles = {
 
 function ThreeDotsModalComp(props) {
   const { classes } = props;
-  console.log(props.anchorRef);
   return (
     <Popover
       open={props.threeDotsModal}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
-      className={classes.modal}
+      onBackdropClick={() => props.toggleModal("threeDotsModal")}
+      onEscapeKeyDown={() => props.toggleModal("threeDotsModal")}
       anchorEl={props.anchorRef}
+      classes={{ paper: classes.modal }}
       anchorOrigin={{
         vertical: "bottom",
         horizontal: "left"
       }}
       transformOrigin={{
         vertical: "top",
-        horizontal: "left"
+        horizontal: "right"
       }}
     >
       <div className={classes.content}>
