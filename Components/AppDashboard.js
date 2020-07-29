@@ -49,29 +49,64 @@ const headerStyles = {
   }
 };
 
-function HeaderComp(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.header}>
-      <MenuIcon
-        className={classes.hamburger}
-        onClick={() => props.toggleModal("optionsModal")}
-      />
-      <Typography variant="h6" className={classes.title}>
-        Go-Dutch App
-      </Typography>
-      <div onClick={() => props.toggleModal("threeDotsModal")}>
-        <MoreVertIcon className={classes.dots} />
-        {props.threeDotsModal && (
-          <ThreeDotsModal
-            threeDotsModal={props.threeDotsModal}
-            toggleModal={props.toggleModal}
+class HeaderComp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.anchorElem = React.createRef();
+  }
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.header}>
+        <MenuIcon
+          className={classes.hamburger}
+          onClick={() => this.props.toggleModal("optionsModal")}
+        />
+        <Typography variant="h6" className={classes.title}>
+          Go-Dutch App
+        </Typography>
+        <div>
+          <MoreVertIcon
+            onClick={() => this.props.toggleModal("threeDotsModal")}
+            className={classes.dots}
+            ref={this.anchorElem}
           />
-        )}
+          {this.props.threeDotsModal && (
+            <ThreeDotsModal
+              threeDotsModal={this.props.threeDotsModal}
+              toggleModal={this.props.toggleModal}
+              anchorRef={this.anchorElem.current}
+            />
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
+
+// function HeaderComp(props) {
+//   const { classes } = props;
+//   return (
+//     <div className={classes.header}>
+//       <MenuIcon
+//         className={classes.hamburger}
+//         onClick={() => props.toggleModal("optionsModal")}
+//       />
+//       <Typography variant="h6" className={classes.title}>
+//         Go-Dutch App
+//       </Typography>
+//       <div onClick={() => props.toggleModal("threeDotsModal")}>
+//         <MoreVertIcon className={classes.dots} />
+//         {props.threeDotsModal && (
+//           <ThreeDotsModal
+//             threeDotsModal={props.threeDotsModal}
+//             toggleModal={props.toggleModal}
+//           />
+//         )}
+//       </div>
+//     </div>
+//   );
+// }
 
 const Header = withStyles(headerStyles)(HeaderComp);
 
@@ -321,12 +356,14 @@ const threeDotsModalStyles = {
 
 function ThreeDotsModalComp(props) {
   const { classes } = props;
+  console.log(props.anchorRef);
   return (
     <Popover
       open={props.threeDotsModal}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
       className={classes.modal}
+      anchorEl={props.anchorRef}
       anchorOrigin={{
         vertical: "bottom",
         horizontal: "left"
