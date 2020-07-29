@@ -23,6 +23,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import TextField from "@material-ui/core/TextField";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import Popover from "@material-ui/core/Popover";
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 const headerStyles = {
   header: {
