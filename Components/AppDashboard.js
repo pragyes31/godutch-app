@@ -496,8 +496,7 @@ class AddFriendComp extends React.Component {
     this.props.toggleModal("addFriend");
   };
   openAddDetails = () => {
-    this.setState({ addDetails: !this.state.addDetails });
-    console.log(this.state);
+    this.state.text && this.setState({ addDetails: !this.state.addDetails });
   };
   render() {
     const { classes } = this.props;
@@ -578,7 +577,7 @@ const AddFriend = withStyles(addFriendStyles)(AddFriendComp);
 
 const addDetailsStyles = {
   addDetails: {
-    zIndex: 9999999
+    maxWidth:"600px"
   }
 };
 
