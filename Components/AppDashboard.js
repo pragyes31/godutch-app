@@ -505,7 +505,6 @@ class AddFriendComp extends React.Component {
         <Dialog
           fullScreen={true}
           open={this.props.addFriendModal}
-          //open={true}
           aria-labelledby="Add New friend modal"
           aria-describedby="Add New friend modal"
           onBackdropClick={this.toggleModal}
@@ -577,7 +576,19 @@ const AddFriend = withStyles(addFriendStyles)(AddFriendComp);
 
 const addDetailsStyles = {
   addDetails: {
-    maxWidth:"600px"
+    maxWidth: "600px"
+  },
+  header: {
+    height: "40px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#eee"
+  },
+  left: {
+    width: "30%",
+    display: "flex",
+    justifyContent: "space-between"
   }
 };
 
@@ -591,13 +602,30 @@ class AddDetailsComp extends React.Component {
       <Dialog
         fullScreen={true}
         open={this.props.openAddDetails}
+        open={true}
         aria-labelledby="Add New friend modal"
         aria-describedby="Add New friend modal"
         onBackdropClick={this.toggleModal}
         onEscapeKeyDown={this.toggleModal}
         classes={{ paper: classes.addDetails }}
       >
-        Rahul
+        <div className={classes.header}>
+          <div className={classes.left}>
+            <ArrowBackIcon
+              className={classes.arrow}
+              onClick={this.toggleModal}
+            />
+            <Typography variant="subtitle1">Add new contact</Typography>
+          </div>
+          <div className={classes.right}>
+            <Button>ADD</Button>
+          </div>
+        </div>
+        <div className="details" />
+        <div className="message">
+          Don't worry, nothing sends just yet. You will have another chance to
+          review before sending.
+        </div>
       </Dialog>
     );
   }
