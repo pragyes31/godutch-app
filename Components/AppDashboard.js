@@ -55,7 +55,8 @@ class HeaderComp extends React.Component {
     super(props);
     this.state = {
       optionsModal: false,
-      threeDotsModal: false
+      threeDotsModal: false,
+      addFriendModal: false
     };
     this.anchorElem = React.createRef();
   }
@@ -66,6 +67,9 @@ class HeaderComp extends React.Component {
         break;
       case "threeDotsModal":
         this.setState({ threeDotsModal: !this.state.threeDotsModal });
+        break;
+      case "addFriend":
+        this.setState({ addFriendModal: !this.state.addFriendModal });
         break;
       default:
     }
@@ -93,6 +97,7 @@ class HeaderComp extends React.Component {
           />
           <ThreeDotsModal
             threeDotsModal={this.state.threeDotsModal}
+            addFriendModal={this.state.addFriendModal}
             toggleModal={this.toggleModal}
             anchorRef={this.anchorElem.current}
           />
@@ -380,6 +385,10 @@ function ThreeDotsModalComp(props) {
           Create a group
         </Typography>
       </div>
+      <AddFriend
+        addFriendModal={props.addFriendModal}
+        toggleModal={props.toggleModal}
+      />
     </Popover>
   );
 }
@@ -847,8 +856,6 @@ export default class AppDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      optionsModal: false,
-      threeDotsModal: false,
       addFriendModal: false,
       filterModal: false,
       openFriends: true,
@@ -865,15 +872,6 @@ export default class AppDashboard extends React.Component {
 
   toggleModal = modal => {
     switch (modal) {
-      case "optionsModal":
-        this.setState({ optionsModal: !this.state.optionsModal });
-        break;
-      case "threeDotsModal":
-        this.setState({ threeDotsModal: !this.state.threeDotsModal });
-        break;
-      case "addFriend":
-        this.setState({ addFriendModal: !this.state.addFriendModal });
-        break;
       case "filterModal":
         this.setState({ filterModal: !this.state.filterModal });
         break;
@@ -940,10 +938,6 @@ export default class AppDashboard extends React.Component {
           addExpense={this.addExpense}
           color="secondary"
           tooltip="Add Expense"
-        />
-        <AddFriend
-          addFriendModal={this.state.addFriendModal}
-          toggleModal={this.toggleModal}
         />
       </div>
     );
