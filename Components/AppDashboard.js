@@ -23,7 +23,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import TextField from "@material-ui/core/TextField";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import Popover from "@material-ui/core/Popover";
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 
 const headerStyles = {
   header: {
@@ -53,32 +53,49 @@ const headerStyles = {
 class HeaderComp extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      optionsModal: false,
+      threeDotsModal: false
+    };
     this.anchorElem = React.createRef();
   }
+  toggleModal = modal => {
+    switch (modal) {
+      case "optionsModal":
+        this.setState({ optionsModal: !this.state.optionsModal });
+        break;
+      case "threeDotsModal":
+        this.setState({ threeDotsModal: !this.state.threeDotsModal });
+        break;
+      default:
+    }
+  };
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.header}>
         <MenuIcon
           className={classes.hamburger}
-          onClick={() => this.props.toggleModal("optionsModal")}
+          onClick={() => this.toggleModal("optionsModal")}
+        />
+        <OptionsModal
+          optionsModal={this.state.optionsModal}
+          toggleModal={this.toggleModal}
         />
         <Typography variant="h6" className={classes.title}>
           Go-Dutch App
         </Typography>
         <div>
           <MoreVertIcon
-            onClick={() => this.props.toggleModal("threeDotsModal")}
+            onClick={() => this.toggleModal("threeDotsModal")}
             className={classes.dots}
             ref={this.anchorElem}
           />
-          {this.props.threeDotsModal && (
-            <ThreeDotsModal
-              threeDotsModal={this.props.threeDotsModal}
-              toggleModal={this.props.toggleModal}
-              anchorRef={this.anchorElem.current}
-            />
-          )}
+          <ThreeDotsModal
+            threeDotsModal={this.state.threeDotsModal}
+            toggleModal={this.toggleModal}
+            anchorRef={this.anchorElem.current}
+          />
         </div>
       </div>
     );
@@ -923,10 +940,6 @@ export default class AppDashboard extends React.Component {
           addExpense={this.addExpense}
           color="secondary"
           tooltip="Add Expense"
-        />
-        <OptionsModal
-          optionsModal={this.state.optionsModal}
-          toggleModal={this.toggleModal}
         />
         <AddFriend
           addFriendModal={this.state.addFriendModal}
