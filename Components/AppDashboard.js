@@ -482,21 +482,21 @@ class AddFriendComp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: "",
+      name: "",
       addDetails: false
     };
   }
 
   handleChange = e => {
-    this.setState({ text: e.target.value });
+    this.setState({ name: e.target.value });
   };
   toggleModal = () => {
     console.log(this.state);
-    this.setState({ text: "" });
+    this.setState({ name: "" });
     this.props.toggleModal("addFriend");
   };
   openAddDetails = () => {
-    this.state.text && this.setState({ addDetails: !this.state.addDetails });
+    this.state.name && this.setState({ addDetails: !this.state.addDetails });
   };
   render() {
     const { classes } = this.props;
@@ -518,7 +518,7 @@ class AddFriendComp extends React.Component {
               label="Add Friend"
               className={classes.textField}
               onChange={this.handleChange}
-              value={this.state.text}
+              value={this.state.name}
             />
           </form>
 
@@ -529,11 +529,14 @@ class AddFriendComp extends React.Component {
               className="addPara"
               onClick={this.openAddDetails}
             >
-              {this.state.text
-                ? `Add ${this.state.text} to Go-Dutch`
+              {this.state.name
+                ? `Add ${this.state.name} to Go-Dutch`
                 : "Add a new contact to Go-Dutch"}
             </Typography>
-            <AddDetails openAddDetails={this.state.addDetails} />
+            <AddDetails
+              openAddDetails={this.state.addDetails}
+              name={this.state.name}
+            />
           </div>
         </Dialog>
       </div>
@@ -602,7 +605,6 @@ class AddDetailsComp extends React.Component {
       <Dialog
         fullScreen={true}
         open={this.props.openAddDetails}
-        open={true}
         aria-labelledby="Add New friend modal"
         aria-describedby="Add New friend modal"
         onBackdropClick={this.toggleModal}
@@ -618,10 +620,26 @@ class AddDetailsComp extends React.Component {
             <Typography variant="subtitle1">Add new contact</Typography>
           </div>
           <div className={classes.right}>
-            <Button>ADD</Button>
+            <Button disabled={true}>ADD</Button>
           </div>
         </div>
-        <div className="details" />
+        <div className="details">
+          <form className={classes.friendForm}>
+            <TextField
+              id="name-field"
+              label="Name"
+              className={classes.textField}
+              onChange={this.handleChange}
+              value={this.state.name}
+            />
+            <TextField
+              id="contact-field"
+              label="Phone number or email address"
+              className={classes.textField}
+              onChange={this.handleChange}
+            />
+          </form>
+        </div>
         <div className="message">
           Don't worry, nothing sends just yet. You will have another chance to
           review before sending.
