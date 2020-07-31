@@ -591,15 +591,26 @@ const addDetailsStyles = {
     width: "30%",
     display: "flex",
     justifyContent: "space-between"
+  },
+  details: {
+    width: "600px"
+  },
+  name: {
+    display: "block",
+    width: "100%"
+  },
+  contact: {
+    display: "block",
+    width: "100%"
   }
 };
 
 class AddDetailsComp extends React.Component {
   constructor(props) {
     super(props);
-    this.state= {
-      name:this.props.name
-    }
+    this.state = {
+      name: this.props.name
+    };
   }
   render() {
     const { classes } = this.props;
@@ -625,19 +636,19 @@ class AddDetailsComp extends React.Component {
             <Button disabled={true}>ADD</Button>
           </div>
         </div>
-        <div className="details">
+        <div className={classes.details}>
           <form className={classes.friendForm}>
             <TextField
               id="name-field"
               label="Name"
-              className={classes.textField}
+              className={classes.name}
               onChange={this.handleChange}
               value={this.state.name}
             />
             <TextField
               id="contact-field"
               label="Phone number or email address"
-              className={classes.textField}
+              className={classes.contact}
               onChange={this.handleChange}
             />
           </form>
