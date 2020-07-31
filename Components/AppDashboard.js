@@ -491,7 +491,6 @@ class AddFriendComp extends React.Component {
     this.setState({ name: e.target.value });
   };
   toggleModal = () => {
-    console.log(this.state);
     this.setState({ name: "" });
     this.props.toggleModal("addFriend");
   };
@@ -598,6 +597,9 @@ const addDetailsStyles = {
 class AddDetailsComp extends React.Component {
   constructor(props) {
     super(props);
+    this.state= {
+      name:this.props.name
+    }
   }
   render() {
     const { classes } = this.props;
