@@ -608,8 +608,9 @@ const addDetailsStyles = {
 class AddDetailsComp extends React.Component {
   constructor(props) {
     super(props);
+    let name = this.props.name;
     this.state = {
-      name: this.props.name
+      name: this.name
     };
   }
   render() {
