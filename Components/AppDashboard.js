@@ -59,7 +59,6 @@ class HeaderComp extends React.Component {
       addFriendModal: false,
       anchorEl: null
     };
-    this.anchorElem = React.createRef();
   }
   toggleModal = (e, modal) => {
     switch (modal) {
@@ -76,11 +75,6 @@ class HeaderComp extends React.Component {
     this.setState({
       threeDotsModal: !this.state.threeDotsModal,
       anchorEl: event.currentTarget
-    });
-  };
-  handleClose = () => {
-    this.setState({
-      anchorEl: null
     });
   };
   render() {
@@ -102,14 +96,12 @@ class HeaderComp extends React.Component {
           <MoreVertIcon
             onClick={this.toggle3DotsModal}
             className={classes.dots}
-            ref={this.anchorElem}
           />
           <ThreeDotsModal
             threeDotsModal={this.state.threeDotsModal}
             addFriendModal={this.state.addFriendModal}
             toggleModal={this.toggleModal}
             anchorRef={this.state.anchorEl}
-            handleClose={this.handleClose}
           />
         </div>
       </div>
@@ -363,45 +355,60 @@ const threeDotsModalStyles = {
   }
 };
 
-function ThreeDotsModalComp(props) {
-  const { classes } = props;
-  return (
-    <Popover
-      open={props.threeDotsModal}
-      aria-labelledby="simple-modal-title"
-      aria-describedby="simple-modal-description"
-      onClose={() => props.handleClose}
-      onBackdropClick={() => props.toggleModal("threeDotsModal")}
-      onEscapeKeyDown={() => props.toggleModal("threeDotsModal")}
-      anchorEl={props.anchorRef}
-      classes={{ paper: classes.modal }}
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "left"
-      }}
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right"
-      }}
-    >
-      <div className={classes.content}>
-        <Typography
-          variant="subtitle1"
-          className={classes.contentChild}
-          onClick={() => props.toggleModal("addFriend")}
-        >
-          Add new friend
-        </Typography>
-        <Typography variant="subtitle1" className={classes.contentChild}>
-          Create a group
-        </Typography>
-      </div>
-      <AddFriend
-        addFriendModal={props.addFriendModal}
-        toggleModal={props.toggleModal}
-      />
-    </Popover>
-  );
+class ThreeDotsModalComp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      anchorEl: this.props.anchorEl
+    };
+  }
+  handleOpen = () => {
+    //this.setState({ anchorEl: this.props.anchorEl });
+    return this.state.anchorEl;
+  };
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+  render() {
+    const { classes } = this.props;
+    return (
+      <Popover
+        open={this.props.threeDotsModal}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        onClose={this.handleClose}
+        onBackdropClick={() => this.props.toggleModal("threeDotsModal")}
+        onEscapeKeyDown={() => this.props.toggleModal("threeDotsModal")}
+        anchorEl={this.state.anchorEl}
+        classes={{ paper: classes.modal }}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left"
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right"
+        }}
+      >
+        <div className={classes.content}>
+          <Typography
+            variant="subtitle1"
+            className={classes.contentChild}
+            onClick={() => this.props.toggleModal("addFriend")}
+          >
+            Add new friend
+          </Typography>
+          <Typography variant="subtitle1" className={classes.contentChild}>
+            Create a group
+          </Typography>
+        </div>
+        <AddFriend
+          addFriendModal={this.props.addFriendModal}
+          toggleModal={this.props.toggleModal}
+        />
+      </Popover>
+    );
+  }
 }
 
 const ThreeDotsModal = withStyles(threeDotsModalStyles)(ThreeDotsModalComp);
@@ -510,7 +517,7 @@ class AddFriendComp extends React.Component {
   };
   render() {
     const { classes } = this.props;
-    console.log(this.props.addFriendModal);
+    //console.log(this.props.addFriendModal);
     return (
       <div className={classes.addFriend}>
         <Dialog
@@ -927,7 +934,7 @@ export default class AppDashboard extends React.Component {
   }
 
   addFriend = () => {
-    console.log("add new friend");
+    //console.log("add new friend");
   };
 
   addExpense = () => {};
