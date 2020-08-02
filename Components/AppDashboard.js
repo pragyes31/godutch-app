@@ -56,23 +56,27 @@ class HeaderComp extends React.Component {
     this.state = {
       optionsModal: false,
       threeDotsModal: false,
-      addFriendModal: false
+      addFriendModal: false,
+      anchorEl: null
     };
     this.anchorElem = React.createRef();
   }
-  toggleModal = modal => {
+  toggleModal = (e, modal) => {
     switch (modal) {
       case "optionsModal":
         this.setState({ optionsModal: !this.state.optionsModal });
-        break;
-      case "threeDotsModal":
-        this.setState({ threeDotsModal: !this.state.threeDotsModal });
         break;
       case "addFriend":
         this.setState({ addFriendModal: !this.state.addFriendModal });
         break;
       default:
     }
+  };
+  toggle3DotsModal = event => {
+    this.setState({
+      threeDotsModal: !this.state.threeDotsModal,
+      anchorEl: event.currentTarget
+    });
   };
   render() {
     const { classes } = this.props;
@@ -91,7 +95,7 @@ class HeaderComp extends React.Component {
         </Typography>
         <div>
           <MoreVertIcon
-            onClick={() => this.toggleModal("threeDotsModal")}
+            onClick={this.toggle3DotsModal}
             className={classes.dots}
             ref={this.anchorElem}
           />
@@ -99,7 +103,7 @@ class HeaderComp extends React.Component {
             threeDotsModal={this.state.threeDotsModal}
             addFriendModal={this.state.addFriendModal}
             toggleModal={this.toggleModal}
-            anchorRef={this.anchorElem.current}
+            anchorRef={this.state.anchorEl}
           />
         </div>
       </div>
