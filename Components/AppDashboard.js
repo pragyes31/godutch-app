@@ -78,6 +78,11 @@ class HeaderComp extends React.Component {
       anchorEl: event.currentTarget
     });
   };
+  handleClose = () => {
+    this.setState({
+      anchorEl: null
+    });
+  };
   render() {
     const { classes } = this.props;
     return (
@@ -104,6 +109,7 @@ class HeaderComp extends React.Component {
             addFriendModal={this.state.addFriendModal}
             toggleModal={this.toggleModal}
             anchorRef={this.state.anchorEl}
+            handleClose={this.handleClose}
           />
         </div>
       </div>
@@ -364,6 +370,7 @@ function ThreeDotsModalComp(props) {
       open={props.threeDotsModal}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
+      onClose={() => props.handleClose}
       onBackdropClick={() => props.toggleModal("threeDotsModal")}
       onEscapeKeyDown={() => props.toggleModal("threeDotsModal")}
       anchorEl={props.anchorRef}
@@ -503,6 +510,7 @@ class AddFriendComp extends React.Component {
   };
   render() {
     const { classes } = this.props;
+    console.log(this.props.addFriendModal);
     return (
       <div className={classes.addFriend}>
         <Dialog
