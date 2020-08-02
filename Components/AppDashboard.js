@@ -23,7 +23,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import TextField from "@material-ui/core/TextField";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import Popover from "@material-ui/core/Popover";
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 const headerStyles = {
   header: {
@@ -878,10 +878,9 @@ function ActivityTab() {
 const addButtonStyles = {
   button: {
     marginLeft: ".5rem",
-    borderRadius: "50% !important",
-    minWidth: "40px",
-    height: "45px",
-    color: "#ffffff",
+    minWidth: "50px",
+    height: "50px",
+    color: "#f2105a",
     fontSize: "30px !important",
     cursor: "pointer",
     position: "fixed",
@@ -895,16 +894,8 @@ function AddButtonComp(props) {
   return (
     <div>
       <Tooltip title={props.tooltip}>
-        <Button
-          variant="contained"
-          color={props.color}
-          className={classes.button}
-          onClick={() => props.addExpense()}
-        >
-          +
-        </Button>
+        <AddCircleIcon className={classes.button} />
       </Tooltip>
-      {/*<img src={expenseBtn} className="add-expense-button" />*/}
     </div>
   );
 }
