@@ -60,7 +60,7 @@ class HeaderComp extends React.Component {
       anchorEl: null
     };
   }
-  toggleModal = (e, modal) => {
+  toggleModal = modal => {
     switch (modal) {
       case "optionsModal":
         this.setState({ optionsModal: !this.state.optionsModal });
