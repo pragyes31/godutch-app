@@ -746,41 +746,6 @@ const filterModalStyles = {
   }
 };
 
-class Comp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      filterModal: false
-    };
-  }
-  render() {
-    const { classes } = props;
-    return (
-      <Dialog
-        open={this.state.filterModal}
-        aria-labelledby="Add New friend modal"
-        aria-describedby="Add New friend modal"
-        onBackdropClick={() => props.toggleModal("filterModal")}
-        onEscapeKeyDown={() => props.toggleModal("filterModal")}
-        classes={{ paper: classes.modal }}
-      >
-        <Typography className={classes.modalChild}>
-          All {props.tabName}
-        </Typography>
-        <Typography className={classes.modalChild}>
-          {props.tabName} with outstanding balances
-        </Typography>
-        <Typography className={classes.modalChild}>
-          {props.tabName} you owe
-        </Typography>
-        <div className={classes.modalChild}>
-          {props.tabName === "friends" ? "friends who" : "groups that"} owe you
-        </div>
-      </Dialog>
-    );
-  }
-}
-
 function FilterModalComp(props) {
   const { classes } = props;
   return (
