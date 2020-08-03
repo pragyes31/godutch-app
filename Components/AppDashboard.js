@@ -76,6 +76,7 @@ class HeaderComp extends React.Component {
       threeDotsModal: !this.state.threeDotsModal,
       anchorEl: event.currentTarget
     });
+    console.log(this.state.anchorEl);
   };
   render() {
     const { classes } = this.props;
@@ -745,6 +746,41 @@ const filterModalStyles = {
   }
 };
 
+class Comp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filterModal: false
+    };
+  }
+  render() {
+    const { classes } = props;
+    return (
+      <Dialog
+        open={this.state.filterModal}
+        aria-labelledby="Add New friend modal"
+        aria-describedby="Add New friend modal"
+        onBackdropClick={() => props.toggleModal("filterModal")}
+        onEscapeKeyDown={() => props.toggleModal("filterModal")}
+        classes={{ paper: classes.modal }}
+      >
+        <Typography className={classes.modalChild}>
+          All {props.tabName}
+        </Typography>
+        <Typography className={classes.modalChild}>
+          {props.tabName} with outstanding balances
+        </Typography>
+        <Typography className={classes.modalChild}>
+          {props.tabName} you owe
+        </Typography>
+        <div className={classes.modalChild}>
+          {props.tabName === "friends" ? "friends who" : "groups that"} owe you
+        </div>
+      </Dialog>
+    );
+  }
+}
+
 function FilterModalComp(props) {
   const { classes } = props;
   return (
@@ -809,30 +845,39 @@ const friendsTabStyles = {
   }
 };
 
-function FriendsTabComp(props) {
-  const { classes } = props;
-  return (
-    <div className={props.tabName}>
-      <div className={classes.user}>
-        <UserBalance />
-        <div className={classes.filter}>
-          <FilterListIcon
-            className={classes.filterBtn}
-            onClick={() => props.toggleModal("filterModal")}
-          />
-          {props.filterModal && (
-            <FilterModal
-              tabName={props.tabName}
-              filterModal={props.filterModal}
-              toggleModal={props.toggleModal}
+class FriendsTabComp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filterModal: false
+    };
+  }
+  toggleModal = () => this.setState({ filterModal: !this.state.filterModal });
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={this.props.tabName}>
+        <div className={classes.user}>
+          <UserBalance />
+          <div className={classes.filter}>
+            <FilterListIcon
+              className={classes.filterBtn}
+              onClick={this.toggleModal}
             />
-          )}
+            {this.state.filterModal && (
+              <FilterModal
+                tabName={this.props.tabName}
+                filterModal={this.state.filterModal}
+                toggleModal={this.toggleModal}
+              />
+            )}
+          </div>
         </div>
+        <AddButtonLarge tabName={this.props.tabName} />
+        <div />
       </div>
-      <AddButtonLarge tabName={props.tabName} />
-      <div />
-    </div>
-  );
+    );
+  }
 }
 
 const FriendsTab = withStyles(friendsTabStyles)(FriendsTabComp);
@@ -989,7 +1034,6 @@ export default class AppDashboard extends React.Component {
         />
         {this.state.openFriends && (
           <FriendsTab
-            toggleModal={this.toggleModal}
             filterModal={this.state.filterModal}
             tabName="friends"
             addFriend={this.addFriend}
