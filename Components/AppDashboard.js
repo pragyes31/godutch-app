@@ -872,31 +872,67 @@ const groupsTabStyles = {
   }
 };
 
-function GroupsTabComp(props) {
-  const { classes } = props;
-  return (
-    <div className={props.tabName}>
-      <div className={classes.user}>
-        <UserBalance />
-        <div className={classes.filter}>
-          <FilterListIcon
-            className={classes.filterBtn}
-            onClick={() => props.toggleModal("filterModal")}
-          />
-          {props.filterModal && (
-            <FilterModal
-              tabName={props.tabName}
-              filterModal={props.filterModal}
-              toggleModal={props.toggleModal}
+class GroupsTabComp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filterModal: false
+    };
+  }
+  toggleModal = () => this.setState({ filterModal: !this.state.filterModal });
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={this.props.tabName}>
+        <div className={classes.user}>
+          <UserBalance />
+          <div className={classes.filter}>
+            <FilterListIcon
+              className={classes.filterBtn}
+              onClick={this.toggleModal}
             />
-          )}
+            {this.state.filterModal && (
+              <FilterModal
+                tabName={this.props.tabName}
+                filterModal={this.state.filterModal}
+                toggleModal={this.toggleModal}
+              />
+            )}
+          </div>
         </div>
+        <AddButtonLarge tabName={this.props.tabName} />
+        <div />
       </div>
-      <AddButtonLarge tabName={props.tabName} />
-      <div />
-    </div>
-  );
+    );
+  }
 }
+
+// function GroupsTabComp(props) {
+//   const { classes } = props;
+//   return (
+//     <div className={props.tabName}>
+//       <div className={classes.user}>
+//         <UserBalance />
+//         <div className={classes.filter}>
+//           <FilterListIcon
+//             className={classes.filterBtn}
+//             onClick={() => props.toggleModal("filterModal")}
+//           />
+//           {props.filterModal && (
+//             <FilterModal
+//               tabName={props.tabName}
+//               filterModal={props.filterModal}
+//               toggleModal={props.toggleModal}
+//             />
+//           )}
+//         </div>
+//       </div>
+//       <AddButtonLarge tabName={props.tabName} />
+//       <div />
+//     </div>
+//   );
+// }
 
 const GroupsTab = withStyles(groupsTabStyles)(GroupsTabComp);
 
@@ -998,19 +1034,9 @@ export default class AppDashboard extends React.Component {
           openActivity={this.state.openActivity}
         />
         {this.state.openFriends && (
-          <FriendsTab
-            filterModal={this.state.filterModal}
-            tabName="friends"
-            addFriend={this.addFriend}
-          />
+          <FriendsTab tabName="friends" addFriend={this.addFriend} />
         )}
-        {this.state.openGroups && (
-          <GroupsTab
-            toggleModal={this.toggleModal}
-            filterModal={this.state.filterModal}
-            tabName="groups"
-          />
-        )}
+        {this.state.openGroups && <GroupsTab tabName="groups" />}
         {this.state.openActivity && <ActivityTab />}
         <AddButton
           addExpense={this.addExpense}
