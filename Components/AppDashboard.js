@@ -364,7 +364,6 @@ class ThreeDotsModalComp extends React.Component {
     };
   }
   handleOpen = () => {
-    //this.setState({ anchorEl: this.props.anchorEl });
     return this.state.anchorEl;
   };
   handleClose = () => {
@@ -518,7 +517,6 @@ class AddFriendComp extends React.Component {
   };
   render() {
     const { classes } = this.props;
-    //console.log(this.props.addFriendModal);
     return (
       <div className={classes.addFriend}>
         <Dialog
@@ -540,7 +538,6 @@ class AddFriendComp extends React.Component {
               value={this.state.name}
             />
           </form>
-
           <div className={classes.addForm}>
             <PersonAddIcon className={classes.addIcon} />
             <Typography
@@ -630,7 +627,7 @@ class AddDetailsComp extends React.Component {
     super(props);
     let name = this.props.name;
     this.state = {
-      name: this.name
+      name: name
     };
   }
   render() {
