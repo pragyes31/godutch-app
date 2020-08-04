@@ -906,7 +906,7 @@ class GroupsTabComp extends React.Component {
 const GroupsTab = withStyles(groupsTabStyles)(GroupsTabComp);
 
 function ActivityTab() {
-  return <div>You're inside Activity tab.</div>;
+  return <div>You are inside Activity tab.</div>;
 }
 
 const addButtonStyles = {
