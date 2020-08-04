@@ -974,9 +974,7 @@ export default class AppDashboard extends React.Component {
     };
   }
 
-  addFriend = () => {
-    //console.log("add new friend");
-  };
+  addFriend = () => {};
 
   addExpense = () => {};
 
