@@ -903,32 +903,6 @@ class GroupsTabComp extends React.Component {
   }
 }
 
-// function GroupsTabComp(props) {
-//   const { classes } = props;
-//   return (
-//     <div className={props.tabName}>
-//       <div className={classes.user}>
-//         <UserBalance />
-//         <div className={classes.filter}>
-//           <FilterListIcon
-//             className={classes.filterBtn}
-//             onClick={() => props.toggleModal("filterModal")}
-//           />
-//           {props.filterModal && (
-//             <FilterModal
-//               tabName={props.tabName}
-//               filterModal={props.filterModal}
-//               toggleModal={props.toggleModal}
-//             />
-//           )}
-//         </div>
-//       </div>
-//       <AddButtonLarge tabName={props.tabName} />
-//       <div />
-//     </div>
-//   );
-// }
-
 const GroupsTab = withStyles(groupsTabStyles)(GroupsTabComp);
 
 function ActivityTab() {
