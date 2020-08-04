@@ -377,9 +377,7 @@ class ThreeDotsModalComp extends React.Component {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
         onClose={this.handleClose}
-        onBackdropClick={() => this.props.toggleModal("threeDotsModal")}
-        onEscapeKeyDown={() => this.props.toggleModal("threeDotsModal")}
-        anchorEl={this.state.anchorEl}
+        anchorEl={this.props.anchorRef}
         classes={{ paper: classes.modal }}
         anchorOrigin={{
           vertical: "bottom",
