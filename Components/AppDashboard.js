@@ -413,89 +413,6 @@ class ThreeDotsModalComp extends React.Component {
 
 const ThreeDotsModal = withStyles(threeDotsModalStyles)(ThreeDotsModalComp);
 
-const navBarStyles = {
-  navBar: {
-    display: "flex",
-    justifyContent: "space-around",
-    alignItems: "center",
-    backgroundColor: "#00b8a9",
-    width: "100%",
-    height: "40px",
-    color: "#fff",
-    textTransform: "uppercase",
-    fontSize: "12px"
-  },
-  items: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "40px",
-    width: "33.33%",
-    cursor: "pointer",
-    "&:hover": {
-      backgroundColor: "#00b8a9",
-      textDecoration: "underline"
-    }
-  },
-
-  friendsActive: {
-    textDecoration: "underline",
-    borderBottom: "2px solid #fff",
-    boxSizing: "border-box"
-  },
-
-  activityActive: {
-    textDecoration: "underline",
-    borderBottom: "2px solid #fff",
-    boxSizing: "border-box"
-  },
-  groupsActive: {
-    textDecoration: "underline",
-    borderBottom: "2px solid #fff",
-    boxSizing: "border-box"
-  }
-};
-
-function NavBarComp(props) {
-  const { classes } = props;
-  let friendsClass = `${classes.items} ${
-    props.openFriends ? `${classes.friendsActive}` : ""
-  }`;
-  let groupsClass = `${classes.items} ${
-    props.openGroups ? `${classes.groupsActive}` : ""
-  }`;
-  let activityClass = `${classes.items} ${
-    props.openActivity ? `${classes.activityActive}` : ""
-  }`;
-  return (
-    <div className={classes.navBar}>
-      <Typography
-        variant="caption"
-        className={friendsClass}
-        onClick={() => props.switchTab("friendsTab")}
-      >
-        friends
-      </Typography>
-      <Typography
-        variant="caption"
-        className={groupsClass}
-        onClick={() => props.switchTab("groupsTab")}
-      >
-        groups
-      </Typography>
-      <Typography
-        variant="caption"
-        className={activityClass}
-        onClick={() => props.switchTab("activityTab")}
-      >
-        activities
-      </Typography>
-    </div>
-  );
-}
-
-const NavBar = withStyles(navBarStyles)(NavBarComp);
-
 class AddFriendComp extends React.Component {
   constructor(props) {
     super(props);
@@ -681,6 +598,89 @@ class AddDetailsComp extends React.Component {
 }
 
 const AddDetails = withStyles(addDetailsStyles)(AddDetailsComp);
+
+const navBarStyles = {
+  navBar: {
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center",
+    backgroundColor: "#00b8a9",
+    width: "100%",
+    height: "40px",
+    color: "#fff",
+    textTransform: "uppercase",
+    fontSize: "12px"
+  },
+  items: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "40px",
+    width: "33.33%",
+    cursor: "pointer",
+    "&:hover": {
+      backgroundColor: "#00b8a9",
+      textDecoration: "underline"
+    }
+  },
+
+  friendsActive: {
+    textDecoration: "underline",
+    borderBottom: "2px solid #fff",
+    boxSizing: "border-box"
+  },
+
+  activityActive: {
+    textDecoration: "underline",
+    borderBottom: "2px solid #fff",
+    boxSizing: "border-box"
+  },
+  groupsActive: {
+    textDecoration: "underline",
+    borderBottom: "2px solid #fff",
+    boxSizing: "border-box"
+  }
+};
+
+function NavBarComp(props) {
+  const { classes } = props;
+  let friendsClass = `${classes.items} ${
+    props.openFriends ? `${classes.friendsActive}` : ""
+  }`;
+  let groupsClass = `${classes.items} ${
+    props.openGroups ? `${classes.groupsActive}` : ""
+  }`;
+  let activityClass = `${classes.items} ${
+    props.openActivity ? `${classes.activityActive}` : ""
+  }`;
+  return (
+    <div className={classes.navBar}>
+      <Typography
+        variant="caption"
+        className={friendsClass}
+        onClick={() => props.switchTab("friendsTab")}
+      >
+        friends
+      </Typography>
+      <Typography
+        variant="caption"
+        className={groupsClass}
+        onClick={() => props.switchTab("groupsTab")}
+      >
+        groups
+      </Typography>
+      <Typography
+        variant="caption"
+        className={activityClass}
+        onClick={() => props.switchTab("activityTab")}
+      >
+        activities
+      </Typography>
+    </div>
+  );
+}
+
+const NavBar = withStyles(navBarStyles)(NavBarComp);
 
 const userBalanceStyles = {
   userInfo: {
