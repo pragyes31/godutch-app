@@ -359,16 +359,8 @@ const threeDotsModalStyles = {
 class ThreeDotsModalComp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      anchorEl: this.props.anchorEl
-    };
   }
-  handleOpen = () => {
-    return this.state.anchorEl;
-  };
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  };
+
   render() {
     const { classes } = this.props;
     return (
