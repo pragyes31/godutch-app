@@ -570,7 +570,7 @@ class AddDetailsComp extends React.Component {
               label="Name"
               className={classes.name}
               onChange={this.handleChange}
-              value={this.state.name}
+              value={this.props.name}
             />
             <TextField
               id="contact-field"
