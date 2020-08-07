@@ -75,11 +75,7 @@ class HeaderComp extends React.Component {
     }
   };
   toggle3DotsModal = event => {
-    this.setState({
-      threeDotsModal: !this.state.threeDotsModal,
-      anchorEl: event.currentTarget
-    });
-    console.log(this.state.anchorEl);
+    this.setState({ anchorEl: event.currentTarget });
   };
   handleClose = () => {
     this.setState({ anchorEl: null });
@@ -105,7 +101,6 @@ class HeaderComp extends React.Component {
             className={classes.dots}
           />
           <ThreeDotsModal
-            threeDotsModal={this.state.threeDotsModal}
             addFriendModal={this.state.addFriendModal}
             toggleModal={this.toggleModal}
             anchorEl={this.state.anchorEl}
@@ -372,7 +367,7 @@ class ThreeDotsModalComp extends React.Component {
     const { classes } = this.props;
     return (
       <Popover
-        open={this.props.threeDotsModal}
+        open={this.props.anchorEl}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
         onClose={this.props.handleClose}
