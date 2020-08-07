@@ -2,7 +2,7 @@ import React from "react";
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-import Modal from "@material-ui/core/Modal";
+import Dialog from "@material-ui/core/Dialog";
 import Popover from "@material-ui/core/Popover";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -57,24 +57,24 @@ class HeaderComp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      optionsModal: false,
-      threeDotsModal: false,
-      addFriendModal: false,
+      optionsDialog: false,
+      threeDotsDialog: false,
+      addFriendDialog: false,
       anchorEl: null
     };
   }
-  toggleModal = modal => {
-    switch (modal) {
-      case "optionsModal":
-        this.setState({ optionsModal: !this.state.optionsModal });
+  toggleDialog = Dialog => {
+    switch (Dialog) {
+      case "optionsDialog":
+        this.setState({ optionsDialog: !this.state.optionsDialog });
         break;
       case "addFriend":
-        this.setState({ addFriendModal: !this.state.addFriendModal });
+        this.setState({ addFriendDialog: !this.state.addFriendDialog });
         break;
       default:
     }
   };
-  toggle3DotsModal = event => {
+  toggle3DotsDialog = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
   handleClose = () => {
@@ -86,23 +86,23 @@ class HeaderComp extends React.Component {
       <div className={classes.header}>
         <MenuIcon
           className={classes.hamburger}
-          onClick={() => this.toggleModal("optionsModal")}
+          onClick={() => this.toggleDialog("optionsDialog")}
         />
-        <OptionsModal
-          optionsModal={this.state.optionsModal}
-          toggleModal={this.toggleModal}
+        <OptionsDialog
+          optionsDialog={this.state.optionsDialog}
+          toggleDialog={this.toggleDialog}
         />
         <Typography variant="h6" className={classes.title}>
           Go-Dutch App
         </Typography>
         <div>
           <MoreVertIcon
-            onClick={this.toggle3DotsModal}
+            onClick={this.toggle3DotsDialog}
             className={classes.dots}
           />
-          <ThreeDotsModal
-            addFriendModal={this.state.addFriendModal}
-            toggleModal={this.toggleModal}
+          <ThreeDotsDialog
+            addFriendDialog={this.state.addFriendDialog}
+            toggleDialog={this.toggleDialog}
             anchorEl={this.state.anchorEl}
             handleClose={this.handleClose}
           />
@@ -114,8 +114,8 @@ class HeaderComp extends React.Component {
 
 const Header = withStyles(headerStyles)(HeaderComp);
 
-const optionsModalStyles = {
-  fullModal: {
+const optionsDialogStyles = {
+  fullDialog: {
     maxHeight: "100vh",
     minHeight: "100vh",
     position: "relative",
@@ -131,16 +131,16 @@ const optionsModalStyles = {
   }
 };
 
-function OptionsModalComp(props) {
+function OptionsDialogComp(props) {
   const { classes } = props;
   return (
     <Dialog
-      open={props.optionsModal}
-      aria-labelledby="simple-modal-title"
-      aria-describedby="simple-modal-description"
-      onBackdropClick={() => props.toggleModal("optionsModal")}
-      onEscapeKeyDown={() => props.toggleModal("optionsModal")}
-      classes={{ paper: classes.fullModal }}
+      open={props.optionsDialog}
+      aria-labelledby="simple-Dialog-title"
+      aria-describedby="simple-Dialog-description"
+      onBackdropClick={() => props.toggleDialog("optionsDialog")}
+      onEscapeKeyDown={() => props.toggleDialog("optionsDialog")}
+      classes={{ paper: classes.fullDialog }}
     >
       <div className={classes.content}>
         <UserInfo />
@@ -160,7 +160,7 @@ function OptionsModalComp(props) {
   );
 }
 
-const OptionsModal = withStyles(optionsModalStyles)(OptionsModalComp);
+const OptionsDialog = withStyles(optionsDialogStyles)(OptionsDialogComp);
 
 const userInfoStyles = {
   userInfo: {
@@ -330,8 +330,8 @@ function AppInfoComp(props) {
 
 const AppInfo = withStyles(appInfoStyles)(AppInfoComp);
 
-const threeDotsModalStyles = {
-  modal: {
+const threeDotsDialogStyles = {
+  Dialog: {
     width: "150px",
     height: "80px"
   },
@@ -358,7 +358,7 @@ const threeDotsModalStyles = {
   }
 };
 
-class ThreeDotsModalComp extends React.Component {
+class ThreeDotsDialogComp extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -368,11 +368,11 @@ class ThreeDotsModalComp extends React.Component {
     return (
       <Popover
         open={this.props.anchorEl}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
+        aria-labelledby="simple-Dialog-title"
+        aria-describedby="simple-Dialog-description"
         onClose={this.props.handleClose}
         anchorEl={this.props.anchorEl}
-        classes={{ paper: classes.modal }}
+        classes={{ paper: classes.Dialog }}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "left"
@@ -386,7 +386,7 @@ class ThreeDotsModalComp extends React.Component {
           <Typography
             variant="subtitle1"
             className={classes.contentChild}
-            onClick={() => this.props.toggleModal("addFriend")}
+            onClick={() => this.props.toggleDialog("addFriend")}
           >
             Add new friend
           </Typography>
@@ -395,15 +395,15 @@ class ThreeDotsModalComp extends React.Component {
           </Typography>
         </div>
         <AddFriend
-          addFriendModal={this.props.addFriendModal}
-          toggleModal={this.props.toggleModal}
+          addFriendDialog={this.props.addFriendDialog}
+          toggleDialog={this.props.toggleDialog}
         />
       </Popover>
     );
   }
 }
 
-const ThreeDotsModal = withStyles(threeDotsModalStyles)(ThreeDotsModalComp);
+const ThreeDotsDialog = withStyles(threeDotsDialogStyles)(ThreeDotsDialogComp);
 
 class AddFriendComp extends React.Component {
   constructor(props) {
@@ -417,9 +417,9 @@ class AddFriendComp extends React.Component {
   handleChange = e => {
     this.setState({ name: e.target.value });
   };
-  toggleModal = () => {
+  toggleDialog = () => {
     this.setState({ name: "" });
-    this.props.toggleModal("addFriend");
+    this.props.toggleDialog("addFriend");
   };
   openAddDetails = () => {
     this.state.name && this.setState({ addDetails: !this.state.addDetails });
@@ -430,14 +430,17 @@ class AddFriendComp extends React.Component {
       <div className={classes.addFriend}>
         <Dialog
           fullScreen={true}
-          open={this.props.addFriendModal}
-          aria-labelledby="Add New friend modal"
-          aria-describedby="Add New friend modal"
-          onBackdropClick={this.toggleModal}
-          onEscapeKeyDown={this.toggleModal}
+          open={this.props.addFriendDialog}
+          aria-labelledby="Add New friend Dialog"
+          aria-describedby="Add New friend Dialog"
+          onBackdropClick={this.toggleDialog}
+          onEscapeKeyDown={this.toggleDialog}
           classes={{ paper: classes.addFriend }}
         >
-          <ArrowBackIcon className={classes.arrow} onClick={this.toggleModal} />
+          <ArrowBackIcon
+            className={classes.arrow}
+            onClick={this.toggleDialog}
+          />
           <form className={classes.friendForm}>
             <TextField
               id="add-friend-field"
@@ -545,17 +548,17 @@ class AddDetailsComp extends React.Component {
       <Dialog
         fullScreen={true}
         open={this.props.openAddDetails}
-        aria-labelledby="Add New friend modal"
-        aria-describedby="Add New friend modal"
-        onBackdropClick={this.toggleModal}
-        onEscapeKeyDown={this.toggleModal}
+        aria-labelledby="Add New friend Dialog"
+        aria-describedby="Add New friend Dialog"
+        onBackdropClick={this.toggleDialog}
+        onEscapeKeyDown={this.toggleDialog}
         classes={{ paper: classes.addDetails }}
       >
         <div className={classes.header}>
           <div className={classes.left}>
             <ArrowBackIcon
               className={classes.arrow}
-              onClick={this.toggleModal}
+              onClick={this.toggleDialog}
             />
             <Typography variant="subtitle1">Add new contact</Typography>
           </div>
@@ -707,8 +710,8 @@ function UserBalanceComp(props) {
 
 const UserBalance = withStyles(userBalanceStyles)(UserBalanceComp);
 
-const filterModalStyles = {
-  modal: {
+const filterDialogStyles = {
+  Dialog: {
     width: "280px",
     height: "150px",
     position: "relative",
@@ -719,7 +722,7 @@ const filterModalStyles = {
     alignItems: "left",
     flexDirection: "column"
   },
-  modalChild: {
+  DialogChild: {
     height: "100%",
     paddingLeft: "10px",
     backgroundColor: "lightgrey",
@@ -735,34 +738,34 @@ const filterModalStyles = {
   }
 };
 
-function FilterModalComp(props) {
+function FilterDialogComp(props) {
   const { classes } = props;
   return (
     <Dialog
-      open={props.filterModal}
-      aria-labelledby="Add New friend modal"
-      aria-describedby="Add New friend modal"
-      onBackdropClick={() => props.toggleModal("filterModal")}
-      onEscapeKeyDown={() => props.toggleModal("filterModal")}
-      classes={{ paper: classes.modal }}
+      open={props.filterDialog}
+      aria-labelledby="Add New friend Dialog"
+      aria-describedby="Add New friend Dialog"
+      onBackdropClick={() => props.toggleDialog("filterDialog")}
+      onEscapeKeyDown={() => props.toggleDialog("filterDialog")}
+      classes={{ paper: classes.Dialog }}
     >
-      <Typography className={classes.modalChild}>
+      <Typography className={classes.DialogChild}>
         All {props.tabName}
       </Typography>
-      <Typography className={classes.modalChild}>
+      <Typography className={classes.DialogChild}>
         {props.tabName} with outstanding balances
       </Typography>
-      <Typography className={classes.modalChild}>
+      <Typography className={classes.DialogChild}>
         {props.tabName} you owe
       </Typography>
-      <div className={classes.modalChild}>
+      <div className={classes.DialogChild}>
         {props.tabName === "friends" ? "friends who" : "groups that"} owe you
       </div>
     </Dialog>
   );
 }
 
-const FilterModal = withStyles(filterModalStyles)(FilterModalComp);
+const FilterDialog = withStyles(filterDialogStyles)(FilterDialogComp);
 
 function AddButtonLarge(props) {
   return (
@@ -803,10 +806,11 @@ class FriendsTabComp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      filterModal: false
+      filterDialog: false
     };
   }
-  toggleModal = () => this.setState({ filterModal: !this.state.filterModal });
+  toggleDialog = () =>
+    this.setState({ filterDialog: !this.state.filterDialog });
   render() {
     const { classes } = this.props;
     return (
@@ -816,13 +820,13 @@ class FriendsTabComp extends React.Component {
           <div className={classes.filter}>
             <FilterListIcon
               className={classes.filterBtn}
-              onClick={this.toggleModal}
+              onClick={this.toggleDialog}
             />
-            {this.state.filterModal && (
-              <FilterModal
+            {this.state.filterDialog && (
+              <FilterDialog
                 tabName={this.props.tabName}
-                filterModal={this.state.filterModal}
-                toggleModal={this.toggleModal}
+                filterDialog={this.state.filterDialog}
+                toggleDialog={this.toggleDialog}
               />
             )}
           </div>
@@ -865,10 +869,11 @@ class GroupsTabComp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      filterModal: false
+      filterDialog: false
     };
   }
-  toggleModal = () => this.setState({ filterModal: !this.state.filterModal });
+  toggleDialog = () =>
+    this.setState({ filterDialog: !this.state.filterDialog });
 
   render() {
     const { classes } = this.props;
@@ -879,13 +884,13 @@ class GroupsTabComp extends React.Component {
           <div className={classes.filter}>
             <FilterListIcon
               className={classes.filterBtn}
-              onClick={this.toggleModal}
+              onClick={this.toggleDialog}
             />
-            {this.state.filterModal && (
-              <FilterModal
+            {this.state.filterDialog && (
+              <FilterDialog
                 tabName={this.props.tabName}
-                filterModal={this.state.filterModal}
-                toggleModal={this.toggleModal}
+                filterDialog={this.state.filterDialog}
+                toggleDialog={this.toggleDialog}
               />
             )}
           </div>
@@ -934,8 +939,8 @@ export default class AppDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      addFriendModal: false,
-      filterModal: false,
+      addFriendDialog: false,
+      filterDialog: false,
       openFriends: true,
       openGroups: false,
       openActivity: false
@@ -946,10 +951,10 @@ export default class AppDashboard extends React.Component {
 
   addExpense = () => {};
 
-  toggleModal = modal => {
-    switch (modal) {
-      case "filterModal":
-        this.setState({ filterModal: !this.state.filterModal });
+  toggleDialog = Dialog => {
+    switch (Dialog) {
+      case "filterDialog":
+        this.setState({ filterDialog: !this.state.filterDialog });
         break;
       default:
     }
@@ -985,8 +990,8 @@ export default class AppDashboard extends React.Component {
     return (
       <div className="app-dashboard">
         <Header
-          toggleModal={this.toggleModal}
-          threeDotsModal={this.state.threeDotsModal}
+          toggleDialog={this.toggleDialog}
+          threeDotsDialog={this.state.threeDotsDialog}
         />
         <NavBar
           switchTab={this.switchTab}
