@@ -1,29 +1,32 @@
 import React from "react";
-import { Modal } from "@material-ui/core";
-import { Button } from "@material-ui/core";
-import Tooltip from "@material-ui/core/Tooltip";
-import FilterListIcon from "@material-ui/icons/FilterList";
-import MenuIcon from "@material-ui/icons/Menu";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import CropFreeIcon from "@material-ui/icons/CropFree";
-import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
-import SettingsIcon from "@material-ui/icons/Settings";
-import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import RateReviewIcon from "@material-ui/icons/RateReview";
-import HomeIcon from "@material-ui/icons/Home";
-import MailIcon from "@material-ui/icons/Mail";
-import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+
+import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
+import Modal from "@material-ui/core/Modal";
+import Popover from "@material-ui/core/Popover";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import TextField from "@material-ui/core/TextField";
-import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import Popover from "@material-ui/core/Popover";
+import Tooltip from "@material-ui/core/Tooltip";
+import Typography from "@material-ui/core/Typography";
+
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import CropFreeIcon from "@material-ui/icons/CropFree";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FilterListIcon from "@material-ui/icons/FilterList";
+import HomeIcon from "@material-ui/icons/Home";
+import MailIcon from "@material-ui/icons/Mail";
+import MenuIcon from "@material-ui/icons/Menu";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
+import RateReviewIcon from "@material-ui/icons/RateReview";
+import SettingsIcon from "@material-ui/icons/Settings";
+
+import { withStyles } from "@material-ui/core/styles";
 
 const headerStyles = {
   header: {
@@ -78,6 +81,9 @@ class HeaderComp extends React.Component {
     });
     console.log(this.state.anchorEl);
   };
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
   render() {
     const { classes } = this.props;
     return (
@@ -102,7 +108,8 @@ class HeaderComp extends React.Component {
             threeDotsModal={this.state.threeDotsModal}
             addFriendModal={this.state.addFriendModal}
             toggleModal={this.toggleModal}
-            anchorRef={this.state.anchorEl}
+            anchorEl={this.state.anchorEl}
+            handleClose={this.handleClose}
           />
         </div>
       </div>
@@ -368,8 +375,8 @@ class ThreeDotsModalComp extends React.Component {
         open={this.props.threeDotsModal}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
-        onClose={this.handleClose}
-        anchorEl={this.props.anchorRef}
+        onClose={this.props.handleClose}
+        anchorEl={this.props.anchorEl}
         classes={{ paper: classes.modal }}
         anchorOrigin={{
           vertical: "bottom",
