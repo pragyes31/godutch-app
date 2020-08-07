@@ -100,7 +100,7 @@ class HeaderComp extends React.Component {
             onClick={this.toggle3DotsDialog}
             className={classes.dots}
           />
-          <ThreeDotsDialog
+          <ThreeDotsPopover
             addFriendDialog={this.state.addFriendDialog}
             toggleDialog={this.toggleDialog}
             anchorEl={this.state.anchorEl}
@@ -330,7 +330,7 @@ function AppInfoComp(props) {
 
 const AppInfo = withStyles(appInfoStyles)(AppInfoComp);
 
-const threeDotsDialogStyles = {
+const threeDotsPopoverStyles = {
   Dialog: {
     width: "150px",
     height: "80px"
@@ -358,7 +358,7 @@ const threeDotsDialogStyles = {
   }
 };
 
-class ThreeDotsDialogComp extends React.Component {
+class ThreeDotsPopoverComp extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -403,7 +403,9 @@ class ThreeDotsDialogComp extends React.Component {
   }
 }
 
-const ThreeDotsDialog = withStyles(threeDotsDialogStyles)(ThreeDotsDialogComp);
+const ThreeDotsPopover = withStyles(threeDotsPopoverStyles)(
+  ThreeDotsPopoverComp
+);
 
 class AddFriendComp extends React.Component {
   constructor(props) {
@@ -421,7 +423,7 @@ class AddFriendComp extends React.Component {
     this.setState({ name: "" });
     this.props.toggleDialog("addFriend");
   };
-  openAddDetails = () => {
+  toggleAddDetails = () => {
     this.state.name && this.setState({ addDetails: !this.state.addDetails });
   };
   render() {
@@ -455,7 +457,7 @@ class AddFriendComp extends React.Component {
             <Typography
               variant="subtitle1"
               className="addPara"
-              onClick={this.openAddDetails}
+              onClick={this.toggleAddDetails}
             >
               {this.state.name
                 ? `Add ${this.state.name} to Go-Dutch`
@@ -464,6 +466,7 @@ class AddFriendComp extends React.Component {
             <AddDetails
               openAddDetails={this.state.addDetails}
               name={this.state.name}
+              toggleAddDetails={this.toggleAddDetails}
             />
           </div>
         </Dialog>
@@ -531,6 +534,9 @@ const addDetailsStyles = {
   contact: {
     display: "block",
     width: "100%"
+  },
+  arrow: {
+    cursor: "pointer"
   }
 };
 
@@ -558,7 +564,7 @@ class AddDetailsComp extends React.Component {
           <div className={classes.left}>
             <ArrowBackIcon
               className={classes.arrow}
-              onClick={this.toggleDialog}
+              onClick={this.props.toggleAddDetails}
             />
             <Typography variant="subtitle1">Add new contact</Typography>
           </div>
