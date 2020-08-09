@@ -494,7 +494,8 @@ const addFriendStyles = {
     color: "#fff"
   },
   textField: {
-    width: "93%"
+    width: "93%",
+    color: "#fff"
   },
   addForm: {
     marginTop: "10px",
