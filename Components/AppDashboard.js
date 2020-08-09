@@ -441,19 +441,19 @@ class AddFriendComp extends React.Component {
           onEscapeKeyDown={this.toggleDialog}
           classes={{ paper: classes.addFriend }}
         >
-          <ArrowBackIcon
-            className={classes.arrow}
-            onClick={this.toggleDialog}
-          />
-          <form className={classes.friendForm}>
+          <div className={classes.top}>
+            <ArrowBackIcon
+              className={classes.arrow}
+              onClick={this.toggleDialog}
+            />
             <TextField
               id="add-friend-field"
-              label="Add Friend"
               className={classes.textField}
               onChange={this.handleChange}
               value={this.state.name}
+              placeholder="Enter name, email, phone #"
             />
-          </form>
+          </div>
           <div className={classes.addForm}>
             <PersonAddIcon className={classes.addIcon} />
             <Typography
@@ -479,15 +479,22 @@ class AddFriendComp extends React.Component {
 
 const addFriendStyles = {
   addFriend: {
-    maxWidth: "600px",
-    display: "flex"
+    maxWidth: "600px"
+  },
+  top: {
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
+    height: "50px",
+    backgroundColor: "#00b8a9"
   },
   arrow: {
     cursor: "pointer",
-    display: "inline"
+    width: "7%",
+    color: "#fff"
   },
   textField: {
-    width: "100%"
+    width: "93%"
   },
   addForm: {
     marginTop: "10px",
