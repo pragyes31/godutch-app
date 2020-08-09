@@ -28,6 +28,8 @@ import SettingsIcon from "@material-ui/icons/Settings";
 
 import { withStyles } from "@material-ui/core/styles";
 
+import MuiPhoneNumber from "material-ui-phone-number";
+
 const headerStyles = {
   header: {
     display: "flex",
@@ -587,6 +589,7 @@ class AddDetailsComp extends React.Component {
               className={classes.contact}
               onChange={this.handleChange}
             />
+            <MuiPhoneNumber defaultCountry={"us"} />
           </form>
         </div>
         <div className="message">
