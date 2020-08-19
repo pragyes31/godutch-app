@@ -414,12 +414,20 @@ class AddFriendComp extends React.Component {
     super(props);
     this.state = {
       name: "",
+      phoneNumer: 0,
+      emailId: "",
       addDetails: false
     };
   }
 
   handleChange = e => {
-    this.setState({ name: e.target.value });
+    let number = /\d{8,}/gi;
+    let email = /\w[^@\s]*@\w+\.\w+/;
+    if (number.test(e.target.value)) {
+      this.setState({ phoneNumer: e.target.value });
+    } else {
+      this.setState({ name: e.target.value });
+    }
   };
   toggleDialog = () => {
     this.setState({ name: "" });
