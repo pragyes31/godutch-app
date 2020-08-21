@@ -478,7 +478,7 @@ class AddFriendComp extends React.Component {
             </Typography>
             <AddDetails
               openAddDetails={this.state.addDetails}
-              name={this.state.currentValue}
+              currentValue={this.state.currentValue}
               toggleAddDetails={this.toggleAddDetails}
             />
           </div>
@@ -564,9 +564,9 @@ const addDetailsStyles = {
 class AddDetailsComp extends React.Component {
   constructor(props) {
     super(props);
-    let name = this.props.name;
+    let currentValue = this.props.currentValue;
     this.state = {
-      name: name
+      currentValue: currentValue
     };
   }
   render() {
@@ -600,15 +600,16 @@ class AddDetailsComp extends React.Component {
               label="Name"
               className={classes.name}
               onChange={this.handleChange}
-              value={this.props.name}
+              value={this.props.currentValue}
             />
             <TextField
               id="contact-field"
               label="Phone number or email address"
               className={classes.contact}
               onChange={this.handleChange}
+              value={this.props.currentValue}
             />
-            <MuiPhoneNumber defaultCountry={"us"} />
+            <MuiPhoneNumber defaultCountry={"in"} />
           </form>
         </div>
         <div className="message">
