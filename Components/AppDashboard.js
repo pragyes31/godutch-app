@@ -414,21 +414,30 @@ class AddFriendComp extends React.Component {
     super(props);
     this.state = {
       name: "",
-      phoneNumer: 0,
+      phoneNumber: 0,
       emailId: "",
-      addDetails: false
+      addDetails: false,
+      currentValue: ""
     };
   }
 
   handleChange = e => {
-    this.setState({ name: e.target.value });
+    this.setState({ currentValue: e.target.value });
+    if (typeof e.target.value === "number") {
+      this.setState({ phoneNumber: e.target.value, name: "", emailId: "" });
+    } else if (e.target.value.includes("@")) {
+      this.setState({ emailId: e.target.value, phoneNumber: 0, name: "" });
+    } else {
+      this.setState({ name: e.target.value, phoneNumber: 0, emailId: "" });
+    }
   };
   toggleDialog = () => {
-    this.setState({ name: "" });
+    this.setState({ currentValue: "" });
     this.props.toggleDialog("addFriend");
   };
   toggleAddDetails = () => {
-    this.state.name && this.setState({ addDetails: !this.state.addDetails });
+    this.state.currentValue &&
+      this.setState({ addDetails: !this.state.addDetails });
   };
   render() {
     const { classes } = this.props;
@@ -452,7 +461,7 @@ class AddFriendComp extends React.Component {
               id="add-friend-field"
               className={classes.textField}
               onChange={this.handleChange}
-              value={this.state.name}
+              value={this.state.currentValue}
               placeholder="Enter name, email, phone #"
             />
           </div>
@@ -463,13 +472,13 @@ class AddFriendComp extends React.Component {
               className="addPara"
               onClick={this.toggleAddDetails}
             >
-              {this.state.name
-                ? `Add ${this.state.name} to Go-Dutch`
+              {this.state.name || this.state.phoneNumber || this.state.emailId
+                ? `Add ${this.state.currentValue} to Go-Dutch`
                 : "Add a new contact to Go-Dutch"}
             </Typography>
             <AddDetails
               openAddDetails={this.state.addDetails}
-              name={this.state.name}
+              name={this.state.currentValue}
               toggleAddDetails={this.toggleAddDetails}
             />
           </div>
