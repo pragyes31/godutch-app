@@ -413,9 +413,6 @@ class AddFriendComp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      phoneNumber: 0,
-      emailId: "",
       addDetails: false,
       currentValue: ""
     };
@@ -566,22 +563,19 @@ class AddDetailsComp extends React.Component {
     super(props);
     this.state = {
       name: "",
-      phoneNumber: 0,
-      emailId: ""
+      contactInfo: ""
     };
+    this.detectInput = val => {
+      console.log("detecting input");
+      if (typeof val === "number" || val.includes("@")) {
+        this.setState({ contactInfo: val, name: "" });
+      } else {
+        this.setState({ contactInfo: "", name: val });
+      }
+    };
+    this.detectInput(props.currentValue);
   }
-  detectInput = val => {
-    if (typeof val === "number") {
-      this.setState({ phoneNumber: val, name: "", emailId: "" });
-      return this.state.phoneNumber;
-    } else if (val.includes("@")) {
-      this.setState({ emailId: val, phoneNumber: 0, name: "" });
-      return this.state.emailId;
-    } else {
-      this.setState({ name: val, phoneNumber: 0, emailId: "" });
-      return this.state.name;
-    }
-  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -613,14 +607,14 @@ class AddDetailsComp extends React.Component {
               label="Name"
               className={classes.name}
               onChange={this.handleChange}
-              value={this.detectInput(this.props.currentValue)}
+              value={this.state.name}
             />
             <TextField
               id="contact-field"
               label="Phone number or email address"
               className={classes.contact}
               onChange={this.handleChange}
-              value={this.detectInput(this.props.currentValue)}
+              value={this.state.contactInfo}
             />
             <MuiPhoneNumber defaultCountry={"in"} />
           </form>
