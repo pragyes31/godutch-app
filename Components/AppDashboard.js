@@ -564,11 +564,24 @@ const addDetailsStyles = {
 class AddDetailsComp extends React.Component {
   constructor(props) {
     super(props);
-    let currentValue = this.props.currentValue;
     this.state = {
-      currentValue: currentValue
+      name: "",
+      phoneNumber: 0,
+      emailId: ""
     };
   }
+  detectInput = val => {
+    if (typeof val === "number") {
+      this.setState({ phoneNumber: val, name: "", emailId: "" });
+      return this.state.phoneNumber;
+    } else if (val.includes("@")) {
+      this.setState({ emailId: val, phoneNumber: 0, name: "" });
+      return this.state.emailId;
+    } else {
+      this.setState({ name: val, phoneNumber: 0, emailId: "" });
+      return this.state.name;
+    }
+  };
   render() {
     const { classes } = this.props;
     return (
@@ -600,14 +613,14 @@ class AddDetailsComp extends React.Component {
               label="Name"
               className={classes.name}
               onChange={this.handleChange}
-              value={this.props.currentValue}
+              value={this.detectInput(this.props.currentValue)}
             />
             <TextField
               id="contact-field"
               label="Phone number or email address"
               className={classes.contact}
               onChange={this.handleChange}
-              value={this.props.currentValue}
+              value={this.detectInput(this.props.currentValue)}
             />
             <MuiPhoneNumber defaultCountry={"in"} />
           </form>
