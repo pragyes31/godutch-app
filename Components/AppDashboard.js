@@ -565,15 +565,14 @@ class AddDetailsComp extends React.Component {
       name: "",
       contactInfo: ""
     };
-    this.detectInput = val => {
-      console.log("detecting input");
-      if (typeof val === "number" || val.includes("@")) {
-        this.setState({ contactInfo: val, name: "" });
-      } else {
-        this.setState({ contactInfo: "", name: val });
-      }
-    };
-    this.detectInput(props.currentValue);
+    if (
+      props.currentValue.includes("@") ||
+      typeof props.currentValue === "number"
+    ) {
+      this.state.contactInfo = props.currentValue;
+    } else {
+      this.state.name = props.currentValue;
+    }
   }
 
   render() {
