@@ -565,10 +565,8 @@ class AddDetailsComp extends React.Component {
       name: "",
       contactInfo: ""
     };
-    if (
-      props.currentValue.includes("@") ||
-      typeof props.currentValue === "number"
-    ) {
+    let isNumber = parseInt(props.currentValue);
+    if (props.currentValue.includes("@") || typeof isNumber === "number") {
       this.state.contactInfo = props.currentValue;
     } else {
       this.state.name = props.currentValue;
@@ -576,6 +574,7 @@ class AddDetailsComp extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     const { classes } = this.props;
     return (
       <Dialog
