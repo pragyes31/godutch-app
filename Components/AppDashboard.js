@@ -405,7 +405,7 @@ class ThreeDotsPopoverComp extends React.Component {
         {this.state.addFriend && (
           <AddFriend
             addFriend={this.state.addFriend}
-            toggleAddFriend={this.props.toggleAddFriend}
+            toggleAddFriend={this.toggleAddFriend}
           />
         )}
       </Popover>
@@ -438,7 +438,7 @@ class AddFriendComp extends React.Component {
   };
   toggleDialog = () => {
     this.setState({ currentValue: "" });
-    this.props.toggleAddFriend;
+    this.props.toggleAddFriend();
   };
   toggleAddDetails = () => {
     this.state.currentValue &&
