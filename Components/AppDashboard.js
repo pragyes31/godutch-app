@@ -372,7 +372,6 @@ class ThreeDotsPopoverComp extends React.Component {
   };
 
   render() {
-    console.log(this.state.addFriend);
     const { classes } = this.props;
     return (
       <Popover
@@ -380,6 +379,7 @@ class ThreeDotsPopoverComp extends React.Component {
         aria-labelledby="simple-Dialog-title"
         aria-describedby="simple-Dialog-description"
         anchorEl={this.props.anchorEl}
+        onBackdropClick={this.props.handleClose}
         classes={{ paper: classes.Dialog }}
         anchorOrigin={{
           vertical: "bottom",
