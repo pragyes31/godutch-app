@@ -102,12 +102,12 @@ class HeaderComp extends React.Component {
             onClick={this.toggle3DotsDialog}
             className={classes.dots}
           />
-          <ThreeDotsPopover
-            addFriendDialog={this.state.addFriendDialog}
-            toggleDialog={this.toggleDialog}
-            anchorEl={this.state.anchorEl}
-            handleClose={this.handleClose}
-          />
+          {this.state.anchorEl && (
+            <ThreeDotsPopover
+              anchorEl={this.state.anchorEl}
+              handleClose={this.handleClose}
+            />
+          )}
         </div>
       </div>
     );
@@ -363,16 +363,22 @@ const threeDotsPopoverStyles = {
 class ThreeDotsPopoverComp extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      addFriend: false
+    };
   }
+  toggleAddFriend = () => {
+    this.setState({ addFriend: !this.state.addFriend });
+  };
 
   render() {
+    console.log(this.state.addFriend);
     const { classes } = this.props;
     return (
       <Popover
         open={this.props.anchorEl}
         aria-labelledby="simple-Dialog-title"
         aria-describedby="simple-Dialog-description"
-        onClose={this.props.handleClose}
         anchorEl={this.props.anchorEl}
         classes={{ paper: classes.Dialog }}
         anchorOrigin={{
@@ -388,7 +394,7 @@ class ThreeDotsPopoverComp extends React.Component {
           <Typography
             variant="subtitle1"
             className={classes.contentChild}
-            onClick={() => this.props.toggleDialog("addFriend")}
+            onClick={this.toggleAddFriend}
           >
             Add new friend
           </Typography>
@@ -396,10 +402,12 @@ class ThreeDotsPopoverComp extends React.Component {
             Create a group
           </Typography>
         </div>
-        <AddFriend
-          addFriendDialog={this.props.addFriendDialog}
-          toggleDialog={this.props.toggleDialog}
-        />
+        {this.state.addFriend && (
+          <AddFriend
+            addFriend={this.state.addFriend}
+            toggleAddFriend={this.props.toggleAddFriend}
+          />
+        )}
       </Popover>
     );
   }
@@ -430,7 +438,7 @@ class AddFriendComp extends React.Component {
   };
   toggleDialog = () => {
     this.setState({ currentValue: "" });
-    this.props.toggleDialog("addFriend");
+    this.props.toggleAddFriend;
   };
   toggleAddDetails = () => {
     this.state.currentValue &&
@@ -442,7 +450,7 @@ class AddFriendComp extends React.Component {
       <div className={classes.addFriend}>
         <Dialog
           fullScreen={true}
-          open={this.props.addFriendDialog}
+          open={this.props.addFriend}
           aria-labelledby="Add New friend Dialog"
           aria-describedby="Add New friend Dialog"
           onBackdropClick={this.toggleDialog}
