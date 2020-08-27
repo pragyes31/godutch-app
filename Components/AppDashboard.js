@@ -65,17 +65,6 @@ class HeaderComp extends React.Component {
       anchorEl: false
     };
   }
-  toggleDialog = Dialog => {
-    switch (Dialog) {
-      case "optionsDialog":
-        this.setState({ optionsDialog: !this.state.optionsDialog });
-        break;
-      case "addFriend":
-        this.setState({ addFriendDialog: !this.state.addFriendDialog });
-        break;
-      default:
-    }
-  };
   toggle3DotsDialog = event => {
     this.setState({
       anchorEl: event.currentTarget,
@@ -996,7 +985,6 @@ export default class AppDashboard extends React.Component {
     super(props);
     this.state = {
       addFriendDialog: false,
-      filterDialog: false,
       openFriends: true,
       openGroups: false,
       openActivity: false
@@ -1006,15 +994,6 @@ export default class AppDashboard extends React.Component {
   addFriend = () => {};
 
   addExpense = () => {};
-
-  toggleDialog = Dialog => {
-    switch (Dialog) {
-      case "filterDialog":
-        this.setState({ filterDialog: !this.state.filterDialog });
-        break;
-      default:
-    }
-  };
 
   switchTab = tabName => {
     switch (tabName) {
@@ -1046,10 +1025,7 @@ export default class AppDashboard extends React.Component {
     console.log("app");
     return (
       <div className="app-dashboard">
-        <Header
-          toggleDialog={this.toggleDialog}
-          threeDotsDialog={this.state.threeDotsDialog}
-        />
+        <Header threeDotsDialog={this.state.threeDotsDialog} />
         <NavBar
           switchTab={this.switchTab}
           openFriends={this.state.openFriends}
