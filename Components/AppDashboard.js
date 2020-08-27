@@ -82,6 +82,10 @@ class HeaderComp extends React.Component {
       threeDotsDialog: !this.state.threeDotsDialog
     });
   };
+
+  toggleOptionsDialog = () =>
+    this.setState({ optionsDialog: !this.state.optionsDialog });
+
   handleClose = () => {
     this.setState({
       anchorEl: false,
@@ -90,16 +94,19 @@ class HeaderComp extends React.Component {
   };
   render() {
     const { classes } = this.props;
+    console.log("Header");
     return (
       <div className={classes.header}>
         <MenuIcon
           className={classes.hamburger}
-          onClick={() => this.toggleDialog("optionsDialog")}
+          onClick={this.toggleOptionsDialog}
         />
-        <OptionsDialog
-          optionsDialog={this.state.optionsDialog}
-          toggleDialog={this.toggleDialog}
-        />
+        {this.state.optionsDialog && (
+          <OptionsDialog
+            optionsDialog={this.state.optionsDialog}
+            toggleOptionsDialog={this.toggleOptionsDialog}
+          />
+        )}
         <Typography variant="h6" className={classes.title}>
           Go-Dutch App
         </Typography>
@@ -146,8 +153,8 @@ function OptionsDialogComp(props) {
       open={props.optionsDialog}
       aria-labelledby="simple-Dialog-title"
       aria-describedby="simple-Dialog-description"
-      onBackdropClick={() => props.toggleDialog("optionsDialog")}
-      onEscapeKeyDown={() => props.toggleDialog("optionsDialog")}
+      onBackdropClick={props.toggleOptionsDialog}
+      onEscapeKeyDown={props.toggleOptionsDialog}
       classes={{ paper: classes.fullDialog }}
     >
       <div className={classes.content}>
@@ -1036,6 +1043,7 @@ export default class AppDashboard extends React.Component {
   };
 
   render() {
+    console.log("app");
     return (
       <div className="app-dashboard">
         <Header
