@@ -62,7 +62,7 @@ class HeaderComp extends React.Component {
       optionsDialog: false,
       threeDotsDialog: false,
       addFriendDialog: false,
-      anchorEl: null
+      anchorEl: false
     };
   }
   toggleDialog = Dialog => {
@@ -77,10 +77,16 @@ class HeaderComp extends React.Component {
     }
   };
   toggle3DotsDialog = event => {
-    this.setState({ anchorEl: event.currentTarget });
+    this.setState({
+      anchorEl: event.currentTarget,
+      threeDotsDialog: !this.state.threeDotsDialog
+    });
   };
   handleClose = () => {
-    this.setState({ anchorEl: null });
+    this.setState({
+      anchorEl: false,
+      threeDotsDialog: !this.state.threeDotsDialog
+    });
   };
   render() {
     const { classes } = this.props;
@@ -102,7 +108,7 @@ class HeaderComp extends React.Component {
             onClick={this.toggle3DotsDialog}
             className={classes.dots}
           />
-          {this.state.anchorEl && (
+          {this.state.threeDotsDialog && (
             <ThreeDotsPopover
               anchorEl={this.state.anchorEl}
               handleClose={this.handleClose}
@@ -373,6 +379,7 @@ class ThreeDotsPopoverComp extends React.Component {
 
   render() {
     const { classes } = this.props;
+    console.log("3 dots popover dialog");
     return (
       <Popover
         open={this.props.anchorEl}
