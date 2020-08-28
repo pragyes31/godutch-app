@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles.scss"
+import "./styles.scss";
 import AppDashboard from "./Components/AppDashboard";
 
 export default function App() {
