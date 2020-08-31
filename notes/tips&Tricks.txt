@@ -1,0 +1,3 @@
+1. Append + sign before a numbered string to convert it into a number. Works for positive, negative and floating numbers.
+
+2. Always keep a conditional logic for opening React Modals/Dialogs. If you place them without it, the Modal component will render twice, once when it's parent component is loaded to UI and secondly when you intend to open it. 
