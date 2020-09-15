@@ -83,7 +83,6 @@ class HeaderComp extends React.Component {
   };
   render() {
     const { classes } = this.props;
-    console.log("Header");
     return (
       <div className={classes.header}>
         <MenuIcon
@@ -375,10 +374,9 @@ class ThreeDotsPopoverComp extends React.Component {
 
   render() {
     const { classes } = this.props;
-    console.log("3 dots popover dialog");
     return (
       <Popover
-        open={this.props.anchorEl}
+        open={this.props.anchorEl != null}
         aria-labelledby="simple-Dialog-title"
         aria-describedby="simple-Dialog-description"
         anchorEl={this.props.anchorEl}
@@ -484,11 +482,13 @@ class AddFriendComp extends React.Component {
                 ? `Add ${this.state.currentValue} to Go-Dutch`
                 : "Add a new contact to Go-Dutch"}
             </Typography>
-            <AddDetails
-              openAddDetails={this.state.addDetails}
-              currentValue={this.state.currentValue}
-              toggleAddDetails={this.toggleAddDetails}
-            />
+            {this.state.addDetails && (
+              <AddDetails
+                openAddDetails={this.state.addDetails}
+                currentValue={this.state.currentValue}
+                toggleAddDetails={this.toggleAddDetails}
+              />
+            )}
           </div>
         </Dialog>
       </div>
@@ -577,15 +577,17 @@ class AddDetailsComp extends React.Component {
       contactInfo: ""
     };
     let isNumber = parseInt(props.currentValue);
+    console.log(typeof isNumber === "number");
     if (props.currentValue.includes("@") || typeof isNumber === "number") {
       this.state.contactInfo = props.currentValue;
+      this.state.name = "";
     } else {
       this.state.name = props.currentValue;
+      this.state.contactInfo = "";
     }
   }
 
   render() {
-    console.log(this.props);
     const { classes } = this.props;
     return (
       <Dialog
@@ -1022,7 +1024,6 @@ export default class AppDashboard extends React.Component {
   };
 
   render() {
-    console.log("app");
     return (
       <div className="app-dashboard">
         <Header threeDotsDialog={this.state.threeDotsDialog} />
