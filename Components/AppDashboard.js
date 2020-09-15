@@ -576,9 +576,11 @@ class AddDetailsComp extends React.Component {
       name: "",
       contactInfo: ""
     };
-    let isNumber = parseInt(props.currentValue);
-    console.log(typeof isNumber === "number");
-    if (props.currentValue.includes("@") || typeof isNumber === "number") {
+    console.log(`currentval is ${props.currentValue}`);
+    let isNumber = +props.currentValue;
+    console.log(`isNumber = ${isNumber}`);
+    console.log(isNumber === NaN);
+    if (props.currentValue.includes("@") || isNumber === NaN) {
       this.state.contactInfo = props.currentValue;
       this.state.name = "";
     } else {
