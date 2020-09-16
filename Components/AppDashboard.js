@@ -429,13 +429,6 @@ class AddFriendComp extends React.Component {
 
   handleChange = e => {
     this.setState({ currentValue: e.target.value });
-    if (typeof e.target.value === "number") {
-      this.setState({ phoneNumber: e.target.value, name: "", emailId: "" });
-    } else if (e.target.value.includes("@")) {
-      this.setState({ emailId: e.target.value, phoneNumber: 0, name: "" });
-    } else {
-      this.setState({ name: e.target.value, phoneNumber: 0, emailId: "" });
-    }
   };
   toggleDialog = () => {
     this.setState({ currentValue: "" });
@@ -580,7 +573,7 @@ class AddDetailsComp extends React.Component {
     let isNumber = +props.currentValue;
     console.log(`isNumber = ${isNumber}`);
     console.log(isNumber === NaN);
-    if (props.currentValue.includes("@") || isNumber === NaN) {
+    if (props.currentValue.includes("@") || isNumber !== NaN) {
       this.state.contactInfo = props.currentValue;
       this.state.name = "";
     } else {
