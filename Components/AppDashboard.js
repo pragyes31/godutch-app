@@ -569,11 +569,11 @@ class AddDetailsComp extends React.Component {
       name: "",
       contactInfo: ""
     };
-    console.log(`currentval is ${props.currentValue}`);
-    let isNumber = +props.currentValue;
-    console.log(`isNumber = ${isNumber}`);
-    console.log(isNumber === NaN);
-    if (props.currentValue.includes("@") || isNumber !== NaN) {
+
+    let numberRegex = /\d+/;
+    let isNumber = numberRegex.test(props.currentValue);
+
+    if (props.currentValue.includes("@") || isNumber) {
       this.state.contactInfo = props.currentValue;
       this.state.name = "";
     } else {
