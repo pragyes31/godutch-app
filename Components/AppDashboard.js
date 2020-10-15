@@ -471,7 +471,7 @@ class AddFriendComp extends React.Component {
               className="addPara"
               onClick={this.toggleAddDetails}
             >
-              {this.state.name || this.state.phoneNumber || this.state.emailId
+              {this.state.currentValue
                 ? `Add ${this.state.currentValue} to Go-Dutch`
                 : "Add a new contact to Go-Dutch"}
             </Typography>
