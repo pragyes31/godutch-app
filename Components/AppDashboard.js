@@ -567,7 +567,8 @@ class AddDetailsComp extends React.Component {
     super(props);
     this.state = {
       name: "",
-      contactInfo: ""
+      contactInfo: "",
+      addBtnDisable: true
     };
 
     let numberRegex = /\d+/;
@@ -581,6 +582,24 @@ class AddDetailsComp extends React.Component {
       this.state.contactInfo = "";
     }
   }
+
+  handleName = e => {
+    this.setState({ name: e.target.value });
+    if (this.state.name && this.state.contactInfo) {
+      this.setState(prevState => {
+        addBtnDisable: false;
+      });
+    }
+  };
+
+  handleContactInfo = e => {
+    this.setState({ contactInfo: e.target.value });
+    if (this.state.name && this.state.contactInfo) {
+      this.setState(prevState => {
+        addBtnDisable: false;
+      });
+    }
+  };
 
   render() {
     const { classes } = this.props;
@@ -603,7 +622,7 @@ class AddDetailsComp extends React.Component {
             <Typography variant="subtitle1">Add new contact</Typography>
           </div>
           <div className={classes.right}>
-            <Button disabled={true}>ADD</Button>
+            <Button disabled={this.state.addBtnDisable}>ADD</Button>
           </div>
         </div>
         <div className={classes.details}>
@@ -612,14 +631,14 @@ class AddDetailsComp extends React.Component {
               id="name-field"
               label="Name"
               className={classes.name}
-              onChange={this.handleChange}
+              onChange={this.handleName}
               value={this.state.name}
             />
             <TextField
               id="contact-field"
               label="Phone number or email address"
               className={classes.contact}
-              onChange={this.handleChange}
+              onChange={this.handleContactInfo}
               value={this.state.contactInfo}
             />
             <MuiPhoneNumber defaultCountry={"in"} />
