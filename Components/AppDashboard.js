@@ -583,22 +583,32 @@ class AddDetailsComp extends React.Component {
     }
   }
 
-  handleName = e => {
-    this.setState({ name: e.target.value });
+  handleAddBtn = () => {
     if (this.state.name && this.state.contactInfo) {
       this.setState(prevState => {
-        addBtnDisable: false;
+        return { addBtnDisable: false };
+      });
+    } else {
+      this.setState(prevState => {
+        return { addBtnDisable: true };
       });
     }
   };
 
+  handleName = e => {
+    let name = e.target.value;
+    this.setState(prevState => {
+      return { name };
+    });
+    this.handleAddBtn();
+  };
+
   handleContactInfo = e => {
-    this.setState({ contactInfo: e.target.value });
-    if (this.state.name && this.state.contactInfo) {
-      this.setState(prevState => {
-        addBtnDisable: false;
-      });
-    }
+    let contactInfo = e.target.value;
+    this.setState(prevState => {
+      return { contactInfo };
+    });
+    this.handleAddBtn();
   };
 
   render() {
