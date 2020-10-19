@@ -570,17 +570,8 @@ class AddDetailsComp extends React.Component {
     };
 
     let numberRegex = /^[1-9]\d{7,11}$/;
-    let isNumber = numberRegex.test(props.currentValue);
-
-    let emailRegex = //
-
-    if (props.currentValue.includes("@") || isNumber) {
-      this.state.contactInfo = props.currentValue;
-      this.state.name = "";
-    } else {
-      this.state.name = props.currentValue;
-      this.state.contactInfo = "";
-    }
+    let isNumber = numberRegex.test(props.currentValue
+    
   }
 
   handleAddBtn = () => {
