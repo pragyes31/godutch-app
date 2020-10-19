@@ -4,8 +4,6 @@ import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import Dialog from "@material-ui/core/Dialog";
 import Popover from "@material-ui/core/Popover";
-import Tab from "@material-ui/core/Tab";
-import Tabs from "@material-ui/core/Tabs";
 import TextField from "@material-ui/core/TextField";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
@@ -571,8 +569,10 @@ class AddDetailsComp extends React.Component {
       addBtnDisable: true
     };
 
-    let numberRegex = /\d+/;
+    let numberRegex = /^[1-9]\d{7,11}$/;
     let isNumber = numberRegex.test(props.currentValue);
+
+    let emailRegex = //
 
     if (props.currentValue.includes("@") || isNumber) {
       this.state.contactInfo = props.currentValue;
@@ -599,16 +599,14 @@ class AddDetailsComp extends React.Component {
     let name = e.target.value;
     this.setState(prevState => {
       return { name };
-    });
-    this.handleAddBtn();
+    }, this.handleAddBtn);
   };
 
   handleContactInfo = e => {
     let contactInfo = e.target.value;
     this.setState(prevState => {
       return { contactInfo };
-    });
-    this.handleAddBtn();
+    }, this.handleAddBtn);
   };
 
   render() {
@@ -651,7 +649,9 @@ class AddDetailsComp extends React.Component {
               onChange={this.handleContactInfo}
               value={this.state.contactInfo}
             />
-            <MuiPhoneNumber defaultCountry={"in"} />
+            {
+              //<MuiPhoneNumber defaultCountry={"in"} />
+            }
           </form>
         </div>
         <div className="message">
