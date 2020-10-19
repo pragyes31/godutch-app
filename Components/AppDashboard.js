@@ -570,7 +570,7 @@ class AddDetailsComp extends React.Component {
     };
 
     let numberRegex = /^[1-9]\d{7,11}$/;
-    let isNumber = numberRegex.test(props.currentValue
+    let isNumber = numberRegex.test(props.currentValue)
     
   }
 
