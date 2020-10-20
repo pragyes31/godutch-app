@@ -570,8 +570,9 @@ class AddDetailsComp extends React.Component {
     };
 
     let numberRegex = /^[1-9]\d{7,11}$/;
-    let isNumber = numberRegex.test(props.currentValue)
-    
+    let isNumber = numberRegex.test(this.state.contactInfo);
+    let emailRegex = /^[\d\w.!#$%&'*+/=?^_`{|}~-]{1,30}@\w{1,30}.\w{1,30}/;
+    let isEmail = emailRegex.test(this.state.contactInfo);
   }
 
   handleAddBtn = () => {
