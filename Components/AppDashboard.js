@@ -601,6 +601,13 @@ class AddDetailsComp extends React.Component {
     }, this.handleAddBtn);
   };
 
+  handleAdd = () => {
+    if (isNumber || isEmail) {
+      console.log("new modal window");
+    } else {
+    }
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -622,7 +629,12 @@ class AddDetailsComp extends React.Component {
             <Typography variant="subtitle1">Add new contact</Typography>
           </div>
           <div className={classes.right}>
-            <Button disabled={this.state.addBtnDisable}>ADD</Button>
+            <Button
+              disabled={this.state.addBtnDisable}
+              onClick={this.handleAdd}
+            >
+              ADD
+            </Button>
           </div>
         </div>
         <div className={classes.details}>
