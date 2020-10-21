@@ -564,25 +564,34 @@ class AddDetailsComp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
+      name: this.props.currentValue,
       contactInfo: "",
-      addBtnDisable: true
+      addBtnDisable: true,
+      isNumber: false,
+      isEmail: false,
+      alertDialogOpen: false
     };
 
     let numberRegex = /^[1-9]\d{7,11}$/;
-    let isNumber = numberRegex.test(this.state.contactInfo);
-    let emailRegex = /^[\d\w.!#$%&'*+/=?^_`{|}~-]{1,30}@\w{1,30}.\w{1,30}/;
-    let isEmail = emailRegex.test(this.state.contactInfo);
+    let emailRegex = /^[\d\w.!#$%&'*+/=?^_`{|}~-]{1,30}@\w{1,30}\.\w{1,30}/;
   }
 
-  handleAddBtn = () => {
+  activeAddBtn = () => {
     if (this.state.name && this.state.contactInfo) {
       this.setState(prevState => {
-        return { addBtnDisable: false };
+        return {
+          addBtnDisable: false,
+          isEmail: emailRegex.test(this.state.contactInfo),
+          isNumber: numberRegex.test(this.state.contactInfo)
+        };
       });
     } else {
       this.setState(prevState => {
-        return { addBtnDisable: true };
+        return {
+          addBtnDisable: true,
+          isEmail: emailRegex.test(this.state.contactInfo),
+          isNumber: numberRegex.test(this.state.contactInfo)
+        };
       });
     }
   };
@@ -591,25 +600,27 @@ class AddDetailsComp extends React.Component {
     let name = e.target.value;
     this.setState(prevState => {
       return { name };
-    }, this.handleAddBtn);
+    }, this.activeAddBtn);
   };
 
   handleContactInfo = e => {
     let contactInfo = e.target.value;
     this.setState(prevState => {
       return { contactInfo };
-    }, this.handleAddBtn);
+    }, this.activeAddBtn);
   };
 
-  handleAdd = () => {
-    if (isNumber || isEmail) {
-      console.log("new modal window");
+  handleAddBtn = () => {
+    if (this.state.isNumber || this.state.isEmail) {
+      console.log("next window");
     } else {
+      this.setState({ alertDialogOpen: !this.state.alertDialogOpen });
     }
   };
 
   render() {
     const { classes } = this.props;
+    console.log(this.state.isNumber, this.state.isEmail);
     return (
       <Dialog
         fullScreen={true}
@@ -631,7 +642,7 @@ class AddDetailsComp extends React.Component {
           <div className={classes.right}>
             <Button
               disabled={this.state.addBtnDisable}
-              onClick={this.handleAdd}
+              onClick={this.handleAddBtn}
             >
               ADD
             </Button>
@@ -662,12 +673,41 @@ class AddDetailsComp extends React.Component {
           Don't worry, nothing sends just yet. You will have another chance to
           review before sending.
         </div>
+        {this.state.alertDialogOpen && (
+          <AlertDialogBox alertDialogOpen={this.state.alertDialogOpen} />
+        )}
       </Dialog>
     );
   }
 }
 
 const AddDetails = withStyles(addDetailsStyles)(AddDetailsComp);
+
+const alertDialogBoxStyles = {
+  alertDialogBox: {
+    width: "200px",
+    height: "100px"
+  }
+};
+
+function AlertDialogBoxComp(props) {
+  const { classes } = props;
+  return (
+    <Dialog
+      fullScreen={true}
+      open={props.alertDialogOpen}
+      aria-labelledby="Wrong phone number or email id"
+      aria-describedby="Wrong phone number or email id"
+      onBackdropClick={props.toggleDialog}
+      onEscapeKeyDown={props.toggleDialog}
+      classes={{ paper: classes.alertDialogBox }}
+    >
+      <div>Invalid phone number or email id</div>
+    </Dialog>
+  );
+}
+
+const AlertDialogBox = withStyles(alertDialogBoxStyles)(AlertDialogBoxComp);
 
 const navBarStyles = {
   navBar: {
