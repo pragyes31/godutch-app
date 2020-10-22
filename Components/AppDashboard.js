@@ -618,6 +618,10 @@ class AddDetailsComp extends React.Component {
     }
   };
 
+  toggleAlertBox = () => {
+    this.setState({ alertDialogOpen: !this.state.alertDialogOpen });
+  };
+
   render() {
     const { classes } = this.props;
     console.log(this.state.isNumber, this.state.isEmail);
@@ -674,7 +678,10 @@ class AddDetailsComp extends React.Component {
           review before sending.
         </div>
         {this.state.alertDialogOpen && (
-          <AlertDialogBox alertDialogOpen={this.state.alertDialogOpen} />
+          <AlertDialogBox
+            alertDialogOpen={this.state.alertDialogOpen}
+            toggleAlertBox={this.toggleAlertBox}
+          />
         )}
       </Dialog>
     );
@@ -685,8 +692,14 @@ const AddDetails = withStyles(addDetailsStyles)(AddDetailsComp);
 
 const alertDialogBoxStyles = {
   alertDialogBox: {
-    width: "200px",
-    height: "100px"
+    width: "300px",
+    height: "150px"
+  },
+  message: {
+    padding: "10px"
+  },
+  close: {
+    width: "50%"
   }
 };
 
@@ -698,11 +711,22 @@ function AlertDialogBoxComp(props) {
       open={props.alertDialogOpen}
       aria-labelledby="Wrong phone number or email id"
       aria-describedby="Wrong phone number or email id"
-      onBackdropClick={props.toggleDialog}
-      onEscapeKeyDown={props.toggleDialog}
+      onBackdropClick={props.toggleAlertBox}
+      onEscapeKeyDown={props.toggleAlertBox}
       classes={{ paper: classes.alertDialogBox }}
     >
-      <div>Invalid phone number or email id</div>
+      <Typography className={classes.message}>
+        Invalid phone number or email id
+      </Typography>
+      <div>
+        <Button
+          className={classes.close}
+          color="primary"
+          onClick={props.toggleAlertBox}
+        >
+          Close
+        </Button>
+      </div>
     </Dialog>
   );
 }
