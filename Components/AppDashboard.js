@@ -23,6 +23,7 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
 import RateReviewIcon from "@material-ui/icons/RateReview";
 import SettingsIcon from "@material-ui/icons/Settings";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 import { withStyles } from "@material-ui/core/styles";
 
