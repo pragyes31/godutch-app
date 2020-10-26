@@ -693,13 +693,20 @@ const AddDetails = withStyles(addDetailsStyles)(AddDetailsComp);
 const alertDialogBoxStyles = {
   alertDialogBox: {
     width: "300px",
-    height: "150px"
+    height: "150px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around"
   },
   message: {
-    padding: "10px"
+    padding: "10px",
+    textAlign: "center",
+    marginTop: "1rem"
   },
   close: {
-    width: "50%"
+    display: "flex",
+    justifyContent: "flex-end",
+    marginRight: "1rem"
   }
 };
 
@@ -716,15 +723,11 @@ function AlertDialogBoxComp(props) {
       classes={{ paper: classes.alertDialogBox }}
     >
       <Typography className={classes.message}>
-        Invalid phone number or email id
+        Invalid phone number or email id.
       </Typography>
-      <div>
-        <Button
-          className={classes.close}
-          color="primary"
-          onClick={props.toggleAlertBox}
-        >
-          Close
+      <div className={classes.close}>
+        <Button color="primary" onClick={props.toggleAlertBox}>
+          OK
         </Button>
       </div>
     </Dialog>
