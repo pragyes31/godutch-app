@@ -8,22 +8,24 @@ import TextField from "@material-ui/core/TextField";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import CancelIcon from "@material-ui/icons/Cancel";
 import CropFreeIcon from "@material-ui/icons/CropFree";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import HomeIcon from "@material-ui/icons/Home";
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
+
 import RateReviewIcon from "@material-ui/icons/RateReview";
 import SettingsIcon from "@material-ui/icons/Settings";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 import { withStyles } from "@material-ui/core/styles";
 
@@ -570,7 +572,8 @@ class AddDetailsComp extends React.Component {
       addBtnDisable: true,
       isNumber: false,
       isEmail: false,
-      alertDialogOpen: false
+      alertDialogOpen: false,
+      addMoreFriends: false
     };
 
     let numberRegex = /^[1-9]\d{7,11}$/;
@@ -613,7 +616,7 @@ class AddDetailsComp extends React.Component {
 
   handleAddBtn = () => {
     if (this.state.isNumber || this.state.isEmail) {
-      console.log("next window");
+      this.setState({ addMoreFriends: !this.state.addMoreFriends });
     } else {
       this.setState({ alertDialogOpen: !this.state.alertDialogOpen });
     }
@@ -684,11 +687,98 @@ class AddDetailsComp extends React.Component {
             toggleAlertBox={this.toggleAlertBox}
           />
         )}
+        {this.state.addMoreFriends && (
+          <AddMoreFriends
+            addMoreFriends={this.state.addMoreFriends}
+            toggleAlertBox={this.toggleAlertBox}
+          />
+        )}
       </Dialog>
     );
   }
 }
 
+const AddMoreFriendsStyles = {
+  box: {
+    maxWidth: "600px"
+  },
+  top: {
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
+    height: "50px",
+    backgroundColor: "#00b8a9"
+  },
+  arrow: {
+    cursor: "pointer",
+    width: "7%",
+    color: "#fff"
+  },
+  textField: {
+    width: "93%",
+    color: "#fff"
+  },
+  friend: {
+    width:"60px",
+    position:"relative"
+  },
+  photo: {
+    width: "50px",
+    height: "50px",
+    color:"#aaa"
+  },
+  cancel: {
+    width: "25px",
+    height: "25px",
+    position: "absolute",
+    bottom:"5px",
+    right:"5px",
+    color:"#444",
+    cursor: "pointer",
+    backgroundColor:"#ddd",
+    borderRadius:"50%",
+    border:"0px solid #ddd"
+  }
+};
+
+class AddMoreFriendsComp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <Dialog
+        fullScreen={true}
+        open={this.props.addMoreFriends}
+        aria-labelledby="Add more friends"
+        aria-describedby="Add more friends"
+        onBackdropClick={this.props.toggleAlertBox}
+        onEscapeKeyDown={this.props.toggleAlertBox}
+        classes={{ paper: classes.box }}
+      >
+        <div className={classes.top}>
+          <ArrowBackIcon className={classes.arrow} />
+          <TextField
+            id="add-friend-field"
+            className={classes.textField}
+            placeholder="Enter name, email, phone #"
+          />
+        </div>
+        <div className={classes.friendsList}>
+          <div className={classes.friend}>
+            <AccountCircleIcon className={classes.photo} />
+              <HighlightOffIcon className={classes.cancel} />
+          </div>
+        </div>
+      </Dialog>
+    );
+  }
+}
+
+const AddMoreFriends = withStyles(AddMoreFriendsStyles)(AddMoreFriendsComp);
 const AddDetails = withStyles(addDetailsStyles)(AddDetailsComp);
 
 const alertDialogBoxStyles = {
