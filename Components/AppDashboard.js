@@ -17,7 +17,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import HomeIcon from "@material-ui/icons/Home";
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -573,7 +573,8 @@ class AddDetailsComp extends React.Component {
       isNumber: false,
       isEmail: false,
       alertDialogOpen: false,
-      addMoreFriends: false
+      addMoreFriends: false,
+      friendsList: [{ name: this.props.currentValue, contactInfo: "" }]
     };
 
     let numberRegex = /^[1-9]\d{7,11}$/;
@@ -691,6 +692,7 @@ class AddDetailsComp extends React.Component {
           <AddMoreFriends
             addMoreFriends={this.state.addMoreFriends}
             toggleAlertBox={this.toggleAlertBox}
+            friendsList={this.state.friendsList}
           />
         )}
       </Dialog>
@@ -719,25 +721,25 @@ const AddMoreFriendsStyles = {
     color: "#fff"
   },
   friend: {
-    width:"60px",
-    position:"relative"
+    width: "60px",
+    position: "relative"
   },
   photo: {
     width: "50px",
     height: "50px",
-    color:"#aaa"
+    color: "#aaa"
   },
-  cancel: {
+  removeUser: {
     width: "25px",
     height: "25px",
     position: "absolute",
-    bottom:"5px",
-    right:"5px",
-    color:"#444",
+    bottom: "5px",
+    right: "5px",
+    color: "#444",
     cursor: "pointer",
-    backgroundColor:"#ddd",
-    borderRadius:"50%",
-    border:"0px solid #ddd"
+    backgroundColor: "#ddd",
+    borderRadius: "50%",
+    border: "0px solid #ddd"
   }
 };
 
@@ -747,8 +749,9 @@ class AddMoreFriendsComp extends React.Component {
     this.state = {};
   }
 
+  handleRemoveUser = () => {};
   render() {
-    const { classes } = this.props;
+    const { classes, friendsList } = this.props;
     return (
       <Dialog
         fullScreen={true}
@@ -768,10 +771,15 @@ class AddMoreFriendsComp extends React.Component {
           />
         </div>
         <div className={classes.friendsList}>
-          <div className={classes.friend}>
-            <AccountCircleIcon className={classes.photo} />
-              <HighlightOffIcon className={classes.cancel} />
-          </div>
+          {friendsList.map(friend => {
+            <div className={classes.friend} key={Date.now()}>
+              <AccountCircleIcon className={classes.photo} />
+              <HighlightOffIcon
+                className={classes.removeUser}
+                onClick={this.handleRemoveUser}
+              />
+            </div>;
+          })}
         </div>
       </Dialog>
     );
