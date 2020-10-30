@@ -61,27 +61,13 @@ class HeaderComp extends React.Component {
     super(props);
     this.state = {
       optionsDialog: false,
-      threeDotsDialog: false,
-      addFriendDialog: false,
-      anchorEl: false
+      addFriendDialog: false
     };
   }
-  toggle3DotsDialog = event => {
-    this.setState({
-      anchorEl: event.currentTarget,
-      threeDotsDialog: !this.state.threeDotsDialog
-    });
-  };
 
   toggleOptionsDialog = () =>
     this.setState({ optionsDialog: !this.state.optionsDialog });
 
-  handleClose = () => {
-    this.setState({
-      anchorEl: false,
-      threeDotsDialog: !this.state.threeDotsDialog
-    });
-  };
   render() {
     const { classes } = this.props;
     return (
@@ -101,15 +87,9 @@ class HeaderComp extends React.Component {
         </Typography>
         <div>
           <MoreVertIcon
-            onClick={this.toggle3DotsDialog}
+            onClick={this.props.toggle3DotsDialog}
             className={classes.dots}
           />
-          {this.state.threeDotsDialog && (
-            <ThreeDotsPopover
-              anchorEl={this.state.anchorEl}
-              handleClose={this.handleClose}
-            />
-          )}
         </div>
       </div>
     );
@@ -1180,16 +1160,29 @@ export default class AppDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      threeDotsDialog: false,
+      anchorEl: false,
       addFriendDialog: false,
+      friendsList: [],
       openFriends: true,
       openGroups: false,
       openActivity: false
     };
   }
 
-  addFriend = () => {};
+  handleClose = () => {
+    this.setState({
+      anchorEl: false,
+      threeDotsDialog: !this.state.threeDotsDialog
+    });
+  };
 
-  addExpense = () => {};
+  toggle3DotsDialog = event => {
+    this.setState({
+      anchorEl: event.currentTarget,
+      threeDotsDialog: !this.state.threeDotsDialog
+    });
+  };
 
   switchTab = tabName => {
     switch (tabName) {
@@ -1220,7 +1213,10 @@ export default class AppDashboard extends React.Component {
   render() {
     return (
       <div className="app-dashboard">
-        <Header threeDotsDialog={this.state.threeDotsDialog} />
+        <Header
+          threeDotsDialog={this.state.threeDotsDialog}
+          toggle3DotsDialog={this.toggle3DotsDialog}
+        />
         <NavBar
           switchTab={this.switchTab}
           openFriends={this.state.openFriends}
@@ -1237,6 +1233,13 @@ export default class AppDashboard extends React.Component {
           color="secondary"
           tooltip="Add Expense"
         />
+        {this.state.threeDotsDialog && (
+          <ThreeDotsPopover
+            anchorEl={this.state.anchorEl}
+            handleClose={this.handleClose}
+            friendsList={this.state.friendsList}
+          />
+        )}
       </div>
     );
   }
