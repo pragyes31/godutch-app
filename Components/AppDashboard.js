@@ -323,57 +323,40 @@ const threeDotsPopoverStyles = {
   }
 };
 
-class ThreeDotsPopoverComp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      addFriend: false
-    };
-  }
-  toggleAddFriend = () => {
-    this.setState({ addFriend: !this.state.addFriend });
-  };
+function ThreeDotsPopoverComp(props) {
+  const { classes } = props;
 
-  render() {
-    const { classes } = this.props;
-    return (
-      <Popover
-        open={this.props.anchorEl != null}
-        aria-labelledby="simple-Dialog-title"
-        aria-describedby="simple-Dialog-description"
-        anchorEl={this.props.anchorEl}
-        onBackdropClick={this.props.handle3DotsClose}
-        classes={{ paper: classes.Dialog }}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left"
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right"
-        }}
-      >
-        <div className={classes.content}>
-          <Typography
-            variant="subtitle1"
-            className={classes.contentChild}
-            onClick={this.toggleAddFriend}
-          >
-            Add new friend
-          </Typography>
-          <Typography variant="subtitle1" className={classes.contentChild}>
-            Create a group
-          </Typography>
-        </div>
-        {this.state.addFriend && (
-          <AddFriend
-            addFriend={this.state.addFriend}
-            toggleAddFriend={this.toggleAddFriend}
-          />
-        )}
-      </Popover>
-    );
-  }
+  return (
+    <Popover
+      open={props.anchorEl != null}
+      aria-labelledby="simple-Dialog-title"
+      aria-describedby="simple-Dialog-description"
+      anchorEl={props.anchorEl}
+      onBackdropClick={props.handle3DotsClose}
+      classes={{ paper: classes.Dialog }}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "left"
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right"
+      }}
+    >
+      <div className={classes.content}>
+        <Typography
+          variant="subtitle1"
+          className={classes.contentChild}
+          onClick={props.toggleAddFriend}
+        >
+          Add new friend
+        </Typography>
+        <Typography variant="subtitle1" className={classes.contentChild}>
+          Create a group
+        </Typography>
+      </div>
+    </Popover>
+  );
 }
 
 const ThreeDotsPopover = withStyles(threeDotsPopoverStyles)(
@@ -1145,6 +1128,7 @@ export default class AppDashboard extends React.Component {
       threeDotsDialog: false,
       anchorEl: false,
       addFriendDialog: false,
+      addFriend: false,
       friendsList: [],
       openFriends: true,
       openGroups: false,
@@ -1167,6 +1151,10 @@ export default class AppDashboard extends React.Component {
       anchorEl: event.currentTarget,
       threeDotsDialog: !this.state.threeDotsDialog
     });
+  };
+
+  toggleAddFriend = () => {
+    this.setState({ addFriend: !this.state.addFriend });
   };
 
   switchTab = tabName => {
@@ -1230,6 +1218,13 @@ export default class AppDashboard extends React.Component {
             anchorEl={this.state.anchorEl}
             handle3DotsClose={this.handle3DotsClose}
             friendsList={this.state.friendsList}
+            toggleAddFriend={this.toggleAddFriend}
+          />
+        )}
+        {this.state.addFriend && (
+          <AddFriend
+            addFriend={this.state.addFriend}
+            toggleAddFriend={this.toggleAddFriend}
           />
         )}
       </div>
