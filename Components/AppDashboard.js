@@ -56,44 +56,25 @@ const headerStyles = {
   }
 };
 
-class HeaderComp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      optionsDialog: false,
-      addFriendDialog: false
-    };
-  }
-
-  toggleOptionsDialog = () =>
-    this.setState({ optionsDialog: !this.state.optionsDialog });
-
-  render() {
-    const { classes } = this.props;
-    return (
-      <div className={classes.header}>
-        <MenuIcon
-          className={classes.hamburger}
-          onClick={this.toggleOptionsDialog}
+function HeaderComp(props) {
+  const { classes } = props;
+  return (
+    <div className={classes.header}>
+      <MenuIcon
+        className={classes.hamburger}
+        onClick={props.toggleOptionsDialog}
+      />
+      <Typography variant="h6" className={classes.title}>
+        Go-Dutch App
+      </Typography>
+      <div>
+        <MoreVertIcon
+          onClick={props.toggle3DotsDialog}
+          className={classes.dots}
         />
-        {this.state.optionsDialog && (
-          <OptionsDialog
-            optionsDialog={this.state.optionsDialog}
-            toggleOptionsDialog={this.toggleOptionsDialog}
-          />
-        )}
-        <Typography variant="h6" className={classes.title}>
-          Go-Dutch App
-        </Typography>
-        <div>
-          <MoreVertIcon
-            onClick={this.props.toggle3DotsDialog}
-            className={classes.dots}
-          />
-        </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 const Header = withStyles(headerStyles)(HeaderComp);
@@ -361,7 +342,7 @@ class ThreeDotsPopoverComp extends React.Component {
         aria-labelledby="simple-Dialog-title"
         aria-describedby="simple-Dialog-description"
         anchorEl={this.props.anchorEl}
-        onBackdropClick={this.props.handleClose}
+        onBackdropClick={this.props.handle3DotsClose}
         classes={{ paper: classes.Dialog }}
         anchorOrigin={{
           vertical: "bottom",
@@ -1160,6 +1141,7 @@ export default class AppDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      optionsDialog: false,
       threeDotsDialog: false,
       anchorEl: false,
       addFriendDialog: false,
@@ -1170,12 +1152,15 @@ export default class AppDashboard extends React.Component {
     };
   }
 
-  handleClose = () => {
+  handle3DotsClose = () => {
     this.setState({
       anchorEl: false,
       threeDotsDialog: !this.state.threeDotsDialog
     });
   };
+
+  toggleOptionsDialog = () =>
+    this.setState({ optionsDialog: !this.state.optionsDialog });
 
   toggle3DotsDialog = event => {
     this.setState({
@@ -1216,6 +1201,7 @@ export default class AppDashboard extends React.Component {
         <Header
           threeDotsDialog={this.state.threeDotsDialog}
           toggle3DotsDialog={this.toggle3DotsDialog}
+          toggleOptionsDialog={this.toggleOptionsDialog}
         />
         <NavBar
           switchTab={this.switchTab}
@@ -1233,10 +1219,16 @@ export default class AppDashboard extends React.Component {
           color="secondary"
           tooltip="Add Expense"
         />
+        {this.state.optionsDialog && (
+          <OptionsDialog
+            optionsDialog={this.state.optionsDialog}
+            toggleOptionsDialog={this.toggleOptionsDialog}
+          />
+        )}
         {this.state.threeDotsDialog && (
           <ThreeDotsPopover
             anchorEl={this.state.anchorEl}
-            handleClose={this.handleClose}
+            handle3DotsClose={this.handle3DotsClose}
             friendsList={this.state.friendsList}
           />
         )}
