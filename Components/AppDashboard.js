@@ -578,7 +578,7 @@ class AddDetailsComp extends React.Component {
           <div className={classes.left}>
             <ArrowBackIcon
               className={classes.arrow}
-              onClick={this.props.toggleAddDetails}
+              onClick={() => this.props.handleCurrentFriend("")}
             />
             <Typography variant="subtitle1">Add new contact</Typography>
           </div>
@@ -1234,13 +1234,14 @@ export default class AppDashboard extends React.Component {
           <AddFriend
             addFriend={this.state.addFriend}
             handleCurrentFriend={this.handleCurrentFriend}
+            toggleAddFriend={this.toggleAddFriend}
           />
         )}
         {this.state.addDetailsDialog && (
           <AddDetails
             openAddDetails={this.state.addDetailsDialog}
             currentFriend={this.state.currentFriend}
-            toggleAddDetails={this.toggleAddDetails}
+            handleCurrentFriend={this.handleCurrentFriend}
           />
         )}
       </div>
