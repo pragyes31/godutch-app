@@ -506,7 +506,6 @@ class AddDetailsComp extends React.Component {
       addBtnDisable: true,
       isNumber: false,
       isEmail: false,
-      alertDialogOpen: false,
       addMoreFriends: false,
       friendsList: [{ name: this.props.currentFriend, contactInfo: "" }]
     };
@@ -553,7 +552,7 @@ class AddDetailsComp extends React.Component {
     if (this.state.isNumber || this.state.isEmail) {
       this.setState({ addMoreFriends: !this.state.addMoreFriends });
     } else {
-      this.setState({ alertDialogOpen: !this.state.alertDialogOpen });
+      this.props.toggleWrongInput();
     }
   };
 
@@ -744,23 +743,22 @@ const alertDialogBoxStyles = {
   }
 };
 
-function AlertDialogBoxComp(props) {
+function WrongInputComp(props) {
   const { classes } = props;
   return (
     <Dialog
-      fullScreen={true}
-      open={props.alertDialogOpen}
+      open={props.wrongInputDialog}
       aria-labelledby="Wrong phone number or email id"
       aria-describedby="Wrong phone number or email id"
-      onBackdropClick={props.toggleAlertBox}
-      onEscapeKeyDown={props.toggleAlertBox}
+      onBackdropClick={props.toggleWrongInput}
+      onEscapeKeyDown={props.toggleWrongInput}
       classes={{ paper: classes.alertDialogBox }}
     >
       <Typography className={classes.message}>
         Invalid phone number or email id.
       </Typography>
       <div className={classes.close}>
-        <Button color="primary" onClick={props.toggleAlertBox}>
+        <Button color="primary" onClick={props.toggleWrongInput}>
           OK
         </Button>
       </div>
@@ -768,7 +766,7 @@ function AlertDialogBoxComp(props) {
   );
 }
 
-const AlertDialogBox = withStyles(alertDialogBoxStyles)(AlertDialogBoxComp);
+const WrongInput = withStyles(alertDialogBoxStyles)(WrongInputComp);
 
 const navBarStyles = {
   navBar: {
@@ -1119,6 +1117,7 @@ export default class AppDashboard extends React.Component {
       threeDotsDialog: false,
       addFriendDialog: false,
       addDetailsDialog: false,
+      wrongInputDialog: false,
 
       anchorEl: false,
 
@@ -1166,6 +1165,8 @@ export default class AppDashboard extends React.Component {
     });
   };
 
+  toggleWrongInput = () =>
+    this.setState({ wrongInputDialog: !this.state.wrongInputDialog });
   switchTab = tabName => {
     switch (tabName) {
       case "friendsTab":
@@ -1242,6 +1243,13 @@ export default class AppDashboard extends React.Component {
             openAddDetails={this.state.addDetailsDialog}
             currentFriend={this.state.currentFriend}
             handleCurrentFriend={this.handleCurrentFriend}
+            toggleWrongInput={this.toggleWrongInput}
+          />
+        )}
+        {this.state.wrongInputDialog && (
+          <WrongInput
+            wrongInputDialog={this.state.wrongInputDialog}
+            toggleWrongInput={this.toggleWrongInput}
           />
         )}
       </div>
