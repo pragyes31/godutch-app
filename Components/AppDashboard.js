@@ -505,9 +505,7 @@ class AddDetailsComp extends React.Component {
       contactInfo: "",
       addBtnDisable: true,
       isNumber: false,
-      isEmail: false,
-      addMoreFriends: false,
-      friendsList: [{ name: this.props.currentFriend, contactInfo: "" }]
+      isEmail: false
     };
 
     let numberRegex = /^[1-9]\d{7,11}$/;
@@ -550,19 +548,15 @@ class AddDetailsComp extends React.Component {
 
   handleAddBtn = () => {
     if (this.state.isNumber || this.state.isEmail) {
-      this.setState({ addMoreFriends: !this.state.addMoreFriends });
+      console.log("I'm running now");
+      this.props.toggleAddMoreFriends();
     } else {
       this.props.toggleWrongInput();
     }
   };
 
-  toggleAlertBox = () => {
-    this.setState({ alertDialogOpen: !this.state.alertDialogOpen });
-  };
-
   render() {
     const { classes } = this.props;
-    console.log(this.props.currentValue);
     return (
       <Dialog
         fullScreen={true}
@@ -615,19 +609,6 @@ class AddDetailsComp extends React.Component {
           Don't worry, nothing sends just yet. You will have another chance to
           review before sending.
         </div>
-        {this.state.alertDialogOpen && (
-          <AlertDialogBox
-            alertDialogOpen={this.state.alertDialogOpen}
-            toggleAlertBox={this.toggleAlertBox}
-          />
-        )}
-        {this.state.addMoreFriends && (
-          <AddMoreFriends
-            addMoreFriends={this.state.addMoreFriends}
-            toggleAlertBox={this.toggleAlertBox}
-            friendsList={this.state.friendsList}
-          />
-        )}
       </Dialog>
     );
   }
@@ -690,11 +671,11 @@ class AddMoreFriendsComp extends React.Component {
     return (
       <Dialog
         fullScreen={true}
-        open={this.props.addMoreFriends}
+        open={this.props.addMoreFriendsDialog}
         aria-labelledby="Add more friends"
         aria-describedby="Add more friends"
-        onBackdropClick={this.props.toggleAlertBox}
-        onEscapeKeyDown={this.props.toggleAlertBox}
+        onBackdropClick={this.props.toggleAddMoreFriends}
+        onEscapeKeyDown={this.props.toggleAddMoreFriends}
         classes={{ paper: classes.box }}
       >
         <div className={classes.top}>
@@ -1118,6 +1099,7 @@ export default class AppDashboard extends React.Component {
       addFriendDialog: false,
       addDetailsDialog: false,
       wrongInputDialog: false,
+      addMoreFriendsDialog: false,
 
       anchorEl: false,
 
@@ -1158,7 +1140,6 @@ export default class AppDashboard extends React.Component {
   };
 
   handleCurrentFriend = currentFriend => {
-    console.log(currentFriend);
     this.setState({
       currentFriend,
       addDetailsDialog: !this.state.addDetailsDialog
@@ -1167,6 +1148,10 @@ export default class AppDashboard extends React.Component {
 
   toggleWrongInput = () =>
     this.setState({ wrongInputDialog: !this.state.wrongInputDialog });
+
+  toggleAddMoreFriends = () =>
+    this.setState({ addMoreFriendsDialog: !this.state.addMoreFriendsDialog });
+
   switchTab = tabName => {
     switch (tabName) {
       case "friendsTab":
@@ -1244,12 +1229,20 @@ export default class AppDashboard extends React.Component {
             currentFriend={this.state.currentFriend}
             handleCurrentFriend={this.handleCurrentFriend}
             toggleWrongInput={this.toggleWrongInput}
+            toggleAddMoreFriends={this.toggleAddMoreFriends}
           />
         )}
         {this.state.wrongInputDialog && (
           <WrongInput
             wrongInputDialog={this.state.wrongInputDialog}
             toggleWrongInput={this.toggleWrongInput}
+          />
+        )}
+        {this.state.addMoreFriendsDialog && (
+          <AddMoreFriends
+            addMoreFriendsDialog={this.state.addMoreFriendsDialog}
+            friendsList={this.state.friendsList}
+            toggleAddMoreFriends={this.toggleAddMoreFriends}
           />
         )}
       </div>
