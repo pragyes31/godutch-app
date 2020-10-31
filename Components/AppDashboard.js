@@ -325,7 +325,6 @@ const threeDotsPopoverStyles = {
 
 function ThreeDotsPopoverComp(props) {
   const { classes } = props;
-
   return (
     <Popover
       open={props.anchorEl != null}
@@ -367,7 +366,6 @@ class AddFriendComp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      addDetails: false,
       currentValue: ""
     };
   }
@@ -379,10 +377,7 @@ class AddFriendComp extends React.Component {
     this.setState({ currentValue: "" });
     this.props.toggleAddFriend();
   };
-  toggleAddDetails = () => {
-    this.state.currentValue &&
-      this.setState({ addDetails: !this.state.addDetails });
-  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -414,19 +409,14 @@ class AddFriendComp extends React.Component {
             <Typography
               variant="subtitle1"
               className="addPara"
-              onClick={this.toggleAddDetails}
+              onClick={() =>
+                this.props.handleCurrentFriend(this.state.currentValue)
+              }
             >
               {this.state.currentValue
                 ? `Add ${this.state.currentValue} to Go-Dutch`
                 : "Add a new contact to Go-Dutch"}
             </Typography>
-            {this.state.addDetails && (
-              <AddDetails
-                openAddDetails={this.state.addDetails}
-                currentValue={this.state.currentValue}
-                toggleAddDetails={this.toggleAddDetails}
-              />
-            )}
           </div>
         </Dialog>
       </div>
@@ -511,14 +501,14 @@ class AddDetailsComp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: this.props.currentValue,
+      name: this.props.currentFriend,
       contactInfo: "",
       addBtnDisable: true,
       isNumber: false,
       isEmail: false,
       alertDialogOpen: false,
       addMoreFriends: false,
-      friendsList: [{ name: this.props.currentValue, contactInfo: "" }]
+      friendsList: [{ name: this.props.currentFriend, contactInfo: "" }]
     };
 
     let numberRegex = /^[1-9]\d{7,11}$/;
@@ -573,7 +563,7 @@ class AddDetailsComp extends React.Component {
 
   render() {
     const { classes } = this.props;
-    console.log(this.state.isNumber, this.state.isEmail);
+    console.log(this.props.currentValue);
     return (
       <Dialog
         fullScreen={true}
@@ -643,6 +633,8 @@ class AddDetailsComp extends React.Component {
     );
   }
 }
+
+const AddDetails = withStyles(addDetailsStyles)(AddDetailsComp);
 
 const AddMoreFriendsStyles = {
   box: {
@@ -731,7 +723,6 @@ class AddMoreFriendsComp extends React.Component {
 }
 
 const AddMoreFriends = withStyles(AddMoreFriendsStyles)(AddMoreFriendsComp);
-const AddDetails = withStyles(addDetailsStyles)(AddDetailsComp);
 
 const alertDialogBoxStyles = {
   alertDialogBox: {
@@ -1126,10 +1117,15 @@ export default class AppDashboard extends React.Component {
     this.state = {
       optionsDialog: false,
       threeDotsDialog: false,
-      anchorEl: false,
       addFriendDialog: false,
+      addDetailsDialog: false,
+
+      anchorEl: false,
+
       addFriend: false,
+      currentFriend: "",
       friendsList: [],
+
       openFriends: true,
       openGroups: false,
       openActivity: false
@@ -1155,6 +1151,19 @@ export default class AppDashboard extends React.Component {
 
   toggleAddFriend = () => {
     this.setState({ addFriend: !this.state.addFriend });
+  };
+
+  toggleAddDetails = () => {
+    this.state.currentValue &&
+      this.setState({ addDetailsDialog: !this.state.addDetailsDialog });
+  };
+
+  handleCurrentFriend = currentFriend => {
+    console.log(currentFriend);
+    this.setState({
+      currentFriend,
+      addDetailsDialog: !this.state.addDetailsDialog
+    });
   };
 
   switchTab = tabName => {
@@ -1224,7 +1233,14 @@ export default class AppDashboard extends React.Component {
         {this.state.addFriend && (
           <AddFriend
             addFriend={this.state.addFriend}
-            toggleAddFriend={this.toggleAddFriend}
+            handleCurrentFriend={this.handleCurrentFriend}
+          />
+        )}
+        {this.state.addDetailsDialog && (
+          <AddDetails
+            openAddDetails={this.state.addDetailsDialog}
+            currentFriend={this.state.currentFriend}
+            toggleAddDetails={this.toggleAddDetails}
           />
         )}
       </div>
