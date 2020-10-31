@@ -505,7 +505,12 @@ class AddDetailsComp extends React.Component {
       contactInfo: "",
       addBtnDisable: true,
       isNumber: false,
-      isEmail: false
+      isEmail: false,
+      friendToAdd: {
+        name: "",
+        number: "",
+        email: ""
+      }
     };
 
     let numberRegex = /^[1-9]\d{7,11}$/;
@@ -548,7 +553,6 @@ class AddDetailsComp extends React.Component {
 
   handleAddBtn = () => {
     if (this.state.isNumber || this.state.isEmail) {
-      console.log("I'm running now");
       this.props.toggleAddMoreFriends();
     } else {
       this.props.toggleWrongInput();
