@@ -1109,6 +1109,11 @@ export default class AppDashboard extends React.Component {
 
       addFriend: false,
       currentFriend: "",
+      currentFriend: {
+        name: "",
+        number: "",
+        email: ""
+      },
       friendsList: [],
 
       openFriends: true,
@@ -1144,6 +1149,40 @@ export default class AppDashboard extends React.Component {
   };
 
   handleCurrentFriend = currentFriend => {
+    let isNumber = /^[1-9]\d+$/.test(currentFriend);
+    let isEmail = currentFriend.includes("@");
+    switch (value) {
+      case isNumber:
+        this.setState({
+          currentFriend: {
+            name: "",
+            number: currentFriend,
+            email: ""
+          },
+          addDetailsDialog: !this.state.addDetailsDialog
+        });
+        break;
+      case isEmail:
+        this.setState({
+          currentFriend: {
+            name: "",
+            number: "",
+            email: currentFriend
+          },
+          addDetailsDialog: !this.state.addDetailsDialog
+        });
+        break;
+      default:
+        this.setState({
+          currentFriend: {
+            name: currentFriend,
+            number: "",
+            email: ""
+          },
+          addDetailsDialog: !this.state.addDetailsDialog
+        });
+        break;
+    }
     this.setState({
       currentFriend,
       addDetailsDialog: !this.state.addDetailsDialog
