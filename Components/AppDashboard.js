@@ -654,7 +654,7 @@ const AddMoreFriendsStyles = {
     width: "93%",
     color: "#fff"
   },
-  friend: {
+  photoIcon: {
     width: "60px",
     position: "relative"
   },
@@ -686,6 +686,7 @@ class AddMoreFriendsComp extends React.Component {
   handleRemoveUser = () => {};
   render() {
     const { classes, friendsList } = this.props;
+    console.log(friendsList);
     return (
       <Dialog
         fullScreen={true}
@@ -706,13 +707,18 @@ class AddMoreFriendsComp extends React.Component {
         </div>
         <div className={classes.friendsList}>
           {friendsList.map(friend => {
-            <div className={classes.friend} key={Date.now()}>
-              <AccountCircleIcon className={classes.photo} />
-              <HighlightOffIcon
-                className={classes.removeUser}
-                onClick={this.handleRemoveUser}
-              />
-            </div>;
+            return (
+              <div className={classes.friend} key={Date.now()}>
+                <div className={classes.photoIcon}>
+                  <AccountCircleIcon className={classes.photo} />
+                  <HighlightOffIcon
+                    className={classes.removeUser}
+                    onClick={this.handleRemoveUser}
+                  />
+                </div>
+                <Typography>{friend.name}</Typography>
+              </div>
+            );
           })}
         </div>
       </Dialog>
