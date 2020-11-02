@@ -501,16 +501,10 @@ class AddDetailsComp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: this.props.currentFriend,
-      contactInfo: "",
+      currentFriend: this.props.currentFriend,
       addBtnDisable: true,
       isNumber: false,
-      isEmail: false,
-      friendToAdd: {
-        name: "",
-        number: "",
-        email: ""
-      }
+      isEmail: false
     };
 
     let numberRegex = /^[1-9]\d{7,11}$/;
@@ -518,20 +512,23 @@ class AddDetailsComp extends React.Component {
   }
 
   activeAddBtn = () => {
-    if (this.state.name && this.state.contactInfo) {
+    if (
+      this.state.currentFriend.name &&
+      (this.state.currentFriend.email || this.state.currentFriend.number)
+    ) {
       this.setState(prevState => {
         return {
           addBtnDisable: false,
-          isEmail: emailRegex.test(this.state.contactInfo),
-          isNumber: numberRegex.test(this.state.contactInfo)
+          isEmail: emailRegex.test(this.state.currentFriend.email),
+          isNumber: numberRegex.test(this.state.currentFriend.number)
         };
       });
     } else {
       this.setState(prevState => {
         return {
           addBtnDisable: true,
-          isEmail: emailRegex.test(this.state.contactInfo),
-          isNumber: numberRegex.test(this.state.contactInfo)
+          isEmail: emailRegex.test(this.state.currentFriend.email),
+          isNumber: numberRegex.test(this.state.currentFriend.number)
         };
       });
     }
@@ -540,20 +537,34 @@ class AddDetailsComp extends React.Component {
   handleName = e => {
     let name = e.target.value;
     this.setState(prevState => {
-      return { name };
+      return { currentFriend: { ...this.state.currentFriend, name } };
     }, this.activeAddBtn);
   };
 
   handleContactInfo = e => {
-    let contactInfo = e.target.value;
-    this.setState(prevState => {
-      return { contactInfo };
-    }, this.activeAddBtn);
+    let val = e.target.value;
+    let isEmail = false;
+    if (val.includes("@")) {
+      isEmail = true;
+    }
+    if (isEmail) {
+      this.setState(prevState => {
+        return {
+          currentFriend: { ...this.state.currentFriend, email: val }
+        };
+      }, this.activeAddBtn);
+    } else {
+      this.setState(prevState => {
+        return {
+          currentFriend: { ...this.state.currentFriend, number: val }
+        };
+      }, this.activeAddBtn);
+    }
   };
 
   handleAddBtn = () => {
     if (this.state.isNumber || this.state.isEmail) {
-      this.props.toggleAddMoreFriends();
+      this.props.toggleAddMoreFriends(this.state.currentFriend);
     } else {
       this.props.toggleWrongInput();
     }
@@ -595,14 +606,17 @@ class AddDetailsComp extends React.Component {
               label="Name"
               className={classes.name}
               onChange={this.handleName}
-              value={this.state.name}
+              value={this.state.currentFriend.name}
             />
             <TextField
               id="contact-field"
               label="Phone number or email address"
               className={classes.contact}
               onChange={this.handleContactInfo}
-              value={this.state.contactInfo}
+              value={
+                this.state.currentFriend.number ||
+                this.state.currentFriend.email
+              }
             />
             {
               //<MuiPhoneNumber defaultCountry={"in"} />
@@ -1108,7 +1122,6 @@ export default class AppDashboard extends React.Component {
       anchorEl: false,
 
       addFriend: false,
-      currentFriend: "",
       currentFriend: {
         name: "",
         number: "",
@@ -1148,52 +1161,47 @@ export default class AppDashboard extends React.Component {
       this.setState({ addDetailsDialog: !this.state.addDetailsDialog });
   };
 
-  handleCurrentFriend = currentFriend => {
-    let isNumber = /^[1-9]\d+$/.test(currentFriend);
-    let isEmail = currentFriend.includes("@");
-    switch (value) {
-      case isNumber:
-        this.setState({
-          currentFriend: {
-            name: "",
-            number: currentFriend,
-            email: ""
-          },
-          addDetailsDialog: !this.state.addDetailsDialog
-        });
-        break;
-      case isEmail:
-        this.setState({
-          currentFriend: {
-            name: "",
-            number: "",
-            email: currentFriend
-          },
-          addDetailsDialog: !this.state.addDetailsDialog
-        });
-        break;
-      default:
-        this.setState({
-          currentFriend: {
-            name: currentFriend,
-            number: "",
-            email: ""
-          },
-          addDetailsDialog: !this.state.addDetailsDialog
-        });
-        break;
+  handleCurrentFriend = currentFriendInput => {
+    let isNumber = /^[1-9]\d+$/.test(currentFriendInput);
+    let isEmail = currentFriendInput.includes("@");
+    if (isNumber) {
+      this.setState({
+        currentFriend: {
+          name: "",
+          number: currentFriendInput,
+          email: ""
+        },
+        addDetailsDialog: !this.state.addDetailsDialog
+      });
+    } else if (isEmail) {
+      this.setState({
+        currentFriend: {
+          name: "",
+          number: currentFriendInput,
+          email: ""
+        },
+        addDetailsDialog: !this.state.addDetailsDialog
+      });
+    } else {
+      this.setState({
+        currentFriend: {
+          name: currentFriendInput,
+          number: "",
+          email: ""
+        },
+        addDetailsDialog: !this.state.addDetailsDialog
+      });
     }
-    this.setState({
-      currentFriend,
-      addDetailsDialog: !this.state.addDetailsDialog
-    });
   };
 
   toggleWrongInput = () =>
     this.setState({ wrongInputDialog: !this.state.wrongInputDialog });
 
-  toggleAddMoreFriends = () =>
-    this.setState({ addMoreFriendsDialog: !this.state.addMoreFriendsDialog });
+  toggleAddMoreFriends = currentFriend =>
+    this.setState({
+      addMoreFriendsDialog: !this.state.addMoreFriendsDialog,
+      friendsList: [...this.state.friendsList, currentFriend]
+    });
 
   switchTab = tabName => {
     switch (tabName) {
