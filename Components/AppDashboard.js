@@ -724,7 +724,7 @@ class AddMoreFriendsComp extends React.Component {
         <div className={classes.friendsList}>
           {friendsList.map(friend => {
             return (
-              <div className={classes.friend} key={Date.now()}>
+              <div className={classes.friend} key={friend.key}>
                 <div className={classes.photoIcon}>
                   <AccountCircleIcon className={classes.photo} />
                   <HighlightOffIcon
@@ -740,7 +740,10 @@ class AddMoreFriendsComp extends React.Component {
             variant="subtitle1"
             className="addPara"
             onClick={() =>
-              this.props.handleCurrentFriend(this.state.currentValue)
+              this.props.handleCurrentFriend(
+                this.state.currentValue,
+                Date.now()
+              )
             }
           >
             {this.state.currentValue
