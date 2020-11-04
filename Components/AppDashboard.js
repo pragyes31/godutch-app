@@ -410,7 +410,10 @@ class AddFriendComp extends React.Component {
               variant="subtitle1"
               className="addPara"
               onClick={() =>
-                this.props.handleCurrentFriend(this.state.currentValue)
+                this.props.handleCurrentFriend(
+                  this.state.currentValue,
+                  Date.now()
+                )
               }
             >
               {this.state.currentValue
@@ -674,6 +677,9 @@ const AddMoreFriendsStyles = {
     backgroundColor: "#ddd",
     borderRadius: "50%",
     border: "0px solid #ddd"
+  },
+  addPara: {
+    cursor: "pointer"
   }
 };
 
@@ -703,7 +709,10 @@ class AddMoreFriendsComp extends React.Component {
         classes={{ paper: classes.box }}
       >
         <div className={classes.top}>
-          <ArrowBackIcon className={classes.arrow} />
+          <ArrowBackIcon
+            className={classes.arrow}
+            onClick={this.props.toggleAddMoreFriends}
+          />
           <TextField
             id="add-friend-field"
             className={classes.textField}
@@ -1149,7 +1158,8 @@ export default class AppDashboard extends React.Component {
       currentFriend: {
         name: "",
         number: "",
-        email: ""
+        email: "",
+        key: ""
       },
       friendsList: [],
 
@@ -1185,7 +1195,7 @@ export default class AppDashboard extends React.Component {
       this.setState({ addDetailsDialog: !this.state.addDetailsDialog });
   };
 
-  handleCurrentFriend = currentFriendInput => {
+  handleCurrentFriend = (currentFriendInput, dateForKey) => {
     let isNumber = /^[1-9]\d+$/.test(currentFriendInput);
     let isEmail = currentFriendInput.includes("@");
     if (isNumber) {
@@ -1193,7 +1203,8 @@ export default class AppDashboard extends React.Component {
         currentFriend: {
           name: "",
           number: currentFriendInput,
-          email: ""
+          email: "",
+          key: dateForKey
         },
         addDetailsDialog: !this.state.addDetailsDialog
       });
@@ -1202,7 +1213,8 @@ export default class AppDashboard extends React.Component {
         currentFriend: {
           name: "",
           number: currentFriendInput,
-          email: ""
+          email: "",
+          key: dateForKey
         },
         addDetailsDialog: !this.state.addDetailsDialog
       });
@@ -1211,7 +1223,8 @@ export default class AppDashboard extends React.Component {
         currentFriend: {
           name: currentFriendInput,
           number: "",
-          email: ""
+          email: "",
+          key: dateForKey
         },
         addDetailsDialog: !this.state.addDetailsDialog
       });
