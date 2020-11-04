@@ -680,9 +680,14 @@ const AddMoreFriendsStyles = {
 class AddMoreFriendsComp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      currentValue: ""
+    };
   }
 
+  handleChange = e => {
+    this.setState({ currentValue: e.target.value });
+  };
   handleRemoveUser = () => {};
   render() {
     const { classes, friendsList } = this.props;
@@ -703,6 +708,8 @@ class AddMoreFriendsComp extends React.Component {
             id="add-friend-field"
             className={classes.textField}
             placeholder="Enter name, email, phone #"
+            onChange={this.handleChange}
+            value={this.state.currentValue}
           />
         </div>
         <div className={classes.friendsList}>
@@ -720,6 +727,17 @@ class AddMoreFriendsComp extends React.Component {
               </div>
             );
           })}
+          <Typography
+            variant="subtitle1"
+            className="addPara"
+            onClick={() =>
+              this.props.handleCurrentFriend(this.state.currentValue)
+            }
+          >
+            {this.state.currentValue
+              ? `Add ${this.state.currentValue} to Go-Dutch`
+              : "Add a new contact to Go-Dutch"}
+          </Typography>
         </div>
       </Dialog>
     );
@@ -1300,6 +1318,7 @@ export default class AppDashboard extends React.Component {
             addMoreFriendsDialog={this.state.addMoreFriendsDialog}
             friendsList={this.state.friendsList}
             toggleAddMoreFriends={this.toggleAddMoreFriends}
+            handleCurrentFriend={this.handleCurrentFriend}
           />
         )}
       </div>
