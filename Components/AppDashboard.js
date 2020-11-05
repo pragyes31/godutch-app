@@ -696,8 +696,8 @@ class AddMoreFriendsComp extends React.Component {
   };
   handleRemoveUser = () => {};
   render() {
-    const { classes, friendsList } = this.props;
-    console.log(friendsList);
+    const { classes, friendsToAdd } = this.props;
+    console.log(friendsToAdd);
     return (
       <Dialog
         fullScreen={true}
@@ -711,7 +711,7 @@ class AddMoreFriendsComp extends React.Component {
         <div className={classes.top}>
           <ArrowBackIcon
             className={classes.arrow}
-            onClick={this.props.toggleAddMoreFriends}
+            onClick={this.props.toggleFriendsToAdd}
           />
           <TextField
             id="add-friend-field"
@@ -721,8 +721,8 @@ class AddMoreFriendsComp extends React.Component {
             value={this.state.currentValue}
           />
         </div>
-        <div className={classes.friendsList}>
-          {friendsList.map(friend => {
+        <div className={classes.friendsToAdd}>
+          {friendsToAdd.map(friend => {
             return (
               <div className={classes.friend} key={friend.key}>
                 <div className={classes.photoIcon}>
@@ -1164,7 +1164,7 @@ export default class AppDashboard extends React.Component {
         email: "",
         key: ""
       },
-      friendsList: [],
+      friendsToAdd: [],
 
       openFriends: true,
       openGroups: false,
@@ -1240,8 +1240,15 @@ export default class AppDashboard extends React.Component {
   toggleAddMoreFriends = currentFriend =>
     this.setState({
       addMoreFriendsDialog: !this.state.addMoreFriendsDialog,
-      friendsList: [...this.state.friendsList, currentFriend]
+      friendsToAdd: [...this.state.friendsToAdd, currentFriend]
     });
+
+  toggleFriendsToAdd = () => {
+    this.setState({
+      addMoreFriendsDialog: !this.state.addMoreFriendsDialog,
+      friendsToAdd: []
+    });
+  };
 
   switchTab = tabName => {
     switch (tabName) {
@@ -1303,7 +1310,7 @@ export default class AppDashboard extends React.Component {
           <ThreeDotsPopover
             anchorEl={this.state.anchorEl}
             handle3DotsClose={this.handle3DotsClose}
-            friendsList={this.state.friendsList}
+            friendsToAdd={this.state.friendsToAdd}
             toggleAddFriend={this.toggleAddFriend}
           />
         )}
@@ -1332,9 +1339,10 @@ export default class AppDashboard extends React.Component {
         {this.state.addMoreFriendsDialog && (
           <AddMoreFriends
             addMoreFriendsDialog={this.state.addMoreFriendsDialog}
-            friendsList={this.state.friendsList}
+            friendsToAdd={this.state.friendsToAdd}
             toggleAddMoreFriends={this.toggleAddMoreFriends}
             handleCurrentFriend={this.handleCurrentFriend}
+            toggleFriendsToAdd={this.toggleFriendsToAdd}
           />
         )}
       </div>
