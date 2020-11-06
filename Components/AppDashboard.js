@@ -394,7 +394,7 @@ class AddFriendComp extends React.Component {
           <div className={classes.top}>
             <ArrowBackIcon
               className={classes.arrow}
-              onClick={this.toggleDialog}
+              onClick={this.props.handleBackButton}
             />
             <TextField
               id="add-friend-field"
@@ -589,7 +589,7 @@ class AddDetailsComp extends React.Component {
           <div className={classes.left}>
             <ArrowBackIcon
               className={classes.arrow}
-              onClick={() => this.props.handleCurrentFriend("")}
+              onClick={() => this.props.handleBackButton}
             />
             <Typography variant="subtitle1">Add new contact</Typography>
           </div>
@@ -711,7 +711,7 @@ class AddMoreFriendsComp extends React.Component {
         <div className={classes.top}>
           <ArrowBackIcon
             className={classes.arrow}
-            onClick={this.props.toggleFriendsToAdd}
+            onClick={this.props.handleBackButton}
           />
           <TextField
             id="add-friend-field"
@@ -1198,6 +1198,22 @@ export default class AppDashboard extends React.Component {
       this.setState({ addDetailsDialog: !this.state.addDetailsDialog });
   };
 
+  handleBackButton = () => {
+    this.setState({
+      threeDotsDialog: false,
+      addFriendDialog: false,
+      addDetailsDialog: false,
+      addMoreFriendsDialog: false,
+      currentFriend: {
+        name: "",
+        number: "",
+        email: "",
+        key: ""
+      },
+      friendsToAdd: []
+    });
+  };
+
   handleCurrentFriend = (currentFriendInput, dateForKey) => {
     let isNumber = /^[1-9]\d+$/.test(currentFriendInput);
     let isEmail = currentFriendInput.includes("@");
@@ -1319,6 +1335,7 @@ export default class AppDashboard extends React.Component {
             addFriend={this.state.addFriend}
             handleCurrentFriend={this.handleCurrentFriend}
             toggleAddFriend={this.toggleAddFriend}
+            handleBackButton={this.handleBackButton}
           />
         )}
         {this.state.addDetailsDialog && (
@@ -1328,6 +1345,7 @@ export default class AppDashboard extends React.Component {
             handleCurrentFriend={this.handleCurrentFriend}
             toggleWrongInput={this.toggleWrongInput}
             toggleAddMoreFriends={this.toggleAddMoreFriends}
+            handleBackButton={this.handleBackButton}
           />
         )}
         {this.state.wrongInputDialog && (
@@ -1343,6 +1361,7 @@ export default class AppDashboard extends React.Component {
             toggleAddMoreFriends={this.toggleAddMoreFriends}
             handleCurrentFriend={this.handleCurrentFriend}
             toggleFriendsToAdd={this.toggleFriendsToAdd}
+            handleBackButton={this.handleBackButton}
           />
         )}
       </div>
