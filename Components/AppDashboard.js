@@ -412,7 +412,8 @@ class AddFriendComp extends React.Component {
               onClick={() =>
                 this.props.handleCurrentFriend(
                   this.state.currentValue,
-                  Date.now()
+                  Date.now(),
+                  "AddFriend"
                 )
               }
             >
@@ -578,18 +579,18 @@ class AddDetailsComp extends React.Component {
     return (
       <Dialog
         fullScreen={true}
-        open={this.props.openAddDetails}
+        open={this.props.addDetailsDialog}
         aria-labelledby="Add New friend Dialog"
         aria-describedby="Add New friend Dialog"
-        onBackdropClick={this.toggleDialog}
-        onEscapeKeyDown={this.toggleDialog}
+        onBackdropClick={this.props.toggleAddDetails}
+        onEscapeKeyDown={this.props.toggleAddDetails}
         classes={{ paper: classes.addDetails }}
       >
         <div className={classes.header}>
           <div className={classes.left}>
             <ArrowBackIcon
               className={classes.arrow}
-              onClick={() => this.props.handleBackButton}
+              onClick={this.props.toggleAddDetails}
             />
             <Typography variant="subtitle1">Add new contact</Typography>
           </div>
@@ -738,11 +739,12 @@ class AddMoreFriendsComp extends React.Component {
           })}
           <Typography
             variant="subtitle1"
-            className="addPara"
+            className={classes.addPara}
             onClick={() =>
               this.props.handleCurrentFriend(
                 this.state.currentValue,
-                Date.now()
+                Date.now(),
+                "AddMoreFriends"
               )
             }
           >
@@ -1190,12 +1192,11 @@ export default class AppDashboard extends React.Component {
   };
 
   toggleAddFriend = () => {
-    this.setState({ addFriend: !this.state.addFriend });
+    this.setState({ addFriendDialog: !this.state.addFriendDialog });
   };
 
   toggleAddDetails = () => {
-    this.state.currentValue &&
-      this.setState({ addDetailsDialog: !this.state.addDetailsDialog });
+    this.setState({ addDetailsDialog: !this.state.addDetailsDialog });
   };
 
   handleBackButton = () => {
@@ -1214,9 +1215,20 @@ export default class AppDashboard extends React.Component {
     });
   };
 
-  handleCurrentFriend = (currentFriendInput, dateForKey) => {
+  handleCurrentFriend = (currentFriendInput, dateForKey, currentWindow) => {
     let isNumber = /^[1-9]\d+$/.test(currentFriendInput);
     let isEmail = currentFriendInput.includes("@");
+    switch (currentWindow) {
+      case "AddFriend":
+      setTimeout(() => this.setState({ addFriendDialog: !this.state.addFriendDialog }), 200)
+        
+        break;
+      case "AddMoreFriends":
+        this.setState({
+          addMoreFriendsDialog: !this.state.addMoreFriendsDialog
+        });
+        break;
+    }
     if (isNumber) {
       this.setState({
         currentFriend: {
@@ -1256,6 +1268,7 @@ export default class AppDashboard extends React.Component {
   toggleAddMoreFriends = currentFriend =>
     this.setState({
       addMoreFriendsDialog: !this.state.addMoreFriendsDialog,
+      addDetailsDialog: !this.state.addDetailsDialog,
       friendsToAdd: [...this.state.friendsToAdd, currentFriend]
     });
 
@@ -1330,9 +1343,9 @@ export default class AppDashboard extends React.Component {
             toggleAddFriend={this.toggleAddFriend}
           />
         )}
-        {this.state.addFriend && (
+        {this.state.addFriendDialog && (
           <AddFriend
-            addFriend={this.state.addFriend}
+            addFriend={this.state.addFriendDialog}
             handleCurrentFriend={this.handleCurrentFriend}
             toggleAddFriend={this.toggleAddFriend}
             handleBackButton={this.handleBackButton}
@@ -1340,12 +1353,12 @@ export default class AppDashboard extends React.Component {
         )}
         {this.state.addDetailsDialog && (
           <AddDetails
-            openAddDetails={this.state.addDetailsDialog}
+            addDetailsDialog={this.state.addDetailsDialog}
             currentFriend={this.state.currentFriend}
             handleCurrentFriend={this.handleCurrentFriend}
             toggleWrongInput={this.toggleWrongInput}
             toggleAddMoreFriends={this.toggleAddMoreFriends}
-            handleBackButton={this.handleBackButton}
+            toggleAddDetails={this.toggleAddDetails}
           />
         )}
         {this.state.wrongInputDialog && (
