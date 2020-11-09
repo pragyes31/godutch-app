@@ -590,7 +590,7 @@ class AddDetailsComp extends React.Component {
           <div className={classes.left}>
             <ArrowBackIcon
               className={classes.arrow}
-              onClick={this.props.toggleAddDetails}
+              onClick={this.props.handleBackButton}
             />
             <Typography variant="subtitle1">Add new contact</Typography>
           </div>
@@ -1220,8 +1220,11 @@ export default class AppDashboard extends React.Component {
     let isEmail = currentFriendInput.includes("@");
     switch (currentWindow) {
       case "AddFriend":
-      setTimeout(() => this.setState({ addFriendDialog: !this.state.addFriendDialog }), 200)
-        
+        setTimeout(
+          () => this.setState({ addFriendDialog: !this.state.addFriendDialog }),
+          200
+        );
+
         break;
       case "AddMoreFriends":
         this.setState({
@@ -1359,6 +1362,7 @@ export default class AppDashboard extends React.Component {
             toggleWrongInput={this.toggleWrongInput}
             toggleAddMoreFriends={this.toggleAddMoreFriends}
             toggleAddDetails={this.toggleAddDetails}
+            handleBackButton={this.handleBackButton}
           />
         )}
         {this.state.wrongInputDialog && (
