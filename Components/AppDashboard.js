@@ -695,10 +695,8 @@ class AddMoreFriendsComp extends React.Component {
   handleChange = e => {
     this.setState({ currentValue: e.target.value });
   };
-  handleRemoveUser = () => {};
   render() {
     const { classes, friendsToAdd } = this.props;
-    console.log(friendsToAdd);
     return (
       <Dialog
         fullScreen={true}
@@ -730,7 +728,7 @@ class AddMoreFriendsComp extends React.Component {
                   <AccountCircleIcon className={classes.photo} />
                   <HighlightOffIcon
                     className={classes.removeUser}
-                    onClick={this.handleRemoveUser}
+                    onClick={() => this.props.handleRemoveUser(friend.key)}
                   />
                 </div>
                 <Typography>{friend.name}</Typography>
@@ -1282,6 +1280,13 @@ export default class AppDashboard extends React.Component {
     });
   };
 
+  handleRemoveUser = friendKey => {
+    let friendsToAdd = this.state.friendsToAdd.filter(
+      friend => friend.key !== friendKey
+    );
+    this.setState({ friendsToAdd: [...friendsToAdd] });
+  };
+
   switchTab = tabName => {
     switch (tabName) {
       case "friendsTab":
@@ -1379,6 +1384,7 @@ export default class AppDashboard extends React.Component {
             handleCurrentFriend={this.handleCurrentFriend}
             toggleFriendsToAdd={this.toggleFriendsToAdd}
             handleBackButton={this.handleBackButton}
+            handleRemoveUser={this.handleRemoveUser}
           />
         )}
       </div>
