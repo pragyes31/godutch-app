@@ -11,8 +11,9 @@ import Typography from "@material-ui/core/Typography";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import CancelIcon from "@material-ui/icons/Cancel";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import CropFreeIcon from "@material-ui/icons/CropFree";
+import EditIcon from "@material-ui/icons/Edit";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FilterListIcon from "@material-ui/icons/FilterList";
@@ -640,7 +641,8 @@ const AddDetails = withStyles(addDetailsStyles)(AddDetailsComp);
 
 const AddMoreFriendsStyles = {
   box: {
-    maxWidth: "600px"
+    maxWidth: "600px",
+    position: "relative"
   },
   top: {
     display: "flex",
@@ -681,6 +683,19 @@ const AddMoreFriendsStyles = {
   },
   addPara: {
     cursor: "pointer"
+  },
+  confirmIcon: {
+    marginLeft: ".5rem",
+    minWidth: "20px",
+    height: "20px",
+    backgroundColor: "#f2105a",
+    color: "#fff",
+    cursor: "pointer",
+    position: "fixed",
+    bottom: "5%",
+    right: "5%",
+    borderRadius: "50%",
+    border: "10px solid #f2105a"
   }
 };
 
@@ -751,6 +766,10 @@ class AddMoreFriendsComp extends React.Component {
               : "Add a new contact to Go-Dutch"}
           </Typography>
         </div>
+        <ArrowForwardIcon
+          className={classes.confirmIcon}
+          onClick={this.props.toggleConfirmFriendsToAdd}
+        />
       </Dialog>
     );
   }
@@ -1154,6 +1173,7 @@ export default class AppDashboard extends React.Component {
       addDetailsDialog: false,
       wrongInputDialog: false,
       addMoreFriendsDialog: false,
+      confirmFriendsToAddDialog: false,
 
       anchorEl: false,
 
@@ -1285,6 +1305,12 @@ export default class AppDashboard extends React.Component {
       friend => friend.key !== friendKey
     );
     this.setState({ friendsToAdd });
+  };
+
+  toggleConfirmFriendsToAdd = () => {
+    this.setState({
+      confirmFriendsToAddDialog: !this.state.confirmFriendsToAddDialog
+    });
   };
 
   switchTab = tabName => {
