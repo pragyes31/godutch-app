@@ -1284,7 +1284,7 @@ export default class AppDashboard extends React.Component {
     let friendsToAdd = this.state.friendsToAdd.filter(
       friend => friend.key !== friendKey
     );
-    this.setState({ friendsToAdd: [...friendsToAdd] });
+    this.setState({ friendsToAdd });
   };
 
   switchTab = tabName => {
