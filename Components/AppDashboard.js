@@ -878,6 +878,18 @@ function ConfirmFriendsComp(props) {
         onEscapeKeyDown={props.toggleDialog}
         classes={{ paper: classes.confirmDetails }}
       >
+        <div className={classes.header}>
+          <div className={classes.left}>
+            <ArrowBackIcon
+              className={classes.arrowBack}
+              onClick={props.handleBackButton}
+            />
+            <Typography variant="subtitle1">Verify contact info</Typography>
+          </div>
+          <div className={classes.right}>
+            <Button onClick={props.handleAddBtn}>FINISH</Button>
+          </div>
+        </div>
         <div className={classes.friendsToAdd}>
           {props.friendsToAdd.map(friend => {
             return (
@@ -904,6 +916,18 @@ const ConfirmFriendsStyles = {
     maxWidth: "600px",
     position: "relative"
   },
+  header: {
+    height: "40px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#00b8a9"
+  },
+  left: {
+    width: "30%",
+    display: "flex",
+    justifyContent: "space-between"
+  },
   photoIcon: {
     width: "60px",
     position: "relative"
@@ -924,6 +948,9 @@ const ConfirmFriendsStyles = {
     backgroundColor: "#ddd",
     borderRadius: "50%",
     border: "0px solid #ddd"
+  },
+  arrowBack: {
+    cursor: "pointer"
   }
 };
 
