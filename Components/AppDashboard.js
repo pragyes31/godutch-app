@@ -687,7 +687,7 @@ const AddMoreFriendsStyles = {
   confirmIcon: {
     marginLeft: ".5rem",
     minWidth: "20px",
-    height: "20px",
+    height: "22px",
     backgroundColor: "#f2105a",
     color: "#fff",
     cursor: "pointer",
@@ -864,6 +864,35 @@ const navBarStyles = {
     boxSizing: "border-box"
   }
 };
+
+function ConfirmFriendsToAddComp(props) {
+  const { classes } = props;
+  return (
+    <div className={classes.addFriend}>
+      <Dialog
+        fullScreen={true}
+        open={props.confirmFriendsToAddDialog}
+        aria-labelledby="Add New friend Dialog"
+        aria-describedby="Add New friend Dialog"
+        onBackdropClick={props.toggleDialog}
+        onEscapeKeyDown={props.toggleDialog}
+        classes={{ paper: classes.confirmDetails }}
+      >
+        dfd
+      </Dialog>
+    </div>
+  );
+}
+
+const ConfirmFriendsToAddStyles = {
+  confirmDetails: {
+    maxWidth: "600px"
+  }
+};
+
+const ConfirmFriendsToAdd = withStyles(ConfirmFriendsToAddStyles)(
+  ConfirmFriendsToAddComp
+);
 
 function NavBarComp(props) {
   const { classes } = props;
@@ -1059,6 +1088,13 @@ class FriendsTabComp extends React.Component {
             )}
           </div>
         </div>
+        {this.props.friendsList.map(friend => {
+          return (
+            <div key={friend.key}>
+              <div>{friend.name}</div>
+            </div>
+          );
+        })}
         <AddButtonLarge tabName={this.props.tabName} />
         <div />
       </div>
@@ -1178,6 +1214,7 @@ export default class AppDashboard extends React.Component {
       anchorEl: false,
 
       addFriend: false,
+
       currentFriend: {
         name: "",
         number: "",
@@ -1185,6 +1222,7 @@ export default class AppDashboard extends React.Component {
         key: ""
       },
       friendsToAdd: [],
+      friendsList: [],
 
       openFriends: true,
       openGroups: false,
@@ -1308,8 +1346,10 @@ export default class AppDashboard extends React.Component {
   };
 
   toggleConfirmFriendsToAdd = () => {
+    console.log("show friends");
     this.setState({
-      confirmFriendsToAddDialog: !this.state.confirmFriendsToAddDialog
+      confirmFriendsToAddDialog: !this.state.confirmFriendsToAddDialog,
+      addMoreFriendsDialog: !this.state.addMoreFriendsDialog
     });
   };
 
@@ -1354,7 +1394,11 @@ export default class AppDashboard extends React.Component {
           openActivity={this.state.openActivity}
         />
         {this.state.openFriends && (
-          <FriendsTab tabName="friends" addFriend={this.addFriend} />
+          <FriendsTab
+            tabName="friends"
+            addFriend={this.addFriend}
+            friendsList={this.state.friendsList}
+          />
         )}
         {this.state.openGroups && <GroupsTab tabName="groups" />}
         {this.state.openActivity && <ActivityTab />}
@@ -1411,6 +1455,13 @@ export default class AppDashboard extends React.Component {
             toggleFriendsToAdd={this.toggleFriendsToAdd}
             handleBackButton={this.handleBackButton}
             handleRemoveUser={this.handleRemoveUser}
+            confirmFriendsToAddDialog={this.state.confirmFriendsToAddDialog}
+            toggleConfirmFriendsToAdd={this.toggleConfirmFriendsToAdd}
+          />
+        )}
+        {this.state.confirmFriendsToAddDialog && (
+          <ConfirmFriendsToAdd
+            confirmFriendsToAddDialog={this.state.confirmFriendsToAddDialog}
           />
         )}
       </div>
