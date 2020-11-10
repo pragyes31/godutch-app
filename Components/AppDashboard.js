@@ -768,7 +768,7 @@ class AddMoreFriendsComp extends React.Component {
         </div>
         <ArrowForwardIcon
           className={classes.confirmIcon}
-          onClick={this.props.toggleConfirmFriendsToAdd}
+          onClick={this.props.toggleConfirmFriends}
         />
       </Dialog>
     );
@@ -865,34 +865,69 @@ const navBarStyles = {
   }
 };
 
-function ConfirmFriendsToAddComp(props) {
+function ConfirmFriendsComp(props) {
   const { classes } = props;
   return (
     <div className={classes.addFriend}>
       <Dialog
         fullScreen={true}
-        open={props.confirmFriendsToAddDialog}
+        open={props.confirmFriendsDialog}
         aria-labelledby="Add New friend Dialog"
         aria-describedby="Add New friend Dialog"
         onBackdropClick={props.toggleDialog}
         onEscapeKeyDown={props.toggleDialog}
         classes={{ paper: classes.confirmDetails }}
       >
-        dfd
+        <div className={classes.friendsToAdd}>
+          {props.friendsToAdd.map(friend => {
+            return (
+              <div className={classes.friend} key={friend.key}>
+                <div className={classes.photoIcon}>
+                  <AccountCircleIcon className={classes.photo} />
+                  <HighlightOffIcon
+                    className={classes.removeUser}
+                    onClick={() => this.props.handleRemoveUser(friend.key)}
+                  />
+                </div>
+                <Typography>{friend.name}</Typography>
+              </div>
+            );
+          })}
+        </div>
       </Dialog>
     </div>
   );
 }
 
-const ConfirmFriendsToAddStyles = {
+const ConfirmFriendsStyles = {
   confirmDetails: {
-    maxWidth: "600px"
+    maxWidth: "600px",
+    position: "relative"
+  },
+  photoIcon: {
+    width: "60px",
+    position: "relative"
+  },
+  photo: {
+    width: "50px",
+    height: "50px",
+    color: "#aaa"
+  },
+  removeUser: {
+    width: "25px",
+    height: "25px",
+    position: "absolute",
+    bottom: "5px",
+    right: "5px",
+    color: "#444",
+    cursor: "pointer",
+    backgroundColor: "#ddd",
+    borderRadius: "50%",
+    border: "0px solid #ddd"
   }
 };
 
-const ConfirmFriendsToAdd = withStyles(ConfirmFriendsToAddStyles)(
-  ConfirmFriendsToAddComp
-);
+const ConfirmFriends = withStyles(ConfirmFriendsStyles)(ConfirmFriendsComp);
 
 function NavBarComp(props) {
   const { classes } = props;
@@ -1209,7 +1244,7 @@ export default class AppDashboard extends React.Component {
       addDetailsDialog: false,
       wrongInputDialog: false,
       addMoreFriendsDialog: false,
-      confirmFriendsToAddDialog: false,
+      confirmFriendsDialog: false,
 
       anchorEl: false,
 
@@ -1345,10 +1380,10 @@ export default class AppDashboard extends React.Component {
     this.setState({ friendsToAdd });
   };
 
-  toggleConfirmFriendsToAdd = () => {
+  toggleConfirmFriends = () => {
     console.log("show friends");
     this.setState({
-      confirmFriendsToAddDialog: !this.state.confirmFriendsToAddDialog,
+      confirmFriendsDialog: !this.state.confirmFriendsDialog,
       addMoreFriendsDialog: !this.state.addMoreFriendsDialog
     });
   };
@@ -1455,13 +1490,14 @@ export default class AppDashboard extends React.Component {
             toggleFriendsToAdd={this.toggleFriendsToAdd}
             handleBackButton={this.handleBackButton}
             handleRemoveUser={this.handleRemoveUser}
-            confirmFriendsToAddDialog={this.state.confirmFriendsToAddDialog}
-            toggleConfirmFriendsToAdd={this.toggleConfirmFriendsToAdd}
+            confirmFriendsDialog={this.state.confirmFriendsDialog}
+            toggleConfirmFriends={this.toggleConfirmFriends}
           />
         )}
-        {this.state.confirmFriendsToAddDialog && (
-          <ConfirmFriendsToAdd
-            confirmFriendsToAddDialog={this.state.confirmFriendsToAddDialog}
+        {this.state.confirmFriendsDialog && (
+          <ConfirmFriends
+            confirmFriendsDialog={this.state.confirmFriendsDialog}
+            friendsToAdd={this.state.friendsToAdd}
           />
         )}
       </div>
