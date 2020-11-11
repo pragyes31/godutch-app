@@ -519,12 +519,12 @@ class AddDetailsComp extends React.Component {
   activeAddBtn = () => {
     if (
       this.state.currentFriend.name &&
-      (this.state.currentFriend.email || this.state.currentFriend.number)
+      (this.state.currentFriend.email[0] || this.state.currentFriend.number)
     ) {
       this.setState(prevState => {
         return {
           addBtnDisable: false,
-          isEmail: emailRegex.test(this.state.currentFriend.email),
+          isEmail: emailRegex.test(this.state.currentFriend.email[0]),
           isNumber: numberRegex.test(this.state.currentFriend.number)
         };
       });
@@ -532,7 +532,7 @@ class AddDetailsComp extends React.Component {
       this.setState(prevState => {
         return {
           addBtnDisable: true,
-          isEmail: emailRegex.test(this.state.currentFriend.email),
+          isEmail: emailRegex.test(this.state.currentFriend.email[0]),
           isNumber: numberRegex.test(this.state.currentFriend.number)
         };
       });
@@ -555,7 +555,7 @@ class AddDetailsComp extends React.Component {
     if (isEmail) {
       this.setState(prevState => {
         return {
-          currentFriend: { ...this.state.currentFriend, email: val }
+          currentFriend: { ...this.state.currentFriend, email: [val] }
         };
       }, this.activeAddBtn);
     } else {
@@ -620,7 +620,7 @@ class AddDetailsComp extends React.Component {
               onChange={this.handleContactInfo}
               value={
                 this.state.currentFriend.number ||
-                this.state.currentFriend.email
+                this.state.currentFriend.email[0]
               }
             />
             {
@@ -894,14 +894,19 @@ function ConfirmFriendsComp(props) {
           {props.friendsToAdd.map(friend => {
             return (
               <div className={classes.friend} key={friend.key}>
-                <div className={classes.photoIcon}>
-                  <AccountCircleIcon className={classes.photo} />
-                  <HighlightOffIcon
-                    className={classes.removeUser}
-                    onClick={() => this.props.handleRemoveUser(friend.key)}
-                  />
+                <div className={classes.userDetails}>
+                  <div>
+                    <AccountCircleIcon className={classes.photo} />
+                    <HighlightOffIcon
+                      className={classes.removeUser}
+                      onClick={() => this.props.handleRemoveUser(friend.key)}
+                    />
+                  </div>
+                  <div>
+                    <Typography>{friend.name}</Typography>
+                  </div>
                 </div>
-                <Typography>{friend.name}</Typography>
+                <EditIcon />
               </div>
             );
           })}
@@ -928,7 +933,7 @@ const ConfirmFriendsStyles = {
     display: "flex",
     justifyContent: "space-between"
   },
-  photoIcon: {
+  userDetails: {
     width: "60px",
     position: "relative"
   },
@@ -1280,7 +1285,7 @@ export default class AppDashboard extends React.Component {
       currentFriend: {
         name: "",
         number: "",
-        email: "",
+        email: [],
         key: ""
       },
       friendsToAdd: [],
@@ -1326,7 +1331,7 @@ export default class AppDashboard extends React.Component {
       currentFriend: {
         name: "",
         number: "",
-        email: "",
+        email: [],
         key: ""
       },
       friendsToAdd: []
@@ -1355,7 +1360,7 @@ export default class AppDashboard extends React.Component {
         currentFriend: {
           name: "",
           number: currentFriendInput,
-          email: "",
+          email: [],
           key: dateForKey
         },
         addDetailsDialog: !this.state.addDetailsDialog
@@ -1364,8 +1369,8 @@ export default class AppDashboard extends React.Component {
       this.setState({
         currentFriend: {
           name: "",
-          number: currentFriendInput,
-          email: "",
+          number: "",
+          email: [currentFriendInput],
           key: dateForKey
         },
         addDetailsDialog: !this.state.addDetailsDialog
@@ -1375,7 +1380,7 @@ export default class AppDashboard extends React.Component {
         currentFriend: {
           name: currentFriendInput,
           number: "",
-          email: "",
+          email: [],
           key: dateForKey
         },
         addDetailsDialog: !this.state.addDetailsDialog
