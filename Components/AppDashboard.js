@@ -509,7 +509,10 @@ class AddDetailsComp extends React.Component {
       currentFriend: this.props.currentFriend,
       addBtnDisable: true,
       isNumber: false,
-      isEmail: false
+      isEmail: false,
+      contactInfo:
+        this.props.currentFriend.email[0] ||
+        this.props.currentFriend.number[0].number
     };
 
     let numberRegex = /^[1-9]\d{7,11}$/;
@@ -519,13 +522,14 @@ class AddDetailsComp extends React.Component {
   activeAddBtn = () => {
     if (
       this.state.currentFriend.name &&
-      (this.state.currentFriend.email[0] || this.state.currentFriend.number)
+      (this.state.currentFriend.email[0] ||
+        this.state.currentFriend.number[0].number)
     ) {
       this.setState(prevState => {
         return {
           addBtnDisable: false,
           isEmail: emailRegex.test(this.state.currentFriend.email[0]),
-          isNumber: numberRegex.test(this.state.currentFriend.number)
+          isNumber: numberRegex.test(this.state.currentFriend.number[0].number)
         };
       });
     } else {
@@ -533,7 +537,7 @@ class AddDetailsComp extends React.Component {
         return {
           addBtnDisable: true,
           isEmail: emailRegex.test(this.state.currentFriend.email[0]),
-          isNumber: numberRegex.test(this.state.currentFriend.number)
+          isNumber: numberRegex.test(this.state.currentFriend.number[0].number)
         };
       });
     }
@@ -547,28 +551,39 @@ class AddDetailsComp extends React.Component {
   };
 
   handleContactInfo = e => {
-    let val = e.target.value;
-    let isEmail = false;
-    if (val.includes("@")) {
-      isEmail = true;
-    }
-    if (isEmail) {
+    let contactInfo = e.target.value;
+    this.setState(prevState => {
+      return { contactInfo };
+    }, this.updatedCurrentFriend);
+  };
+
+  updatedCurrentFriend = () => {
+    if (this.state.contactInfo.includes("@")) {
       this.setState(prevState => {
         return {
-          currentFriend: { ...this.state.currentFriend, email: [val] }
+          currentFriend: {
+            ...prevState.currentFriend,
+            email: [this.state.contactInfo]
+          }
         };
       }, this.activeAddBtn);
     } else {
       this.setState(prevState => {
         return {
-          currentFriend: { ...this.state.currentFriend, number: val }
+          currentFriend: {
+            ...prevState.currentFriend,
+            number: [{ country: "IN", number: this.state.contactInfo }]
+          }
         };
       }, this.activeAddBtn);
     }
   };
 
   handleAddBtn = () => {
-    if (this.state.isNumber || this.state.isEmail) {
+    if (this.state.isNumber) {
+      this.props.addCountryToNumber();
+    }
+    if (this.state.isEmail) {
       this.props.toggleAddMoreFriends(this.state.currentFriend);
     } else {
       this.props.toggleWrongInput();
@@ -577,6 +592,7 @@ class AddDetailsComp extends React.Component {
 
   render() {
     const { classes } = this.props;
+    console.log(this.state.currentFriend.number);
     return (
       <Dialog
         fullScreen={true}
@@ -591,7 +607,7 @@ class AddDetailsComp extends React.Component {
           <div className={classes.left}>
             <ArrowBackIcon
               className={classes.arrow}
-              onClick={this.props.handleBackButton}
+              onClick={this.props.toggleAddDetails}
             />
             <Typography variant="subtitle1">Add new contact</Typography>
           </div>
@@ -618,10 +634,7 @@ class AddDetailsComp extends React.Component {
               label="Phone number or email address"
               className={classes.contact}
               onChange={this.handleContactInfo}
-              value={
-                this.state.currentFriend.number ||
-                this.state.currentFriend.email[0]
-              }
+              value={this.state.contactInfo}
             />
             {
               //<MuiPhoneNumber defaultCountry={"in"} />
@@ -1277,6 +1290,7 @@ export default class AppDashboard extends React.Component {
       wrongInputDialog: false,
       addMoreFriendsDialog: false,
       confirmFriendsDialog: false,
+      addCountryToNumber: false,
 
       anchorEl: false,
 
@@ -1284,7 +1298,7 @@ export default class AppDashboard extends React.Component {
 
       currentFriend: {
         name: "",
-        number: "",
+        number: [{ country: "IN", number: "" }],
         email: [],
         key: ""
       },
@@ -1330,7 +1344,7 @@ export default class AppDashboard extends React.Component {
       addMoreFriendsDialog: false,
       currentFriend: {
         name: "",
-        number: "",
+        number: [{ country: "IN", number: "" }],
         email: [],
         key: ""
       },
@@ -1358,9 +1372,8 @@ export default class AppDashboard extends React.Component {
     if (isNumber) {
       this.setState({
         currentFriend: {
-          name: "",
-          number: currentFriendInput,
-          email: [],
+          ...this.state.currentFriend,
+          number: [{ country: "IN", number: currentFriendInput }],
           key: dateForKey
         },
         addDetailsDialog: !this.state.addDetailsDialog
@@ -1368,8 +1381,7 @@ export default class AppDashboard extends React.Component {
     } else if (isEmail) {
       this.setState({
         currentFriend: {
-          name: "",
-          number: "",
+          ...this.state.currentFriend,
           email: [currentFriendInput],
           key: dateForKey
         },
@@ -1378,10 +1390,9 @@ export default class AppDashboard extends React.Component {
     } else {
       this.setState({
         currentFriend: {
-          name: currentFriendInput,
-          number: "",
-          email: [],
-          key: dateForKey
+          ...this.state.currentFriend,
+          key: dateForKey,
+          name: currentFriendInput
         },
         addDetailsDialog: !this.state.addDetailsDialog
       });
@@ -1507,6 +1518,7 @@ export default class AppDashboard extends React.Component {
             handleBackButton={this.handleBackButton}
           />
         )}
+        {this.state.addCountryToNumber && <addCountryToNumber />}
         {this.state.wrongInputDialog && (
           <WrongInput
             wrongInputDialog={this.state.wrongInputDialog}
