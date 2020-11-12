@@ -581,9 +581,8 @@ class AddDetailsComp extends React.Component {
 
   handleAddBtn = () => {
     if (this.state.isNumber) {
-      this.props.addCountryToNumber();
-    }
-    if (this.state.isEmail) {
+      this.props.addCountryCode();
+    } else if (this.state.isEmail) {
       this.props.toggleAddMoreFriends(this.state.currentFriend);
     } else {
       this.props.toggleWrongInput();
@@ -790,7 +789,7 @@ class AddMoreFriendsComp extends React.Component {
 
 const AddMoreFriends = withStyles(AddMoreFriendsStyles)(AddMoreFriendsComp);
 
-const alertDialogBoxStyles = {
+const wrongInputStyles = {
   alertDialogBox: {
     width: "300px",
     height: "150px",
@@ -833,7 +832,35 @@ function WrongInputComp(props) {
   );
 }
 
-const WrongInput = withStyles(alertDialogBoxStyles)(WrongInputComp);
+const WrongInput = withStyles(wrongInputStyles)(WrongInputComp);
+
+const addCountryCodeStyles = {
+  codeBox: {
+    width: "300px",
+    height: "150px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around"
+  }
+};
+
+function AddCountryCodeComp(props) {
+  const { classes, currentFriend } = props;
+  return (
+    <Dialog
+      open={props.addCountryCode}
+      aria-labelledby="Select country for country code"
+      aria-describedby="Select country for country code"
+      onBackdropClick={props.addCountryCode}
+      onEscapeKeyDown={props.addCountryCode}
+      classes={{ paper: classes.codeBox }}
+    >
+      <MuiPhoneNumber defaultCountry={"in"} value={"8765567676"} />
+    </Dialog>
+  );
+}
+
+const AddCountryCode = withStyles(addCountryCodeStyles)(AddCountryCodeComp);
 
 const navBarStyles = {
   navBar: {
@@ -1290,7 +1317,7 @@ export default class AppDashboard extends React.Component {
       wrongInputDialog: false,
       addMoreFriendsDialog: false,
       confirmFriendsDialog: false,
-      addCountryToNumber: false,
+      addCountryCode: false,
 
       anchorEl: false,
 
@@ -1431,6 +1458,10 @@ export default class AppDashboard extends React.Component {
     });
   };
 
+  addCountryCode = () => {
+    this.setState({ addCountryCode: !this.state.addCountryCode });
+  };
+
   switchTab = tabName => {
     switch (tabName) {
       case "friendsTab":
@@ -1516,9 +1547,15 @@ export default class AppDashboard extends React.Component {
             toggleAddMoreFriends={this.toggleAddMoreFriends}
             toggleAddDetails={this.toggleAddDetails}
             handleBackButton={this.handleBackButton}
+            addCountryCode={this.addCountryCode}
           />
         )}
-        {this.state.addCountryToNumber && <addCountryToNumber />}
+        {this.state.addCountryCode && (
+          <AddCountryCode
+            addCountryCode={this.addCountryCode}
+            currentFriend={this.state.currentFriend}
+          />
+        )}
         {this.state.wrongInputDialog && (
           <WrongInput
             wrongInputDialog={this.state.wrongInputDialog}
