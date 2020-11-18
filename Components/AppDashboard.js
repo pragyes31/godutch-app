@@ -581,7 +581,7 @@ class AddDetailsComp extends React.Component {
 
   handleAddBtn = () => {
     if (this.state.isNumber) {
-      this.props.addCountryCode();
+      this.props.addCountryCode(this.state.currentFriend);
     } else if (this.state.isEmail) {
       this.props.toggleAddMoreFriends(this.state.currentFriend);
     } else {
@@ -635,9 +635,6 @@ class AddDetailsComp extends React.Component {
               onChange={this.handleContactInfo}
               value={this.state.contactInfo}
             />
-            {
-              //<MuiPhoneNumber defaultCountry={"in"} />
-            }
           </form>
         </div>
         <div className="message">
@@ -841,11 +838,18 @@ const addCountryCodeStyles = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-around"
+  },
+  buttons: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    marginRight: "1rem"
   }
 };
 
 function AddCountryCodeComp(props) {
   const { classes, currentFriend } = props;
+  let number = `+91 ${currentFriend.number[0].number}`;
   return (
     <Dialog
       open={props.addCountryCode}
@@ -855,7 +859,19 @@ function AddCountryCodeComp(props) {
       onEscapeKeyDown={props.addCountryCode}
       classes={{ paper: classes.codeBox }}
     >
-      <MuiPhoneNumber defaultCountry={"in"} value={"8765567676"} />
+      <MuiPhoneNumber
+        defaultCountry={"in"}
+        value={number}
+        onChange={props.handlePhoneNumber}
+      />
+      <div className={classes.buttons}>
+        <Button color="primary" onClick={props.openAddMoreDetails}>
+          OK
+        </Button>
+        <Button color="primary" onClick={props.addCountryCode}>
+          Cancel
+        </Button>
+      </div>
     </Dialog>
   );
 }
@@ -1332,6 +1348,7 @@ export default class AppDashboard extends React.Component {
       friendsToAdd: [],
       friendsList: [],
 
+      tempNumber: "",
       openFriends: true,
       openGroups: false,
       openActivity: false
@@ -1436,6 +1453,17 @@ export default class AppDashboard extends React.Component {
       friendsToAdd: [...this.state.friendsToAdd, currentFriend]
     });
 
+  openAddMoreDetails = () => {
+    let currentFriend = this.state.currentFriend;
+    currentFriend.number[0].number = this.state.tempNumber;
+    this.setState({
+      addMoreFriendsDialog: !this.state.addMoreFriendsDialog,
+      addDetailsDialog: !this.state.addDetailsDialog,
+      addCountryCode: !this.state.addCountryCode,
+      friendsToAdd: [...this.state.friendsToAdd, currentFriend]
+    });
+  };
+
   toggleFriendsToAdd = () => {
     this.setState({
       addMoreFriendsDialog: !this.state.addMoreFriendsDialog,
@@ -1458,8 +1486,15 @@ export default class AppDashboard extends React.Component {
     });
   };
 
-  addCountryCode = () => {
-    this.setState({ addCountryCode: !this.state.addCountryCode });
+  addCountryCode = currentFriend => {
+    this.setState({
+      addCountryCode: !this.state.addCountryCode,
+      currentFriend
+    });
+  };
+
+  handlePhoneNumber = tempNumber => {
+    this.setState({ tempNumber });
   };
 
   switchTab = tabName => {
@@ -1554,6 +1589,8 @@ export default class AppDashboard extends React.Component {
           <AddCountryCode
             addCountryCode={this.addCountryCode}
             currentFriend={this.state.currentFriend}
+            handlePhoneNumber={this.handlePhoneNumber}
+            openAddMoreDetails={this.openAddMoreDetails}
           />
         )}
         {this.state.wrongInputDialog && (
