@@ -786,6 +786,187 @@ class AddMoreFriendsComp extends React.Component {
 
 const AddMoreFriends = withStyles(AddMoreFriendsStyles)(AddMoreFriendsComp);
 
+class ConfirmFriendsComp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      confirmRemoveFriend: false
+    };
+  }
+  toggleRemoveFriend = () => {
+    this.setState({ confirmRemoveFriend: !this.state.confirmRemoveFriend });
+  };
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.addFriend}>
+        <Dialog
+          fullScreen={true}
+          open={true}
+          aria-labelledby="Add New friend Dialog"
+          aria-describedby="Add New friend Dialog"
+          onBackdropClick={this.props.toggleDialog}
+          onEscapeKeyDown={this.props.toggleDialog}
+          classes={{ paper: classes.confirmDetails }}
+        >
+          <div className={classes.header}>
+            <div className={classes.left}>
+              <ArrowBackIcon
+                className={classes.arrowBack}
+                onClick={this.props.handleBackButton}
+              />
+              <Typography variant="subtitle1">Verify contact info</Typography>
+            </div>
+            <div className={classes.right}>
+              <Button onClick={this.props.handleAddBtn}>FINISH</Button>
+            </div>
+          </div>
+          <div className={classes.friendsToAdd}>
+            {this.props.friendsToAdd.map(friend => {
+              return (
+                <div className={classes.friend} key={friend.key}>
+                  <div className={classes.userDetails}>
+                    <div className={classes.profilePhoto}>
+                      <AccountCircleIcon className={classes.photo} />
+                      <HighlightOffIcon
+                        className={classes.removeUser}
+                        onClick={this.removeFriend}
+                      />
+                    </div>
+                    <div>
+                      <Typography className={classes.name}>
+                        {friend.name}
+                      </Typography>
+                      <Typography className={classes.contactInfo}>
+                        {friend.number[0].number || friend.email[0]}
+                      </Typography>
+                    </div>
+                  </div>
+                  <EditIcon className={classes.edit} />
+                  {this.state.confirmRemoveFriend && (
+                    <ConfirmRemoveFriend
+                      confirmRemoveFriend={this.state.confirmRemoveFriend}
+                      toggleRemoveFriend={this.toggleRemoveFriend}
+                      friendKey={friend.key}
+                    />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </Dialog>
+      </div>
+    );
+  }
+}
+
+const ConfirmFriendsStyles = {
+  confirmDetails: {
+    maxWidth: "600px",
+    position: "relative"
+  },
+  header: {
+    height: "40px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#00b8a9"
+  },
+  left: {
+    width: "30%",
+    display: "flex",
+    justifyContent: "space-between"
+  },
+  friend: {
+    display: "flex",
+    justifyContent: "space-between",
+    margin: "1rem"
+  },
+  userDetails: {
+    width: "60px",
+    position: "relative",
+    display: "flex"
+  },
+  profilePhoto: {
+    marginRight: "2rem"
+  },
+  photo: {
+    width: "50px",
+    height: "50px",
+    color: "#aaa"
+  },
+  removeUser: {
+    width: "25px",
+    height: "25px",
+    position: "absolute",
+    bottom: "5px",
+    right: "5px",
+    color: "#444",
+    cursor: "pointer",
+    backgroundColor: "#ddd",
+    borderRadius: "50%",
+    border: "0px solid #ddd"
+  },
+  arrowBack: {
+    cursor: "pointer"
+  },
+  edit: {
+    cursor: "pointer"
+  }
+};
+
+const ConfirmFriends = withStyles(ConfirmFriendsStyles)(ConfirmFriendsComp);
+
+const confirmRemoveFriendStyles = {
+  codeBox: {
+    width: "350px",
+    height: "150px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    paddingLeft: "1rem"
+  },
+  buttons: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    marginRight: "1rem"
+  }
+};
+
+function ConfirmRemoveFriendComp(props) {
+  const { classes, currentFriend } = props;
+  return (
+    <Dialog
+      open={props.confirmRemoveFriend}
+      aria-labelledby="Confirmation for removing user"
+      aria-describedby="Confirmation for removing user"
+      onBackdropClick={props.toggleRemoveFriend}
+      onEscapeKeyDown={props.toggleRemoveFriend}
+      classes={{ paper: classes.codeBox }}
+    >
+      <Typography variant="h6" className={classes.name}>
+        Remove this person?
+      </Typography>
+      <Typography className={classes.name}>
+        If you remove this person, they will not be added to your group.
+      </Typography>
+      <div className={classes.buttons}>
+        <Button color="primary" onClick={props.toggleRemoveFriend}>
+          CANCEL
+        </Button>
+        <Button color="primary" onClick={props.addCountryCode}>
+          REMOVE
+        </Button>
+      </div>
+    </Dialog>
+  );
+}
+
+const ConfirmRemoveFriend = withStyles(confirmRemoveFriendStyles)(
+  ConfirmRemoveFriendComp
+);
+
 const wrongInputStyles = {
   alertDialogBox: {
     width: "300px",
@@ -920,119 +1101,6 @@ const navBarStyles = {
     boxSizing: "border-box"
   }
 };
-
-function ConfirmFriendsComp(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.addFriend}>
-      <Dialog
-        fullScreen={true}
-        open={true}
-        aria-labelledby="Add New friend Dialog"
-        aria-describedby="Add New friend Dialog"
-        onBackdropClick={props.toggleDialog}
-        onEscapeKeyDown={props.toggleDialog}
-        classes={{ paper: classes.confirmDetails }}
-      >
-        <div className={classes.header}>
-          <div className={classes.left}>
-            <ArrowBackIcon
-              className={classes.arrowBack}
-              onClick={props.handleBackButton}
-            />
-            <Typography variant="subtitle1">Verify contact info</Typography>
-          </div>
-          <div className={classes.right}>
-            <Button onClick={props.handleAddBtn}>FINISH</Button>
-          </div>
-        </div>
-        <div className={classes.friendsToAdd}>
-          {props.friendsToAdd.map(friend => {
-            return (
-              <div className={classes.friend} key={friend.key}>
-                <div className={classes.userDetails}>
-                  <div className={classes.profilePhoto}>
-                    <AccountCircleIcon className={classes.photo} />
-                    <HighlightOffIcon
-                      className={classes.removeUser}
-                      onClick={() => props.confirmRemoveFriend(friend.key)}
-                    />
-                  </div>
-                  <div>
-                    <Typography className={classes.name}>
-                      {friend.name}
-                    </Typography>
-                    <Typography className={classes.contactInfo}>
-                      {friend.number[0].number || friend.email[0]}
-                    </Typography>
-                  </div>
-                </div>
-                <EditIcon className={classes.edit} />
-              </div>
-            );
-          })}
-        </div>
-      </Dialog>
-    </div>
-  );
-}
-
-const ConfirmFriendsStyles = {
-  confirmDetails: {
-    maxWidth: "600px",
-    position: "relative"
-  },
-  header: {
-    height: "40px",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "#00b8a9"
-  },
-  left: {
-    width: "30%",
-    display: "flex",
-    justifyContent: "space-between"
-  },
-  friend: {
-    display: "flex",
-    justifyContent: "space-between",
-    margin: "1rem"
-  },
-  userDetails: {
-    width: "60px",
-    position: "relative",
-    display: "flex"
-  },
-  profilePhoto: {
-    marginRight: "2rem"
-  },
-  photo: {
-    width: "50px",
-    height: "50px",
-    color: "#aaa"
-  },
-  removeUser: {
-    width: "25px",
-    height: "25px",
-    position: "absolute",
-    bottom: "5px",
-    right: "5px",
-    color: "#444",
-    cursor: "pointer",
-    backgroundColor: "#ddd",
-    borderRadius: "50%",
-    border: "0px solid #ddd"
-  },
-  arrowBack: {
-    cursor: "pointer"
-  },
-  edit: {
-    cursor: "pointer"
-  }
-};
-
-const ConfirmFriends = withStyles(ConfirmFriendsStyles)(ConfirmFriendsComp);
 
 function NavBarComp(props) {
   const { classes } = props;
@@ -1351,7 +1419,6 @@ export default class AppDashboard extends React.Component {
       addMoreFriendsDialog: false,
       confirmFriendsDialog: true,
       addCountryCode: false,
-      confirmRemoveFriend: false,
 
       anchorEl: false,
 
@@ -1646,11 +1713,6 @@ export default class AppDashboard extends React.Component {
             confirmFriendsDialog={this.state.confirmFriendsDialog}
             friendsToAdd={this.state.friendsToAdd}
             handleRemoveUser={this.handleRemoveUser}
-          />
-        )}
-        {this.state.confirmRemoveFriend && (
-          <ConfirmFriends
-            confirmRemoveFriend={this.state.confirmRemoveFriend}
           />
         )}
       </div>
