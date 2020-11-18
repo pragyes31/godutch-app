@@ -955,7 +955,7 @@ function ConfirmFriendsComp(props) {
                     <AccountCircleIcon className={classes.photo} />
                     <HighlightOffIcon
                       className={classes.removeUser}
-                      onClick={() => this.props.handleRemoveUser(friend.key)}
+                      onClick={() => props.confirmRemoveFriend(friend.key)}
                     />
                   </div>
                   <div>
@@ -1351,6 +1351,7 @@ export default class AppDashboard extends React.Component {
       addMoreFriendsDialog: false,
       confirmFriendsDialog: true,
       addCountryCode: false,
+      confirmRemoveFriend: false,
 
       anchorEl: false,
 
@@ -1365,8 +1366,8 @@ export default class AppDashboard extends React.Component {
       friendsToAdd: [
         {
           name: "Rahul",
-          number: [{ country: "IN", number: "8121940775" }],
-          email: [],
+          number: [{ country: "IN", number: "" }],
+          email: ["some@some.com"],
           key: ""
         }
       ],
@@ -1521,6 +1522,10 @@ export default class AppDashboard extends React.Component {
     this.setState({ tempNumber });
   };
 
+  confirmRemoveFriend = key => {
+    this.setState({ confirmRemoveFriend: !this.state.confirmRemoveFriend });
+  };
+
   switchTab = tabName => {
     switch (tabName) {
       case "friendsTab":
@@ -1640,6 +1645,12 @@ export default class AppDashboard extends React.Component {
           <ConfirmFriends
             confirmFriendsDialog={this.state.confirmFriendsDialog}
             friendsToAdd={this.state.friendsToAdd}
+            handleRemoveUser={this.handleRemoveUser}
+          />
+        )}
+        {this.state.confirmRemoveFriend && (
+          <ConfirmFriends
+            confirmRemoveFriend={this.state.confirmRemoveFriend}
           />
         )}
       </div>
