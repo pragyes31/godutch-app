@@ -927,7 +927,7 @@ function ConfirmFriendsComp(props) {
     <div className={classes.addFriend}>
       <Dialog
         fullScreen={true}
-        open={props.confirmFriendsDialog}
+        open={true}
         aria-labelledby="Add New friend Dialog"
         aria-describedby="Add New friend Dialog"
         onBackdropClick={props.toggleDialog}
@@ -951,7 +951,7 @@ function ConfirmFriendsComp(props) {
             return (
               <div className={classes.friend} key={friend.key}>
                 <div className={classes.userDetails}>
-                  <div>
+                  <div className={classes.profilePhoto}>
                     <AccountCircleIcon className={classes.photo} />
                     <HighlightOffIcon
                       className={classes.removeUser}
@@ -959,10 +959,15 @@ function ConfirmFriendsComp(props) {
                     />
                   </div>
                   <div>
-                    <Typography>{friend.name}</Typography>
+                    <Typography className={classes.name}>
+                      {friend.name}
+                    </Typography>
+                    <Typography className={classes.contactInfo}>
+                      {friend.number[0].number || friend.email[0]}
+                    </Typography>
                   </div>
                 </div>
-                <EditIcon />
+                <EditIcon className={classes.edit} />
               </div>
             );
           })}
@@ -989,9 +994,18 @@ const ConfirmFriendsStyles = {
     display: "flex",
     justifyContent: "space-between"
   },
+  friend: {
+    display: "flex",
+    justifyContent: "space-between",
+    margin: "1rem"
+  },
   userDetails: {
     width: "60px",
-    position: "relative"
+    position: "relative",
+    display: "flex"
+  },
+  profilePhoto: {
+    marginRight: "2rem"
   },
   photo: {
     width: "50px",
@@ -1011,6 +1025,9 @@ const ConfirmFriendsStyles = {
     border: "0px solid #ddd"
   },
   arrowBack: {
+    cursor: "pointer"
+  },
+  edit: {
     cursor: "pointer"
   }
 };
@@ -1332,7 +1349,7 @@ export default class AppDashboard extends React.Component {
       addDetailsDialog: false,
       wrongInputDialog: false,
       addMoreFriendsDialog: false,
-      confirmFriendsDialog: false,
+      confirmFriendsDialog: true,
       addCountryCode: false,
 
       anchorEl: false,
@@ -1345,7 +1362,14 @@ export default class AppDashboard extends React.Component {
         email: [],
         key: ""
       },
-      friendsToAdd: [],
+      friendsToAdd: [
+        {
+          name: "Rahul",
+          number: [{ country: "IN", number: "8121940775" }],
+          email: [],
+          key: ""
+        }
+      ],
       friendsList: [],
 
       tempNumber: "",
