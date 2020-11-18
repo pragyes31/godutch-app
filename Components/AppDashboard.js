@@ -511,8 +511,7 @@ class AddDetailsComp extends React.Component {
       isNumber: false,
       isEmail: false,
       contactInfo:
-        this.props.currentFriend.email[0] ||
-        this.props.currentFriend.number[0].number
+        this.props.currentFriend.email || this.props.currentFriend.number.number
     };
 
     let numberRegex = /^[1-9]\d{7,11}$/;
@@ -522,22 +521,21 @@ class AddDetailsComp extends React.Component {
   activeAddBtn = () => {
     if (
       this.state.currentFriend.name &&
-      (this.state.currentFriend.email[0] ||
-        this.state.currentFriend.number[0].number)
+      (this.state.currentFriend.email || this.state.currentFriend.number.number)
     ) {
       this.setState(prevState => {
         return {
           addBtnDisable: false,
-          isEmail: emailRegex.test(this.state.currentFriend.email[0]),
-          isNumber: numberRegex.test(this.state.currentFriend.number[0].number)
+          isEmail: emailRegex.test(this.state.currentFriend.email),
+          isNumber: numberRegex.test(this.state.currentFriend.number.number)
         };
       });
     } else {
       this.setState(prevState => {
         return {
           addBtnDisable: true,
-          isEmail: emailRegex.test(this.state.currentFriend.email[0]),
-          isNumber: numberRegex.test(this.state.currentFriend.number[0].number)
+          isEmail: emailRegex.test(this.state.currentFriend.email),
+          isNumber: numberRegex.test(this.state.currentFriend.number.number)
         };
       });
     }
@@ -563,7 +561,7 @@ class AddDetailsComp extends React.Component {
         return {
           currentFriend: {
             ...prevState.currentFriend,
-            email: [this.state.contactInfo]
+            email: this.state.contactInfo
           }
         };
       }, this.activeAddBtn);
@@ -572,7 +570,7 @@ class AddDetailsComp extends React.Component {
         return {
           currentFriend: {
             ...prevState.currentFriend,
-            number: [{ country: "IN", number: this.state.contactInfo }]
+            number: { country: "IN", number: this.state.contactInfo }
           }
         };
       }, this.activeAddBtn);
@@ -802,7 +800,7 @@ class ConfirmFriendsComp extends React.Component {
       <div className={classes.addFriend}>
         <Dialog
           fullScreen={true}
-          open={true}
+          open={false}
           aria-labelledby="Add New friend Dialog"
           aria-describedby="Add New friend Dialog"
           onBackdropClick={this.props.toggleDialog}
@@ -838,7 +836,7 @@ class ConfirmFriendsComp extends React.Component {
                         {friend.name}
                       </Typography>
                       <Typography className={classes.contactInfo}>
-                        {friend.number[0].number || friend.email[0]}
+                        {friend.number.number || friend.email}
                       </Typography>
                     </div>
                   </div>
@@ -1034,7 +1032,7 @@ const addCountryCodeStyles = {
 
 function AddCountryCodeComp(props) {
   const { classes, currentFriend } = props;
-  let number = `+91 ${currentFriend.number[0].number}`;
+  let number = `+91 ${currentFriend.number.number}`;
   return (
     <Dialog
       open={props.addCountryCode}
@@ -1430,15 +1428,15 @@ export default class AppDashboard extends React.Component {
 
       currentFriend: {
         name: "",
-        number: [{ country: "IN", number: "" }],
-        email: [],
+        number: { country: "IN", number: "" },
+        email: "",
         key: ""
       },
       friendsToAdd: [
         {
           name: "Rahul",
-          number: [{ country: "IN", number: "" }],
-          email: ["some@some.com"],
+          number: { country: "IN", number: "" },
+          email: "some@some.com",
           key: ""
         }
       ],
@@ -1484,8 +1482,8 @@ export default class AppDashboard extends React.Component {
       addMoreFriendsDialog: false,
       currentFriend: {
         name: "",
-        number: [{ country: "IN", number: "" }],
-        email: [],
+        number: { country: "IN", number: "" },
+        email: "",
         key: ""
       },
       friendsToAdd: []
@@ -1513,7 +1511,7 @@ export default class AppDashboard extends React.Component {
       this.setState({
         currentFriend: {
           ...this.state.currentFriend,
-          number: [{ country: "IN", number: currentFriendInput }],
+          number: { country: "IN", number: currentFriendInput },
           key: dateForKey
         },
         addDetailsDialog: !this.state.addDetailsDialog
@@ -1522,7 +1520,7 @@ export default class AppDashboard extends React.Component {
       this.setState({
         currentFriend: {
           ...this.state.currentFriend,
-          email: [currentFriendInput],
+          email: currentFriendInput,
           key: dateForKey
         },
         addDetailsDialog: !this.state.addDetailsDialog
@@ -1551,7 +1549,7 @@ export default class AppDashboard extends React.Component {
 
   openAddMoreDetails = () => {
     let currentFriend = this.state.currentFriend;
-    currentFriend.number[0].number = this.state.tempNumber;
+    currentFriend.number.number = this.state.tempNumber;
     this.setState({
       addMoreFriendsDialog: !this.state.addMoreFriendsDialog,
       addDetailsDialog: !this.state.addDetailsDialog,
