@@ -830,7 +830,7 @@ class ConfirmFriendsComp extends React.Component {
                       <AccountCircleIcon className={classes.photo} />
                       <HighlightOffIcon
                         className={classes.removeUser}
-                        onClick={this.removeFriend}
+                        onClick={this.toggleRemoveFriend}
                       />
                     </div>
                     <div>
@@ -848,6 +848,7 @@ class ConfirmFriendsComp extends React.Component {
                       confirmRemoveFriend={this.state.confirmRemoveFriend}
                       toggleRemoveFriend={this.toggleRemoveFriend}
                       friendKey={friend.key}
+                      handleRemoveUser={this.props.handleRemoveUser}
                     />
                   )}
                 </div>
@@ -955,7 +956,10 @@ function ConfirmRemoveFriendComp(props) {
         <Button color="primary" onClick={props.toggleRemoveFriend}>
           CANCEL
         </Button>
-        <Button color="primary" onClick={props.addCountryCode}>
+        <Button
+          color="primary"
+          onClick={() => props.handleRemoveUser(props.friendKey)}
+        >
           REMOVE
         </Button>
       </div>
