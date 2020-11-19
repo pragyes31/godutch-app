@@ -1103,9 +1103,8 @@ class EditFriendDetailsComp extends React.Component {
 }
 
 const editFriendDetailsStyles = {
-  confirmDetails: {
-    maxWidth: "600px",
-    position: "relative"
+  editFriend: {
+    maxWidth: "600px"
   },
   header: {
     height: "40px",
@@ -1115,7 +1114,7 @@ const editFriendDetailsStyles = {
     backgroundColor: "#00b8a9"
   },
   left: {
-    width: "30%",
+    width: "25%",
     display: "flex",
     justifyContent: "space-between"
   },
