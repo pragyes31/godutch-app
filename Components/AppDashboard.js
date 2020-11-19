@@ -800,7 +800,7 @@ class ConfirmFriendsComp extends React.Component {
       <div className={classes.addFriend}>
         <Dialog
           fullScreen={true}
-          open={false}
+          open={true}
           aria-labelledby="Add New friend Dialog"
           aria-describedby="Add New friend Dialog"
           onBackdropClick={this.props.toggleDialog}
@@ -840,7 +840,10 @@ class ConfirmFriendsComp extends React.Component {
                       </Typography>
                     </div>
                   </div>
-                  <EditIcon className={classes.edit} />
+                  <EditIcon
+                    className={classes.edit}
+                    onClick={() => this.props.editFriendDetails(friend.key)}
+                  />
                   {this.state.confirmRemoveFriend && (
                     <ConfirmRemoveFriend
                       confirmRemoveFriend={this.state.confirmRemoveFriend}
@@ -859,7 +862,7 @@ class ConfirmFriendsComp extends React.Component {
   }
 }
 
-const ConfirmFriendsStyles = {
+const confirmFriendsStyles = {
   confirmDetails: {
     maxWidth: "600px",
     position: "relative"
@@ -914,7 +917,7 @@ const ConfirmFriendsStyles = {
   }
 };
 
-const ConfirmFriends = withStyles(ConfirmFriendsStyles)(ConfirmFriendsComp);
+const ConfirmFriends = withStyles(confirmFriendsStyles)(ConfirmFriendsComp);
 
 const confirmRemoveFriendStyles = {
   codeBox: {
@@ -1060,6 +1063,103 @@ function AddCountryCodeComp(props) {
 }
 
 const AddCountryCode = withStyles(addCountryCodeStyles)(AddCountryCodeComp);
+
+class EditFriendDetailsComp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <div>
+        <Dialog
+          fullScreen={true}
+          open={this.props.editFriendDetailsDialog}
+          aria-labelledby="Edit friend details"
+          aria-describedby="Edit friend details"
+          onBackdropClick={this.props.toggleEditFriendDetailsDialog}
+          onEscapeKeyDown={this.props.toggleEditFriendDetailsDialog}
+          classes={{ paper: classes.editFriend }}
+        >
+          <div className={classes.header}>
+            <div className={classes.left}>
+              <ArrowBackIcon
+                className={classes.arrowBack}
+                onClick={this.props.handleBackButton}
+              />
+              <Typography variant="subtitle1">Edit Contact</Typography>
+            </div>
+            <div className={classes.right}>
+              <Button onClick={this.props.handleAddBtn}>DONE</Button>
+            </div>
+          </div>
+          <div />
+        </Dialog>
+      </div>
+    );
+  }
+}
+
+const editFriendDetailsStyles = {
+  confirmDetails: {
+    maxWidth: "600px",
+    position: "relative"
+  },
+  header: {
+    height: "40px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#00b8a9"
+  },
+  left: {
+    width: "30%",
+    display: "flex",
+    justifyContent: "space-between"
+  },
+  friend: {
+    display: "flex",
+    justifyContent: "space-between",
+    margin: "1rem"
+  },
+  userDetails: {
+    width: "60px",
+    position: "relative",
+    display: "flex"
+  },
+  profilePhoto: {
+    marginRight: "2rem"
+  },
+  photo: {
+    width: "50px",
+    height: "50px",
+    color: "#aaa"
+  },
+  removeUser: {
+    width: "25px",
+    height: "25px",
+    position: "absolute",
+    bottom: "5px",
+    right: "5px",
+    color: "#444",
+    cursor: "pointer",
+    backgroundColor: "#ddd",
+    borderRadius: "50%",
+    border: "0px solid #ddd"
+  },
+  arrowBack: {
+    cursor: "pointer"
+  },
+  edit: {
+    cursor: "pointer"
+  }
+};
+
+const EditFriendDetails = withStyles(editFriendDetailsStyles)(
+  EditFriendDetailsComp
+);
 
 const navBarStyles = {
   navBar: {
@@ -1421,6 +1521,7 @@ export default class AppDashboard extends React.Component {
       addMoreFriendsDialog: false,
       confirmFriendsDialog: true,
       addCountryCode: false,
+      editFriendDetailsDialog: false,
 
       anchorEl: false,
 
@@ -1595,6 +1696,22 @@ export default class AppDashboard extends React.Component {
     this.setState({ confirmRemoveFriend: !this.state.confirmRemoveFriend });
   };
 
+  editFriendDetails = key => {
+    let friendToEdit = this.state.friendsToAdd.filter(
+      friend => friend.key !== key
+    );
+    this.setState({
+      friendToEdit,
+      editFriendDetailsDialog: !this.state.editFriendDetailsDialog
+    });
+  };
+
+  toggleEditFriendDetailsDialog = () => {
+    this.setState({
+      editFriendDetailsDialog: !this.state.editFriendDetailsDialog
+    });
+  };
+
   switchTab = tabName => {
     switch (tabName) {
       case "friendsTab":
@@ -1715,6 +1832,13 @@ export default class AppDashboard extends React.Component {
             confirmFriendsDialog={this.state.confirmFriendsDialog}
             friendsToAdd={this.state.friendsToAdd}
             handleRemoveUser={this.handleRemoveUser}
+            editFriendDetails={this.editFriendDetails}
+          />
+        )}
+        {this.state.editFriendDetailsDialog && (
+          <EditFriendDetails
+            toggleEditFriendDetailsDialog={this.toggleEditFriendDetailsDialog}
+            editFriendDetailsDialog={this.state.editFriendDetailsDialog}
           />
         )}
       </div>
