@@ -1070,8 +1070,25 @@ const AddCountryCode = withStyles(addCountryCodeStyles)(AddCountryCodeComp);
 class EditFriendDetailsComp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      contactInfo: "currentInfo",
+      setNumber: false,
+      setEmail: false
+    };
   }
+
+  handleRadio = e => {
+    this.setState({
+      contactInfo: e.target.value,
+      setEmail: !this.state.setEmail
+    });
+    e.target.value === "newNumber"
+      ? this.setState({ setNumber: true })
+      : this.setState({ setNumber: false });
+    e.target.value === "newEmail"
+      ? this.setState({ setEmail: true })
+      : this.setState({ setEmail: false });
+  };
 
   render() {
     const { classes } = this.props;
@@ -1108,21 +1125,47 @@ class EditFriendDetailsComp extends React.Component {
                 value="test"
               />
               <div>
-                <RadioGroup aria-label="gender" name="gender1" value="female">
+                <RadioGroup
+                  aria-label="gender"
+                  name="gender1"
+                  value={this.state.contactInfo}
+                  onChange={this.handleRadio}
+                >
                   <FormControlLabel
-                    value="female"
+                    value="currentInfo"
                     control={<Radio />}
-                    label="Female"
+                    label="some@some.some"
                   />
                   <FormControlLabel
-                    value="male"
+                    value="newNumber"
                     control={<Radio />}
-                    label="Male"
+                    label={
+                      !this.state.setNumber ? (
+                        "Enter a new phone number"
+                      ) : (
+                        <MuiPhoneNumber
+                          defaultCountry={"in"}
+                          value="12456643"
+                          onChange={this.handlePhoneNumber}
+                        />
+                      )
+                    }
                   />
                   <FormControlLabel
-                    value="other"
+                    value="newEmail"
                     control={<Radio />}
-                    label="Other"
+                    label={
+                      !this.state.setEmail ? (
+                        "Enter a new email address"
+                      ) : (
+                        <TextField
+                          id="new-email"
+                          className={classes.newEmail}
+                          onChange={this.handleEmail}
+                          value="email"
+                        />
+                      )
+                    }
                   />
                 </RadioGroup>
               </div>
