@@ -592,7 +592,6 @@ class AddDetailsComp extends React.Component {
 
   render() {
     const { classes } = this.props;
-    console.log(this.state.currentFriend.number);
     return (
       <Dialog
         fullScreen={true}
@@ -803,7 +802,7 @@ class ConfirmFriendsComp extends React.Component {
       <div className={classes.addFriend}>
         <Dialog
           fullScreen={true}
-          open={true}
+          open={this.props.confirmFriendsDialog}
           aria-labelledby="Add New friend Dialog"
           aria-describedby="Add New friend Dialog"
           onBackdropClick={this.props.toggleDialog}
@@ -1073,8 +1072,11 @@ class EditFriendDetailsComp extends React.Component {
     this.state = {
       contactInfo: "currentInfo",
       setNumber: false,
-      setEmail: false
+      setEmail: false,
+friendToEdit:props.editFriendDetails
     };
+     let numberRegex = /^[1-9]\d{7,11}$/;
+    let emailRegex = /^[\d\w.!#$%&'*+/=?^_`{|}~-]{1,30}@\w{1,30}\.\w{1,30}/;
   }
 
   handleRadio = e => {
@@ -1090,8 +1092,31 @@ class EditFriendDetailsComp extends React.Component {
       : this.setState({ setEmail: false });
   };
 
+handleName = (e) => {
+this.setState({friendToEdit:{...this.state.friendToEdit, name:e.target.value}})
+}
+
+handleEmail = (e) => {
+this.setState({friendToEdit:{...this.state.friendToEdit, email:e.target.value}})
+}
+
+handleNumber = (e) => {
+this.setState({friendToEdit:{...this.state.friendToEdit, number:e.target.value}})
+}
+
+handleFinsihEditing = () => {
+  const {friendToEdit} = this.state
+  if(emailRegex.test(friendToEdit.email) || numberRegex.test(friendToEdit.number.number)) {
+    console.log("details edited")
+  }
+  else {
+    console.log("incorrect details")
+  }
+}
+
   render() {
-    const { classes } = this.props;
+    const { classes, editFriendDetails} = this.props;
+    const {friendToEdit} = this.state
     return (
       <div>
         <Dialog
@@ -1112,7 +1137,7 @@ class EditFriendDetailsComp extends React.Component {
               <Typography variant="subtitle1">Edit Contact</Typography>
             </div>
             <div className={classes.right}>
-              <Button onClick={this.props.handleAddBtn}>DONE</Button>
+              <Button onClick={this.handleFinsihEditing}>DONE</Button>
             </div>
           </div>
           <div>
@@ -1122,19 +1147,19 @@ class EditFriendDetailsComp extends React.Component {
                 label="Name"
                 className={classes.name}
                 onChange={this.handleName}
-                value="test"
+                value={friendToEdit.name}
               />
               <div>
                 <RadioGroup
-                  aria-label="gender"
-                  name="gender1"
+                  aria-label="contact info"
+                  name="contact info"
                   value={this.state.contactInfo}
                   onChange={this.handleRadio}
                 >
                   <FormControlLabel
                     value="currentInfo"
                     control={<Radio />}
-                    label="some@some.some"
+                    label={editFriendDetails.email}
                   />
                   <FormControlLabel
                     value="newNumber"
@@ -1145,7 +1170,7 @@ class EditFriendDetailsComp extends React.Component {
                       ) : (
                         <MuiPhoneNumber
                           defaultCountry={"in"}
-                          value="12456643"
+                          value=""
                           onChange={this.handlePhoneNumber}
                         />
                       )
@@ -1162,7 +1187,7 @@ class EditFriendDetailsComp extends React.Component {
                           id="new-email"
                           className={classes.newEmail}
                           onChange={this.handleEmail}
-                          value="email"
+                          value=""
                         />
                       )
                     }
@@ -1593,7 +1618,7 @@ export default class AppDashboard extends React.Component {
       addDetailsDialog: false,
       wrongInputDialog: false,
       addMoreFriendsDialog: false,
-      confirmFriendsDialog: true,
+      confirmFriendsDialog: false,
       addCountryCode: false,
       editFriendDetailsDialog: false,
 
@@ -1615,6 +1640,12 @@ export default class AppDashboard extends React.Component {
           key: ""
         }
       ],
+      editFriendDetails: {
+        name: "",
+        number: { country: "IN", number: "" },
+        email: "",
+        key: ""
+      },
       friendsList: [],
 
       tempNumber: "",
@@ -1762,8 +1793,9 @@ export default class AppDashboard extends React.Component {
     });
   };
 
-  handlePhoneNumber = tempNumber => {
+  handlePhoneNumber = (tempNumber, countryObj) => {
     this.setState({ tempNumber });
+    console.log(countryObj)
   };
 
   confirmRemoveFriend = key => {
@@ -1772,10 +1804,11 @@ export default class AppDashboard extends React.Component {
 
   editFriendDetails = key => {
     let friendToEdit = this.state.friendsToAdd.filter(
-      friend => friend.key !== key
+      friend => friend.key === key
     );
+
     this.setState({
-      friendToEdit,
+      editFriendDetails: {...friendToEdit[0]},
       editFriendDetailsDialog: !this.state.editFriendDetailsDialog
     });
   };
@@ -1913,6 +1946,7 @@ export default class AppDashboard extends React.Component {
           <EditFriendDetails
             toggleEditFriendDetailsDialog={this.toggleEditFriendDetailsDialog}
             editFriendDetailsDialog={this.state.editFriendDetailsDialog}
+            editFriendDetails={this.state.editFriendDetails}
           />
         )}
       </div>
