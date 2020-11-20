@@ -3,10 +3,13 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import Dialog from "@material-ui/core/Dialog";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Popover from "@material-ui/core/Popover";
 import TextField from "@material-ui/core/TextField";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
 
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
@@ -1095,7 +1098,36 @@ class EditFriendDetailsComp extends React.Component {
               <Button onClick={this.props.handleAddBtn}>DONE</Button>
             </div>
           </div>
-          <div />
+          <div>
+            <form className={classes.editForm}>
+              <TextField
+                id="name-field"
+                label="Name"
+                className={classes.name}
+                onChange={this.handleName}
+                value="test"
+              />
+              <div>
+                <RadioGroup aria-label="gender" name="gender1" value="female">
+                  <FormControlLabel
+                    value="female"
+                    control={<Radio />}
+                    label="Female"
+                  />
+                  <FormControlLabel
+                    value="male"
+                    control={<Radio />}
+                    label="Male"
+                  />
+                  <FormControlLabel
+                    value="other"
+                    control={<Radio />}
+                    label="Other"
+                  />
+                </RadioGroup>
+              </div>
+            </form>
+          </div>
         </Dialog>
       </div>
     );
