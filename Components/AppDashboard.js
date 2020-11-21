@@ -527,19 +527,11 @@ class AddDetailsComp extends React.Component {
       (this.state.currentFriend.email || this.state.currentFriend.number.number)
     ) {
       this.setState(prevState => {
-        return {
-          addBtnDisable: false,
-          isEmail: emailRegex.test(this.state.currentFriend.email),
-          isNumber: numberRegex.test(this.state.currentFriend.number.number)
-        };
+        return { addBtnDisable: false };
       });
     } else {
       this.setState(prevState => {
-        return {
-          addBtnDisable: true,
-          isEmail: emailRegex.test(this.state.currentFriend.email),
-          isNumber: numberRegex.test(this.state.currentFriend.number.number)
-        };
+        return { addBtnDisable: true };
       });
     }
   };
@@ -553,22 +545,19 @@ class AddDetailsComp extends React.Component {
 
   handleContactInfo = e => {
     let contactInfo = e.target.value;
-    this.setState(prevState => {
-      return { contactInfo };
-    }, this.updatedCurrentFriend);
+    if (contactInfo !== "") {
+      this.setState(prevState => {
+        return {
+          contactInfo,
+          isEmail: emailRegex.test(contactInfo),
+          isNumber: numberRegex.test(contactInfo)
+        };
+      }, this.updatedCurrentFriend);
+    }
   };
 
   updatedCurrentFriend = () => {
-    if (this.state.contactInfo.includes("@")) {
-      this.setState(prevState => {
-        return {
-          currentFriend: {
-            ...prevState.currentFriend,
-            email: this.state.contactInfo
-          }
-        };
-      }, this.activeAddBtn);
-    } else {
+    if (this.state.isNumber) {
       this.setState(prevState => {
         return {
           currentFriend: {
@@ -577,10 +566,20 @@ class AddDetailsComp extends React.Component {
           }
         };
       }, this.activeAddBtn);
+    } else if (this.state.contactInfo.includes("@")) {
+      this.setState(prevState => {
+        return {
+          currentFriend: {
+            ...prevState.currentFriend,
+            email: this.state.contactInfo
+          }
+        };
+      }, this.activeAddBtn);
     }
   };
 
   handleAddBtn = () => {
+    console.log(this.state.currentFriend);
     if (this.state.isNumber) {
       this.props.addCountryCode(this.state.currentFriend);
     } else if (this.state.isEmail) {
@@ -721,6 +720,7 @@ class AddMoreFriendsComp extends React.Component {
   };
   render() {
     const { classes, friendsToAdd } = this.props;
+
     return (
       <Dialog
         fullScreen={true}
@@ -1064,6 +1064,8 @@ function AddCountryCodeComp(props) {
   );
 }
 
+class AddCountryCod extends React.Component {}
+
 const AddCountryCode = withStyles(addCountryCodeStyles)(AddCountryCodeComp);
 
 class EditFriendDetailsComp extends React.Component {
@@ -1073,9 +1075,9 @@ class EditFriendDetailsComp extends React.Component {
       contactInfo: "currentInfo",
       setNumber: false,
       setEmail: false,
-friendToEdit:props.editFriendDetails
+      friendToEdit: props.editFriendDetails
     };
-     let numberRegex = /^[1-9]\d{7,11}$/;
+    let numberRegex = /^[1-9]\d{7,11}$/;
     let emailRegex = /^[\d\w.!#$%&'*+/=?^_`{|}~-]{1,30}@\w{1,30}\.\w{1,30}/;
   }
 
@@ -1092,31 +1094,37 @@ friendToEdit:props.editFriendDetails
       : this.setState({ setEmail: false });
   };
 
-handleName = (e) => {
-this.setState({friendToEdit:{...this.state.friendToEdit, name:e.target.value}})
-}
+  handleName = e => {
+    this.setState({
+      friendToEdit: { ...this.state.friendToEdit, name: e.target.value }
+    });
+  };
 
-handleEmail = (e) => {
-this.setState({friendToEdit:{...this.state.friendToEdit, email:e.target.value}})
-}
+  handleEmail = e => {
+    this.setState({
+      friendToEdit: { ...this.state.friendToEdit, email: e.target.value }
+    });
+  };
 
-handleNumber = (e) => {
-this.setState({friendToEdit:{...this.state.friendToEdit, number:e.target.value}})
-}
+  handleNumber = e => {
+    this.setState({
+      friendToEdit: { ...this.state.friendToEdit, number: e.target.value }
+    });
+  };
 
-handleFinsihEditing = () => {
-  const {friendToEdit} = this.state
-  if(emailRegex.test(friendToEdit.email) || numberRegex.test(friendToEdit.number.number)) {
-    console.log("details edited")
-  }
-  else {
-    console.log("incorrect details")
-  }
-}
+  handleFinsihEditing = () => {
+    const { friendToEdit } = this.state;
+    if (
+      emailRegex.test(friendToEdit.email) ||
+      numberRegex.test(friendToEdit.number.number)
+    ) {
+    } else {
+    }
+  };
 
   render() {
-    const { classes, editFriendDetails} = this.props;
-    const {friendToEdit} = this.state
+    const { classes } = this.props;
+    const { friendToEdit } = this.state;
     return (
       <div>
         <Dialog
@@ -1137,7 +1145,9 @@ handleFinsihEditing = () => {
               <Typography variant="subtitle1">Edit Contact</Typography>
             </div>
             <div className={classes.right}>
-              <Button onClick={this.handleFinsihEditing}>DONE</Button>
+              <Button onClick={() => this.handleFinsihEditing(friendToEdit)}>
+                DONE
+              </Button>
             </div>
           </div>
           <div>
@@ -1159,7 +1169,7 @@ handleFinsihEditing = () => {
                   <FormControlLabel
                     value="currentInfo"
                     control={<Radio />}
-                    label={editFriendDetails.email}
+                    label={friendToEdit.email}
                   />
                   <FormControlLabel
                     value="newNumber"
@@ -1170,7 +1180,7 @@ handleFinsihEditing = () => {
                       ) : (
                         <MuiPhoneNumber
                           defaultCountry={"in"}
-                          value=""
+                          value={friendToEdit.number.number}
                           onChange={this.handlePhoneNumber}
                         />
                       )
@@ -1187,7 +1197,7 @@ handleFinsihEditing = () => {
                           id="new-email"
                           className={classes.newEmail}
                           onChange={this.handleEmail}
-                          value=""
+                          value={friendToEdit.email}
                         />
                       )
                     }
@@ -1632,14 +1642,7 @@ export default class AppDashboard extends React.Component {
         email: "",
         key: ""
       },
-      friendsToAdd: [
-        {
-          name: "Rahul",
-          number: { country: "IN", number: "" },
-          email: "some@some.com",
-          key: ""
-        }
-      ],
+      friendsToAdd: [],
       editFriendDetails: {
         name: "",
         number: { country: "IN", number: "" },
@@ -1779,7 +1782,6 @@ export default class AppDashboard extends React.Component {
   };
 
   toggleConfirmFriends = () => {
-    console.log("show friends");
     this.setState({
       confirmFriendsDialog: !this.state.confirmFriendsDialog,
       addMoreFriendsDialog: !this.state.addMoreFriendsDialog
@@ -1795,7 +1797,6 @@ export default class AppDashboard extends React.Component {
 
   handlePhoneNumber = (tempNumber, countryObj) => {
     this.setState({ tempNumber });
-    console.log(countryObj)
   };
 
   confirmRemoveFriend = key => {
@@ -1808,7 +1809,7 @@ export default class AppDashboard extends React.Component {
     );
 
     this.setState({
-      editFriendDetails: {...friendToEdit[0]},
+      editFriendDetails: { ...friendToEdit[0] },
       editFriendDetailsDialog: !this.state.editFriendDetailsDialog
     });
   };
