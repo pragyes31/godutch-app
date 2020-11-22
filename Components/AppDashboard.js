@@ -521,71 +521,74 @@ class AddDetailsComp extends React.Component {
     let emailRegex = /^[\d\w.!#$%&'*+/=?^_`{|}~-]{1,30}@\w{1,30}\.\w{1,30}/;
   }
 
-  activeAddBtn = () => {
-    if (this.state.currentFriend.name && this.state.contactInfo) {
-      this.setState(prevState => {
-        return { addBtnDisable: false };
-      });
-    } else {
-      this.setState(prevState => {
-        return { addBtnDisable: true };
-      });
-    }
+  handleAddBtn = () => {
+    const { isEmail, isNumber } = this.state;
+    if (isEmail) this.props.toggleAddMoreFriends(this.state.currentFriend);
+    else if (isNumber) this.props.addCountryCode(this.state.currentFriend);
+    else this.props.toggleWrongInput();
   };
 
   handleName = e => {
     let name = e.target.value;
     this.setState(prevState => {
-      return { currentFriend: { ...this.state.currentFriend, name } };
+      return { currentFriend: { ...prevState.currentFriend, name } };
     }, this.activeAddBtn);
   };
 
   handleContactInfo = e => {
     let contactInfo = e.target.value;
     if (contactInfo !== "") {
-      this.setState({
-        contactInfo,
-        isEmail: emailRegex.test(contactInfo),
-        isNumber: numberRegex.test(contactInfo)
-      });
-    } else {
-      this.setState({ contactInfo });
-    }
-    this.updatedCurrentFriend();
+      this.setState(prevState => {
+        return {
+          contactInfo,
+          isEmail: emailRegex.test(contactInfo),
+          isNumber: numberRegex.test(contactInfo)
+        };
+      }, this.updateCurrentFriend);
+    } else
+      this.setState(
+        prevState => ({
+          contactInfo,
+          currentFriend: {
+            ...prevState.currentFriend,
+            number: { country: "IN", number: contactInfo },
+            email: contactInfo
+          }
+        }),
+        this.activeAddBtn
+      );
   };
 
-  updatedCurrentFriend = () => {
-    if (this.state.isNumber) {
-      this.setState({
-        currentFriend: {
-          ...prevState.currentFriend,
-          number: { country: "IN", number: this.state.contactInfo }
-        }
-      });
-    } else if (this.state.contactInfo.includes("@")) {
-      this.setState({
-        currentFriend: {
-          ...prevState.currentFriend,
-          email: this.state.contactInfo
-        }
-      });
-    }
-    this.activeAddBtn();
+  updateCurrentFriend = () => {
+    const { contactInfo } = this.state;
+    if (/^[\d]+$/g.test(contactInfo))
+      this.setState(prevState => {
+        return {
+          currentFriend: {
+            ...prevState.currentFriend,
+            number: { country: "IN", number: contactInfo }
+          }
+        };
+      }, this.activeAddBtn);
+    else
+      this.setState(prevState => {
+        return {
+          currentFriend: { ...prevState.currentFriend, email: contactInfo }
+        };
+      }, this.activeAddBtn);
   };
 
-  handleAddBtn = () => {
-    console.log(this.state.currentFriend);
-    if (this.state.isNumber) {
-      this.props.addCountryCode(this.state.currentFriend);
-    } else if (this.state.isEmail) {
-      this.props.toggleAddMoreFriends(this.state.currentFriend);
-    } else {
-      this.props.toggleWrongInput();
-    }
+  activeAddBtn = () => {
+    const { email, number, name } = this.state.currentFriend;
+    if (!!name && (!!email || !!number.number))
+      this.setState({ addBtnDisable: false });
+    else this.setState({ addBtnDisable: true });
   };
 
   render() {
     const { classes } = this.props;
+    const { currentFriend, contactInfo } = this.state;
+    console.log(contactInfo);
     return (
       <Dialog
         fullScreen={true}
@@ -627,7 +630,7 @@ class AddDetailsComp extends React.Component {
               label="Phone number or email address"
               className={classes.contact}
               onChange={this.handleContactInfo}
-              value={this.state.contactInfo}
+              value={contactInfo}
             />
           </form>
         </div>
