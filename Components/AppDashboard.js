@@ -350,7 +350,7 @@ function ThreeDotsPopoverComp(props) {
         <Typography
           variant="subtitle1"
           className={classes.contentChild}
-          onClick={props.toggleAddFriend}
+          onClick={props.toggleThreeDots}
         >
           Add new friend
         </Typography>
@@ -398,7 +398,7 @@ class AddFriendComp extends React.Component {
           <div className={classes.top}>
             <ArrowBackIcon
               className={classes.arrow}
-              onClick={this.props.handleBackButton}
+              onClick={this.props.toggleAddFriend}
             />
             <TextField
               id="add-friend-field"
@@ -1709,6 +1709,13 @@ export default class AppDashboard extends React.Component {
     });
   };
 
+  toggleThreeDots = () => {
+    this.setState({
+      addFriendDialog: !this.state.addFriendDialog,
+      threeDotsDialog: !this.state.threeDotsDialog
+    });
+  };
+
   toggleAddFriend = () => {
     this.setState({ addFriendDialog: !this.state.addFriendDialog });
   };
@@ -1913,7 +1920,8 @@ export default class AppDashboard extends React.Component {
             anchorEl={this.state.anchorEl}
             handle3DotsClose={this.handle3DotsClose}
             friendsToAdd={this.state.friendsToAdd}
-            toggleAddFriend={this.toggleAddFriend}
+            toggleThreeDots={this.toggleThreeDots}
+            threeDotsDialog={this.state.threeDotsDialog}
           />
         )}
         {this.state.addFriendDialog && (
