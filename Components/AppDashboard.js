@@ -566,7 +566,7 @@ class AddDetailsComp extends React.Component {
         return {
           currentFriend: {
             ...prevState.currentFriend,
-            number: { country: "IN", number: contactInfo }
+            number: { country: "IN", number: contactInfo, dialCode: "91" }
           }
         };
       }, this.activeAddBtn);
@@ -588,7 +588,6 @@ class AddDetailsComp extends React.Component {
   render() {
     const { classes } = this.props;
     const { currentFriend, contactInfo } = this.state;
-    console.log(contactInfo);
     return (
       <Dialog
         fullScreen={true}
@@ -718,7 +717,7 @@ class AddMoreFriendsComp extends React.Component {
   };
   render() {
     const { classes, friendsToAdd } = this.props;
-
+    console.log(friendsToAdd);
     return (
       <Dialog
         fullScreen={true}
@@ -1034,41 +1033,14 @@ const addCountryCodeStyles = {
   }
 };
 
-// function AddCountryCodeComp(props) {
-//   const { classes, currentFriend } = props;
-//   let number = `+91 ${currentFriend.number.number}`;
-//   return (
-//     <Dialog
-//       open={props.addCountryCode}
-//       aria-labelledby="Select country for country code"
-//       aria-describedby="Select country for country code"
-//       onBackdropClick={props.addCountryCode}
-//       onEscapeKeyDown={props.addCountryCode}
-//       classes={{ paper: classes.codeBox }}
-//     >
-//       <MuiPhoneNumber
-//         defaultCountry={"in"}
-//         value={number}
-//         onChange={props.handlePhoneNumber}
-//       />
-//       <div className={classes.buttons}>
-//         <Button color="primary" onClick={props.openAddMoreDetails}>
-//           OK
-//         </Button>
-//         <Button color="primary" onClick={props.addCountryCode}>
-//           Cancel
-//         </Button>
-//       </div>
-//     </Dialog>
-//   );
-// }
-
 class AddCountryCodeComp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currentFriend: props.currentFriend,
-      tempNumber: `+91 ${props.currentFriend.number.number}`
+      tempNumber: `${props.currentFriend.number.dialCode} ${
+        props.currentFriend.number.number
+      }`
     };
   }
   handlePhoneNumber = (number, countryObj) => {
@@ -1077,12 +1049,16 @@ class AddCountryCodeComp extends React.Component {
       tempNumber: number,
       currentFriend: {
         ...currentFriend,
-        number: { country: countryObj.countryCode, number }
+        number: {
+          number: number,
+          country: countryObj.countryCode,
+          dialCode: countryObj.dialCode
+        }
       }
     });
   };
   render() {
-    const { classes } = this.props;
+    const { classes, openAddMoreDetails, addCountryCode } = this.props;
     const { currentFriend } = this.state;
     return (
       <Dialog
@@ -1101,11 +1077,11 @@ class AddCountryCodeComp extends React.Component {
         <div className={classes.buttons}>
           <Button
             color="primary"
-            onClick={() => this.props.openAddMoreDetails(currentFriend)}
+            onClick={() => openAddMoreDetails(currentFriend)}
           >
             OK
           </Button>
-          <Button color="primary" onClick={this.props.addCountryCode}>
+          <Button color="primary" onClick={addCountryCode}>
             Cancel
           </Button>
         </div>
@@ -1123,7 +1099,10 @@ class EditFriendDetailsComp extends React.Component {
       contactInfo: "currentInfo",
       setNumber: false,
       setEmail: false,
-      friendToEdit: props.editFriendDetails
+      friendToEdit: props.editFriendDetails,
+      numberToDisplay: `${props.editFriendDetails.number.dialCode} ${
+        props.editFriendDetails.number.number
+      }`
     };
     let numberRegex = /^[1-9]\d{7,11}$/;
     let emailRegex = /^[\d\w.!#$%&'*+/=?^_`{|}~-]{1,30}@\w{1,30}\.\w{1,30}/;
@@ -1154,9 +1133,17 @@ class EditFriendDetailsComp extends React.Component {
     });
   };
 
-  handleNumber = e => {
+  handleNumber = (e, countryObj) => {
+    const { friendToEdit } = this.state;
     this.setState({
-      friendToEdit: { ...this.state.friendToEdit, number: e.target.value }
+      friendToEdit: {
+        ...friendToEdit,
+        number: {
+          number: e.target.value,
+          country: countryObj.countryCode,
+          dialCode: countryObj.dialCode
+        }
+      }
     });
   };
 
@@ -1173,6 +1160,7 @@ class EditFriendDetailsComp extends React.Component {
   render() {
     const { classes } = this.props;
     const { friendToEdit } = this.state;
+    console.log(this.state.friendToEdit);
     return (
       <div>
         <Dialog
@@ -1227,8 +1215,7 @@ class EditFriendDetailsComp extends React.Component {
                         "Enter a new phone number"
                       ) : (
                         <MuiPhoneNumber
-                          defaultCountry={"in"}
-                          value={friendToEdit.number.number}
+                          value={this.state.numberToDisplay}
                           onChange={this.handlePhoneNumber}
                         />
                       )
@@ -1686,14 +1673,14 @@ export default class AppDashboard extends React.Component {
 
       currentFriend: {
         name: "",
-        number: { country: "IN", number: "" },
+        number: { country: "IN", number: "", dialCode: "91" },
         email: "",
         key: ""
       },
       friendsToAdd: [],
       editFriendDetails: {
         name: "",
-        number: { country: "IN", number: "" },
+        number: { country: "IN", number: "", dialCode: "91" },
         email: "",
         key: ""
       },
