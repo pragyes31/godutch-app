@@ -1,5 +1,6 @@
 import React from "react";
 
+import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import Dialog from "@material-ui/core/Dialog";
@@ -10,6 +11,8 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
@@ -1348,6 +1351,35 @@ const navBarStyles = {
   }
 };
 
+class AppBarComp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tabIndex: 0
+    };
+  }
+  handleTabs = (e, value) => {
+    this.setState({ tabIndex: value });
+  };
+  render() {
+    return (
+      <div>
+        <AppBar position="static">
+          <Tabs
+            value={this.state.tabIndex}
+            onChange={this.handleTabs}
+            aria-label="simple tabs example"
+          >
+            <Tab label="Item One" />
+            <Tab label="Item Two" />
+            <Tab label="Item Three" />
+          </Tabs>
+        </AppBar>
+      </div>
+    );
+  }
+}
+
 function NavBarComp(props) {
   const { classes } = props;
   let friendsClass = `${classes.items} ${
@@ -1884,6 +1916,7 @@ export default class AppDashboard extends React.Component {
   render() {
     return (
       <div className="app-dashboard">
+        <AppBarComp />
         <Header
           threeDotsDialog={this.state.threeDotsDialog}
           toggle3DotsDialog={this.toggle3DotsDialog}
@@ -1990,3 +2023,17 @@ export default class AppDashboard extends React.Component {
     );
   }
 }
+
+// {
+//   <div>
+//   <TabPanel value={this.state.tabIndex} index={0}>
+//   First Tab
+// </TabPanel>
+// <TabPanel value={value} index={1}>
+//   Second Tab
+// </TabPanel>
+// <TabPanel value={value} index={2}>
+//   Third Tab
+// </TabPanel>
+// </div>
+// }
