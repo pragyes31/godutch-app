@@ -802,15 +802,15 @@ class ConfirmFriendsComp extends React.Component {
           open={this.props.confirmFriendsDialog}
           aria-labelledby="Add New friend Dialog"
           aria-describedby="Add New friend Dialog"
-          onBackdropClick={this.props.toggleDialog}
-          onEscapeKeyDown={this.props.toggleDialog}
+          onBackdropClick={this.props.toggleConfirmFriendsDialog}
+          onEscapeKeyDown={this.props.toggleConfirmFriendsDialog}
           classes={{ paper: classes.confirmDetails }}
         >
           <div className={classes.header}>
             <div className={classes.left}>
               <ArrowBackIcon
                 className={classes.arrowBack}
-                onClick={this.props.handleBackButton}
+                onClick={this.props.toggleConfirmFriendsDialog}
               />
               <Typography variant="subtitle1">Verify contact info</Typography>
             </div>
@@ -1889,6 +1889,13 @@ export default class AppDashboard extends React.Component {
     });
   };
 
+  toggleConfirmFriendsDialog = () => {
+    this.setState({
+      confirmFriendsDialog: !this.state.confirmFriendsDialog,
+      friendsToAdd: []
+    });
+  };
+
   switchTab = tabName => {
     switch (tabName) {
       case "friendsTab":
@@ -2012,6 +2019,7 @@ export default class AppDashboard extends React.Component {
             friendsToAdd={this.state.friendsToAdd}
             handleRemoveUser={this.handleRemoveUser}
             editFriendDetails={this.editFriendDetails}
+            toggleConfirmFriendsDialog={this.toggleConfirmFriendsDialog}
           />
         )}
         {this.state.editFriendDetailsDialog && (
