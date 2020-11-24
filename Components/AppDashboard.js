@@ -815,7 +815,7 @@ class ConfirmFriendsComp extends React.Component {
               <Typography variant="subtitle1">Verify contact info</Typography>
             </div>
             <div className={classes.right}>
-              <Button onClick={this.props.handleAddBtn}>FINISH</Button>
+              <Button onClick={this.props.handleAddFriends}>FINISH</Button>
             </div>
           </div>
           <div className={classes.friendsToAdd}>
@@ -1896,6 +1896,12 @@ export default class AppDashboard extends React.Component {
     });
   };
 
+  handleAddFriends = () => {
+    this.setState({
+      confirmFriendsDialog: !this.state.confirmFriendsDialog
+    });
+  };
+
   switchTab = tabName => {
     switch (tabName) {
       case "friendsTab":
@@ -2020,6 +2026,7 @@ export default class AppDashboard extends React.Component {
             handleRemoveUser={this.handleRemoveUser}
             editFriendDetails={this.editFriendDetails}
             toggleConfirmFriendsDialog={this.toggleConfirmFriendsDialog}
+            handleAddFriends={this.handleAddFriends}
           />
         )}
         {this.state.editFriendDetailsDialog && (
