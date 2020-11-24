@@ -380,10 +380,6 @@ class AddFriendComp extends React.Component {
   handleChange = e => {
     this.setState({ currentValue: e.target.value });
   };
-  toggleDialog = () => {
-    this.setState({ currentValue: "" });
-    this.props.toggleAddFriend();
-  };
 
   render() {
     const { classes } = this.props;
@@ -394,8 +390,8 @@ class AddFriendComp extends React.Component {
           open={this.props.addFriend}
           aria-labelledby="Add New friend Dialog"
           aria-describedby="Add New friend Dialog"
-          onBackdropClick={this.toggleDialog}
-          onEscapeKeyDown={this.toggleDialog}
+          onBackdropClick={this.props.toggleAddFriend}
+          onEscapeKeyDown={this.props.toggleAddFriend}
           classes={{ paper: classes.addFriend }}
         >
           <div className={classes.top}>
@@ -526,7 +522,7 @@ class AddDetailsComp extends React.Component {
 
   handleAddBtn = () => {
     const { isEmail, isNumber } = this.state;
-    if (isEmail) this.props.toggleAddMoreFriends(this.state.currentFriend);
+    if (isEmail) this.props.handleAddMoreFriends(this.state.currentFriend);
     else if (isNumber) this.props.addCountryCode(this.state.currentFriend);
     else this.props.toggleWrongInput();
   };
@@ -1825,6 +1821,12 @@ export default class AppDashboard extends React.Component {
   toggleAddMoreFriends = currentFriend =>
     this.setState({
       addMoreFriendsDialog: !this.state.addMoreFriendsDialog,
+      friendsToAdd: []
+    });
+
+  handleAddMoreFriends = currentFriend =>
+    this.setState({
+      addMoreFriendsDialog: !this.state.addMoreFriendsDialog,
       addDetailsDialog: !this.state.addDetailsDialog,
       friendsToAdd: [...this.state.friendsToAdd, currentFriend]
     });
@@ -1916,7 +1918,6 @@ export default class AppDashboard extends React.Component {
   render() {
     return (
       <div className="app-dashboard">
-        <AppBarComp />
         <Header
           threeDotsDialog={this.state.threeDotsDialog}
           toggle3DotsDialog={this.toggle3DotsDialog}
@@ -1975,6 +1976,7 @@ export default class AppDashboard extends React.Component {
             toggleAddDetails={this.toggleAddDetails}
             handleBackButton={this.handleBackButton}
             addCountryCode={this.addCountryCode}
+            handleAddMoreFriends={this.handleAddMoreFriends}
           />
         )}
         {this.state.addCountryCode && (
@@ -2023,17 +2025,3 @@ export default class AppDashboard extends React.Component {
     );
   }
 }
-
-// {
-//   <div>
-//   <TabPanel value={this.state.tabIndex} index={0}>
-//   First Tab
-// </TabPanel>
-// <TabPanel value={value} index={1}>
-//   Second Tab
-// </TabPanel>
-// <TabPanel value={value} index={2}>
-//   Third Tab
-// </TabPanel>
-// </div>
-// }
