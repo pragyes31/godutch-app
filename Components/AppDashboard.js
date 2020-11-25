@@ -716,7 +716,6 @@ class AddMoreFriendsComp extends React.Component {
   };
   render() {
     const { classes, friendsToAdd } = this.props;
-    console.log(friendsToAdd);
     return (
       <Dialog
         fullScreen={true}
@@ -1109,8 +1108,7 @@ class EditFriendDetailsComp extends React.Component {
 
   handleRadio = e => {
     this.setState({
-      contactInfo: e.target.value,
-      setEmail: !this.state.setEmail
+      contactInfo: e.target.value
     });
     e.target.value === "newNumber"
       ? this.setState({ setNumber: true })
@@ -1148,18 +1146,20 @@ class EditFriendDetailsComp extends React.Component {
 
   handleFinsihEditing = () => {
     const { friendToEdit } = this.state;
+    const { email, number } = this.state.friendToEdit;
     if (
-      emailRegex.test(friendToEdit.email) ||
-      numberRegex.test(friendToEdit.number.number)
+      (!!email && emailRegex.test(email)) ||
+      (!!number.number && numberRegex.test(number.number))
     ) {
+      this.props.handleEditedFriend(friendToEdit);
     } else {
+      this.props.toggleWrongInput();
     }
   };
 
   render() {
     const { classes } = this.props;
     const { friendToEdit } = this.state;
-    console.log(this.state.friendToEdit);
     return (
       <div>
         <Dialog
@@ -1175,7 +1175,7 @@ class EditFriendDetailsComp extends React.Component {
             <div className={classes.left}>
               <ArrowBackIcon
                 className={classes.arrowBack}
-                onClick={this.props.handleBackButton}
+                onClick={this.props.toggleEditFriendDetailsDialog}
               />
               <Typography variant="subtitle1">Edit Contact</Typography>
             </div>
@@ -1902,6 +1902,16 @@ export default class AppDashboard extends React.Component {
     });
   };
 
+  handleEditedFriend = editedFriend => {
+    let friendsToRemove = this.state.friendsToAdd.filter(
+      friend => friend.key === editedFriend.key
+    );
+    this.setState({
+      friendsToAdd: [...this.state.friendsToAdd, editedFriend],
+      editFriendDetailsDialog: !this.state.editFriendDetailsDialog
+    });
+  };
+
   switchTab = tabName => {
     switch (tabName) {
       case "friendsTab":
@@ -2034,6 +2044,8 @@ export default class AppDashboard extends React.Component {
             toggleEditFriendDetailsDialog={this.toggleEditFriendDetailsDialog}
             editFriendDetailsDialog={this.state.editFriendDetailsDialog}
             editFriendDetails={this.state.editFriendDetails}
+            toggleWrongInput={this.toggleWrongInput}
+            handleEditedFriend={this.handleEditedFriend}
           />
         )}
       </div>
