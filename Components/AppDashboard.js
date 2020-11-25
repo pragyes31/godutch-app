@@ -1903,11 +1903,11 @@ export default class AppDashboard extends React.Component {
   };
 
   handleEditedFriend = editedFriend => {
-    let friendsToRemove = this.state.friendsToAdd.filter(
-      friend => friend.key === editedFriend.key
+    let filteredFriends = this.state.friendsToAdd.filter(
+      friend => friend.key !== editedFriend.key
     );
     this.setState({
-      friendsToAdd: [...this.state.friendsToAdd, editedFriend],
+      friendsToAdd: [...filteredFriends, editedFriend],
       editFriendDetailsDialog: !this.state.editFriendDetailsDialog
     });
   };
