@@ -1897,9 +1897,16 @@ export default class AppDashboard extends React.Component {
   };
 
   handleAddFriends = () => {
-    this.setState({
-      confirmFriendsDialog: !this.state.confirmFriendsDialog
-    });
+    this.setState(prevState => {
+      return this.setState({
+        confirmFriendsDialog: !this.state.confirmFriendsDialog,
+        friendsList: [...this.state.friendsList, ...this.state.friendsToAdd]
+      });
+    }, this.clearFriendsToAdd);
+  };
+
+  clearFriendsToAdd = () => {
+    this.setState({ friendsToAdd: [] });
   };
 
   handleEditedFriend = editedFriend => {
