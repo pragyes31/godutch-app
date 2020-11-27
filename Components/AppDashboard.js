@@ -1347,33 +1347,64 @@ const navBarStyles = {
   }
 };
 
-class AppBarComp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tabIndex: 0
-    };
-  }
-  handleTabs = (e, value) => {
-    this.setState({ tabIndex: value });
+// class AppBarComp extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       tabIndex: 0
+//     };
+//   }
+//   handleTabs = (e, value) => {
+//     this.setState({ tabIndex: value });
+//   };
+//   render() {
+//     return (
+//       <div>
+//         <AppBar position="static">
+//           <Tabs
+//             value={this.state.tabIndex}
+//             onChange={this.handleTabs}
+//             aria-label="simple tabs example"
+//           >
+//             <Tab label="Item One" />
+//             <Tab label="Item Two" />
+//             <Tab label="Item Three" />
+//           </Tabs>
+//         </AppBar>
+//       </div>
+//     );
+//   }
+// }
+
+function AppBarComp() {
+  const [value, setValue] = React.useState(2);
+  const handleTabs = (event, val) => {
+    setIndex(val);
   };
-  render() {
-    return (
-      <div>
-        <AppBar position="static">
-          <Tabs
-            value={this.state.tabIndex}
-            onChange={this.handleTabs}
-            aria-label="simple tabs example"
-          >
-            <Tab label="Item One" />
-            <Tab label="Item Two" />
-            <Tab label="Item Three" />
-          </Tabs>
-        </AppBar>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <AppBar position="static">
+        <Tabs
+          value={value}
+          onChange={handleTabs}
+          aria-label="simple tabs example"
+        >
+          <Tab label="Item One" />
+          <Tab label="Item Two" />
+          <Tab label="Item Three" />
+        </Tabs>
+        <TabPanel />
+      </AppBar>
+    </div>
+  );
+}
+
+function TabPanel(props) {
+  return (
+    <div>
+      <h1>Item 6</h1>
+    </div>
+  );
 }
 
 function NavBarComp(props) {
@@ -1953,6 +1984,7 @@ export default class AppDashboard extends React.Component {
           toggle3DotsDialog={this.toggle3DotsDialog}
           toggleOptionsDialog={this.toggleOptionsDialog}
         />
+        <AppBarComp />
         <NavBar
           switchTab={this.switchTab}
           openFriends={this.state.openFriends}
