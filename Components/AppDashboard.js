@@ -1379,7 +1379,7 @@ const navBarStyles = {
 function AppBarComp() {
   const [value, setValue] = React.useState(2);
   const handleTabs = (event, val) => {
-    setIndex(val);
+    setValue(val);
   };
   return (
     <div>
@@ -1393,7 +1393,9 @@ function AppBarComp() {
           <Tab label="Item Two" />
           <Tab label="Item Three" />
         </Tabs>
-        <TabPanel />
+        <TabPanel>Item 1</TabPanel>
+        <TabPanel>Item 2</TabPanel>
+        <TabPanel>Item 3</TabPanel>
       </AppBar>
     </div>
   );
@@ -1402,7 +1404,7 @@ function AppBarComp() {
 function TabPanel(props) {
   return (
     <div>
-      <h1>Item 6</h1>
+      <h3>{props.children}</h3>
     </div>
   );
 }
