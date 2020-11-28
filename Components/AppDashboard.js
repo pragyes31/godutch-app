@@ -1347,36 +1347,7 @@ const navBarStyles = {
   }
 };
 
-// class AppBarComp extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       tabIndex: 0
-//     };
-//   }
-//   handleTabs = (e, value) => {
-//     this.setState({ tabIndex: value });
-//   };
-//   render() {
-//     return (
-//       <div>
-//         <AppBar position="static">
-//           <Tabs
-//             value={this.state.tabIndex}
-//             onChange={this.handleTabs}
-//             aria-label="simple tabs example"
-//           >
-//             <Tab label="Item One" />
-//             <Tab label="Item Two" />
-//             <Tab label="Item Three" />
-//           </Tabs>
-//         </AppBar>
-//       </div>
-//     );
-//   }
-// }
-
-function AppBarComp() {
+function NavBarComp() {
   const [value, setValue] = React.useState(2);
   const handleTabs = (event, val) => {
     setValue(val);
@@ -1393,58 +1364,23 @@ function AppBarComp() {
           <Tab label="Item Two" />
           <Tab label="Item Three" />
         </Tabs>
-        <TabPanel>Item 1</TabPanel>
-        <TabPanel>Item 2</TabPanel>
-        <TabPanel>Item 3</TabPanel>
+        <TabPanel value={value} index={0}>
+          <FriendsTab />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <FilterDialog />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <GroupsTab />
+        </TabPanel>
       </AppBar>
     </div>
   );
 }
 
 function TabPanel(props) {
-  return (
-    <div>
-      <h3>{props.children}</h3>
-    </div>
-  );
-}
-
-function NavBarComp(props) {
-  const { classes } = props;
-  let friendsClass = `${classes.items} ${
-    props.openFriends ? `${classes.friendsActive}` : ""
-  }`;
-  let groupsClass = `${classes.items} ${
-    props.openGroups ? `${classes.groupsActive}` : ""
-  }`;
-  let activityClass = `${classes.items} ${
-    props.openActivity ? `${classes.activityActive}` : ""
-  }`;
-  return (
-    <div className={classes.navBar}>
-      <Typography
-        variant="caption"
-        className={friendsClass}
-        onClick={() => props.switchTab("friendsTab")}
-      >
-        friends
-      </Typography>
-      <Typography
-        variant="caption"
-        className={groupsClass}
-        onClick={() => props.switchTab("groupsTab")}
-      >
-        groups
-      </Typography>
-      <Typography
-        variant="caption"
-        className={activityClass}
-        onClick={() => props.switchTab("activityTab")}
-      >
-        activities
-      </Typography>
-    </div>
-  );
+  const { children, value, index } = props;
+  return <div>{value === index && <h3>{children}</h3>}</div>;
 }
 
 const NavBar = withStyles(navBarStyles)(NavBarComp);
@@ -1986,20 +1922,12 @@ export default class AppDashboard extends React.Component {
           toggle3DotsDialog={this.toggle3DotsDialog}
           toggleOptionsDialog={this.toggleOptionsDialog}
         />
-        <AppBarComp />
         <NavBar
           switchTab={this.switchTab}
           openFriends={this.state.openFriends}
           openGroups={this.state.openGroups}
           openActivity={this.state.openActivity}
         />
-        {this.state.openFriends && (
-          <FriendsTab
-            tabName="friends"
-            addFriend={this.addFriend}
-            friendsList={this.state.friendsList}
-          />
-        )}
         {this.state.openGroups && <GroupsTab tabName="groups" />}
         {this.state.openActivity && <ActivityTab />}
         <AddButton
