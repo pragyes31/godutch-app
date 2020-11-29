@@ -1305,56 +1305,20 @@ const EditFriendDetails = withStyles(editFriendDetailsStyles)(
 );
 
 const navBarStyles = {
-  navBar: {
-    display: "flex",
-    justifyContent: "space-around",
-    alignItems: "center",
-    backgroundColor: "#00b8a9",
-    width: "100%",
-    height: "40px",
-    color: "#fff",
-    textTransform: "uppercase",
-    fontSize: "12px"
-  },
-  items: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "40px",
-    width: "33.33%",
-    cursor: "pointer",
-    "&:hover": {
-      backgroundColor: "#00b8a9",
-      textDecoration: "underline"
-    }
-  },
-
-  friendsActive: {
-    textDecoration: "underline",
-    borderBottom: "2px solid #fff",
-    boxSizing: "border-box"
-  },
-
-  activityActive: {
-    textDecoration: "underline",
-    borderBottom: "2px solid #fff",
-    boxSizing: "border-box"
-  },
-  groupsActive: {
-    textDecoration: "underline",
-    borderBottom: "2px solid #fff",
-    boxSizing: "border-box"
+  nav: {
+    backgroundColor: "#00b8a9"
   }
 };
 
-function NavBarComp() {
+function NavBarComp(props) {
   const [value, setValue] = React.useState(0);
+  const { classes } = props;
   const handleTabs = (event, val) => {
     setValue(val);
   };
   return (
     <div>
-      <AppBar position="static">
+      <AppBar className={classes.nav} position="static">
         <Tabs
           value={value}
           onChange={handleTabs}
@@ -1365,7 +1329,7 @@ function NavBarComp() {
           <Tab label="Item Three" />
         </Tabs>
         <TabPanel value={value} index={0}>
-          <FriendsTab tabName="friends" />
+          <FriendsTab tabName="friends" friendsList={props.friendsList} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <GroupsTab tabName="groups" />
@@ -1430,7 +1394,7 @@ const filterDialogStyles = {
     alignItems: "left",
     flexDirection: "column"
   },
-  DialogChild: {
+  dialogChild: {
     height: "100%",
     paddingLeft: "10px",
     backgroundColor: "lightgrey",
@@ -1457,16 +1421,16 @@ function FilterDialogComp(props) {
       onEscapeKeyDown={() => props.toggleDialog("filterDialog")}
       classes={{ paper: classes.Dialog }}
     >
-      <Typography className={classes.DialogChild}>
+      <Typography className={classes.dialogChild}>
         All {props.tabName}
       </Typography>
-      <Typography className={classes.DialogChild}>
+      <Typography className={classes.dialogChild}>
         {props.tabName} with outstanding balances
       </Typography>
-      <Typography className={classes.DialogChild}>
+      <Typography className={classes.dialogChild}>
         {props.tabName} you owe
       </Typography>
-      <div className={classes.DialogChild}>
+      <div className={classes.dialogChild}>
         {props.tabName === "friends" ? "friends who" : "groups that"} owe you
       </div>
     </Dialog>
@@ -1498,6 +1462,10 @@ const friendsTabStyles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
+  },
+  friendsDashboard: {
+    backgroundColor: "#fff",
+    color: "#000"
   }
 };
 
@@ -1511,27 +1479,30 @@ class FriendsTabComp extends React.Component {
   toggleDialog = () =>
     this.setState({ filterDialog: !this.state.filterDialog });
   render() {
-    const { classes } = this.props;
+    const { classes, friendsList } = this.props;
     return (
       <div className={classes.friendsTab}>
-        {
-          <div className={classes.user}>
-            <UserBalance />
-            <div className={classes.filter}>
-              <FilterListIcon
-                className={classes.filterBtn}
-                onClick={this.toggleDialog}
+        <div className={classes.user}>
+          <UserBalance />
+          <div className={classes.filter}>
+            <FilterListIcon
+              className={classes.filterBtn}
+              onClick={this.toggleDialog}
+            />
+            {this.state.filterDialog && (
+              <FilterDialog
+                tabName={this.props.tabName}
+                filterDialog={this.state.filterDialog}
+                toggleDialog={this.toggleDialog}
               />
-              {this.state.filterDialog && (
-                <FilterDialog
-                  tabName={this.props.tabName}
-                  filterDialog={this.state.filterDialog}
-                  toggleDialog={this.toggleDialog}
-                />
-              )}
-            </div>
+            )}
           </div>
-        }
+        </div>
+        <div className={classes.friendsDashboard}>
+          {friendsList.map(friend => {
+            return friend.name;
+          })}
+        </div>
       </div>
     );
   }
@@ -1913,6 +1884,7 @@ export default class AppDashboard extends React.Component {
           openFriends={this.state.openFriends}
           openGroups={this.state.openGroups}
           openActivity={this.state.openActivity}
+          friendsList={this.state.friendsList}
         />
         {this.state.openGroups && <GroupsTab tabName="groups" />}
         {this.state.openActivity && <ActivityTab />}
