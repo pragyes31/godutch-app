@@ -1368,7 +1368,7 @@ function NavBarComp() {
           <FriendsTab tabName="friends" />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <GroupsTab />
+          <GroupsTab tabName="groups" />
         </TabPanel>
         <TabPanel value={value} index={2}>
           <GroupsTab />
@@ -1849,12 +1849,15 @@ export default class AppDashboard extends React.Component {
   };
 
   handleAddFriends = () => {
-    this.setState(prevState => {
-      return this.setState({
-        confirmFriendsDialog: !this.state.confirmFriendsDialog,
-        friendsList: [...this.state.friendsList, ...this.state.friendsToAdd]
-      });
-    }, this.clearFriendsToAdd);
+    this.setState(
+      prevState => {
+        return this.setState({
+          confirmFriendsDialog: !this.state.confirmFriendsDialog,
+          friendsList: [...this.state.friendsList, ...this.state.friendsToAdd]
+        });
+      },
+      () => this.clearFriendsToAdd
+    );
   };
 
   clearFriendsToAdd = () => {
