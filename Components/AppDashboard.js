@@ -1348,7 +1348,7 @@ const navBarStyles = {
 };
 
 function NavBarComp() {
-  const [value, setValue] = React.useState(2);
+  const [value, setValue] = React.useState(0);
   const handleTabs = (event, val) => {
     setValue(val);
   };
@@ -1365,10 +1365,10 @@ function NavBarComp() {
           <Tab label="Item Three" />
         </Tabs>
         <TabPanel value={value} index={0}>
-          <FriendsTab />
+          <FriendsTab tabName="friends" />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <FilterDialog />
+          <GroupsTab />
         </TabPanel>
         <TabPanel value={value} index={2}>
           <GroupsTab />
@@ -1380,7 +1380,7 @@ function NavBarComp() {
 
 function TabPanel(props) {
   const { children, value, index } = props;
-  return <div>{value === index && <h3>{children}</h3>}</div>;
+  return <div>{value === index && <div>{children}</div>}</div>;
 }
 
 const NavBar = withStyles(navBarStyles)(NavBarComp);
@@ -1475,16 +1475,6 @@ function FilterDialogComp(props) {
 
 const FilterDialog = withStyles(filterDialogStyles)(FilterDialogComp);
 
-function AddButtonLarge(props) {
-  return (
-    <div className={props.parentClass}>
-      <Button className={props.childClass} color="primary">
-        +add new {props.tabName}
-      </Button>
-    </div>
-  );
-}
-
 const friendsTabStyles = {
   user: {
     width: "100%",
@@ -1492,7 +1482,8 @@ const friendsTabStyles = {
     backgroundColor: "#eada82",
     display: "flex",
     justifyContent: "space-around",
-    alignItems: "center"
+    alignItems: "center",
+    color: "#000"
   },
   filter: {
     position: "relative"
@@ -1522,32 +1513,25 @@ class FriendsTabComp extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={this.props.tabName}>
-        <div className={classes.user}>
-          <UserBalance />
-          <div className={classes.filter}>
-            <FilterListIcon
-              className={classes.filterBtn}
-              onClick={this.toggleDialog}
-            />
-            {this.state.filterDialog && (
-              <FilterDialog
-                tabName={this.props.tabName}
-                filterDialog={this.state.filterDialog}
-                toggleDialog={this.toggleDialog}
+      <div className={classes.friendsTab}>
+        {
+          <div className={classes.user}>
+            <UserBalance />
+            <div className={classes.filter}>
+              <FilterListIcon
+                className={classes.filterBtn}
+                onClick={this.toggleDialog}
               />
-            )}
-          </div>
-        </div>
-        {this.props.friendsList.map(friend => {
-          return (
-            <div key={friend.key}>
-              <div>{friend.name}</div>
+              {this.state.filterDialog && (
+                <FilterDialog
+                  tabName={this.props.tabName}
+                  filterDialog={this.state.filterDialog}
+                  toggleDialog={this.toggleDialog}
+                />
+              )}
             </div>
-          );
-        })}
-        <AddButtonLarge tabName={this.props.tabName} />
-        <div />
+          </div>
+        }
       </div>
     );
   }
@@ -1610,7 +1594,6 @@ class GroupsTabComp extends React.Component {
             )}
           </div>
         </div>
-        <AddButtonLarge tabName={this.props.tabName} />
         <div />
       </div>
     );
