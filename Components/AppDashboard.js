@@ -1,4 +1,5 @@
 import React from "react";
+import FriendsInDashboard from "./FriendsInDashboard";
 
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
@@ -1498,6 +1499,8 @@ class FriendsTabComp extends React.Component {
             )}
           </div>
         </div>
+        <FriendsInDashboard />
+        <div />
         <div className={classes.friendsDashboard}>
           {friendsList.map(friend => {
             return friend.name;
