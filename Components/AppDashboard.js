@@ -1464,7 +1464,7 @@ const friendsTabStyles = {
     justifyContent: "center",
     alignItems: "center"
   },
-  friendsDashboard: {
+  friendsTab: {
     backgroundColor: "#fff",
     color: "#000"
   }
