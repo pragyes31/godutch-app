@@ -1467,6 +1467,17 @@ const friendsTabStyles = {
   friendsTab: {
     backgroundColor: "#fff",
     color: "#000"
+  },
+  friendsDashboard: {
+    backgroundColor: "#fff",
+    color: "#000"
+  },
+  add: {
+    display: "flex",
+    justifyContent: "center"
+  },
+  addBtn: {
+    width: "60%"
   }
 };
 
@@ -1499,12 +1510,15 @@ class FriendsTabComp extends React.Component {
             )}
           </div>
         </div>
-        <FriendsInDashboard />
+
         <div />
         <div className={classes.friendsDashboard}>
-          {friendsList.map(friend => {
-            return friend.name;
-          })}
+          <FriendsInDashboard />
+        </div>
+        <div className={classes.add}>
+          <Button className={classes.addBtn} variant="contained">
+            + ADD MORE FRIENDS
+          </Button>
         </div>
       </div>
     );
